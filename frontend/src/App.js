@@ -47,23 +47,36 @@ function App() {
 
   return (
     <div className="App">
+
       <div class='text-center'>
-        <h1>Prueba</h1>
+        <nav class="navbar">
+          <div class="rowBar">
+          <h1 class="navbar-title">OLC PROYECTO 2</h1>
+          </div>
+          <div class="rowBar">
+            <input type="file" id="file" class="btn" onChange={CargarArchivo} />
+          </div>
+          <div class="rowBar">
+            <input type="button" value="Ejecutar" class="btn" onClick={interpretar} />
+          </div>
+          <div class="rowBar">
+          <div class="dropdown">
+          <button class="btn dropdown-btn">Reportes</button>
+            <div class="dropdown-content">
+                <a href="#">Opción 1</a>
+                <a href="#">Opción 2</a>
+                <a href="#">Opción 3</a>
+            </div>
+            </div>
+          </div>
+        </nav>
       </div>
-      <br></br>
+
       <div class='text-center'>
-        <div class="container">
-          <div class="row">
-            <input type="file" id="file" class="form-control form-control-lg" onChange={CargarArchivo} />
-          </div>
-          <br></br>
-          <div class="row">
-            <input type="button" value="Interpretar" id="btnCargar" class="form-control form-control-lg" onClick={interpretar} />
-          </div>
-        </div>
+        <h1>CompiScript+</h1>
       </div>
-      <br></br>
-      <div class='text-center style={{ height: "50%", width: "50%" }} '>
+
+      <div class='text-center'>
         <div class="container" >
           <div class="row">
             <div class="col">
@@ -77,7 +90,6 @@ function App() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
