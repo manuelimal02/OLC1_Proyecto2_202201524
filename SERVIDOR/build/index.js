@@ -11,26 +11,26 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const index_ruta_1 = __importDefault(require("./Rutas/index_ruta"));
 class servidor {
     constructor() {
-        this.app = (0, express_1.default)();
-        this.config();
-        this.routes();
+        this.aplicacion = (0, express_1.default)();
+        this.configuracion();
+        this.rutas();
     }
-    config() {
-        this.app.set('port', process.env.PORT || 4000);
-        this.app.use((0, morgan_1.default)('dev'));
-        this.app.use(express_1.default.urlencoded({ extended: false }));
-        this.app.use(express_1.default.json());
-        this.app.use(express_1.default.json({ limit: '50mb' }));
-        this.app.use(express_1.default.urlencoded({ limit: '50mb' }));
-        this.app.use((0, cors_1.default)());
-        this.app.use(body_parser_1.default.urlencoded({ extended: true }));
+    configuracion() {
+        this.aplicacion.set('port', process.env.PORT || 4000);
+        this.aplicacion.use((0, morgan_1.default)('dev'));
+        this.aplicacion.use(express_1.default.urlencoded({ extended: false }));
+        this.aplicacion.use(express_1.default.json());
+        this.aplicacion.use(express_1.default.json({ limit: '50mb' }));
+        this.aplicacion.use(express_1.default.urlencoded({ limit: '50mb' }));
+        this.aplicacion.use((0, cors_1.default)());
+        this.aplicacion.use(body_parser_1.default.urlencoded({ extended: true }));
     }
-    routes() {
-        this.app.use('/', index_ruta_1.default);
+    rutas() {
+        this.aplicacion.use('/', index_ruta_1.default);
     }
     start() {
-        this.app.listen(this.app.get('port'), () => {
-            console.log('Server on port:', this.app.get('port'));
+        this.aplicacion.listen(this.aplicacion.get('port'), () => {
+            console.log('Server on port:', this.aplicacion.get('port'));
         });
     }
 }

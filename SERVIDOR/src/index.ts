@@ -5,32 +5,32 @@ import bodyParser from 'body-parser';
 import indexRouter from './Rutas/index_ruta';
 
 class servidor {
-    public app: Application;
+    public aplicacion: Application;
 
     constructor() {
-        this.app = express();
-        this.config();
-        this.routes();
+        this.aplicacion = express();
+        this.configuracion();
+        this.rutas();
     }
 
-    config(): any {
-        this.app.set('port', process.env.PORT || 4000);
-        this.app.use(morgan('dev'));
-        this.app.use(express.urlencoded({ extended: false }));
-        this.app.use(express.json());
-        this.app.use(express.json({ limit: '50mb' }));
-        this.app.use(express.urlencoded({ limit: '50mb' }));
-        this.app.use(cors());
-        this.app.use(bodyParser.urlencoded({ extended: true }));
+    configuracion(): any {
+        this.aplicacion.set('port', process.env.PORT || 4000);
+        this.aplicacion.use(morgan('dev'));
+        this.aplicacion.use(express.urlencoded({ extended: false }));
+        this.aplicacion.use(express.json());
+        this.aplicacion.use(express.json({ limit: '50mb' }));
+        this.aplicacion.use(express.urlencoded({ limit: '50mb' }));
+        this.aplicacion.use(cors());
+        this.aplicacion.use(bodyParser.urlencoded({ extended: true }));
     }
 
-    routes(): void {
-        this.app.use('/', indexRouter);
+    rutas(): void {
+        this.aplicacion.use('/', indexRouter);
     }
 
     start(): void {
-        this.app.listen(this.app.get('port'), () => {
-            console.log('Server on port:', this.app.get('port'));
+        this.aplicacion.listen(this.aplicacion.get('port'), () => {
+            console.log('Server on port:', this.aplicacion.get('port'));
         }
         )
     }

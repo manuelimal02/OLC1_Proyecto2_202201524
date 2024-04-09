@@ -29,7 +29,7 @@ function App() {
         consolaRef.current.setValue(data.Respuesta);
       })
       .catch((error) => {
-        alert("Ya no sale comp1")
+        alert("ERROR")
         console.error('Error:', error);
       });
   }
@@ -48,7 +48,7 @@ function App() {
   return (
     <div className="App">
 
-      <div class='text-center'>
+      <div>
         <nav class="navbar">
           <div class="rowBar">
           <h1 class="navbar-title">OLC PROYECTO 2</h1>
@@ -72,11 +72,11 @@ function App() {
         </nav>
       </div>
 
-      <div class='text-center'>
+      <div>
         <h1>CompiScript+</h1>
       </div>
 
-      <div class='text-center'>
+      <div>
         <div class="container" >
           <div class="row">
             <div class="col">
@@ -90,6 +90,7 @@ function App() {
           </div>
         </div>
       </div>
+  
     </div>
   );
 }
