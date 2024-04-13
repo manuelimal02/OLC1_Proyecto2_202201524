@@ -56,13 +56,13 @@ class FuncionesToString extends Instruccion_1.Instruccion {
         switch (op_unico) {
             case Tipo_1.tipo_dato.ENTERO:
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                return op_izquierda;
+                return String(op_izquierda);
             case Tipo_1.tipo_dato.DECIMAL:
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                return op_izquierda;
+                return String(op_izquierda);
             case Tipo_1.tipo_dato.BOOLEANO:
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                return op_izquierda;
+                return String(op_izquierda);
             default:
                 return new Errores_1.default("Semantico", "ToString Invalido", this.fila, this.columna);
         }

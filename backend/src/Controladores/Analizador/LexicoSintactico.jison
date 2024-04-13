@@ -194,15 +194,19 @@ expresion : ENTERO
 }
             | TRUE
 {
-    $$ = new Nativo.default(new Tipo_Variable.default(Tipo_Variable.tipo_dato.BOOLEANO), $1, @1.first_line, @1.first_column); 
+    $$ = new Nativo.default(new Tipo_Variable.default(Tipo_Variable.tipo_dato.BOOLEANO), true, @1.first_line, @1.first_column); 
 }
             | FALSE
 { 
-    $$ = new Nativo.default(new Tipo_Variable.default(Tipo_Variable.tipo_dato.BOOLEANO), $1, @1.first_line, @1.first_column); 
+    $$ = new Nativo.default(new Tipo_Variable.default(Tipo_Variable.tipo_dato.BOOLEANO), false, @1.first_line, @1.first_column); 
 }
             | ID
 {
     $$ = new AccesoVariable.default($1, @1.first_line, @1.first_column);
+} 
+            | PARENTESIS_DERECHO expresion PARENTESIS_IZQUIERDO
+{
+    $$ = $2;
 } 
             | expresion MAS expresion
 {
@@ -210,7 +214,7 @@ expresion : ENTERO
 }
             | expresion MENOS expresion 
 {
-    $$ = new Aritmetica.default(Aritmetica.Operadores.MENOS, @1.first_line, @1.first_column, $1, $3);
+    $$ = new Aritmetica.default(Aritmetica.Operadores.RESTA, @1.first_line, @1.first_column, $1, $3);
 }
             | expresion MULTICACION expresion 
 {

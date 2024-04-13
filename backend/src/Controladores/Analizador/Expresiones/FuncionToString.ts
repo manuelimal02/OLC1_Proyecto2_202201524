@@ -34,13 +34,13 @@ export default class FuncionesToString extends Instruccion {
         switch (op_unico) {
             case tipo_dato.ENTERO:
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                return op_izquierda
+                return String(op_izquierda)
             case tipo_dato.DECIMAL:
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                return op_izquierda
+                return String(op_izquierda)
             case tipo_dato.BOOLEANO:
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                return op_izquierda
+                return String(op_izquierda)
             default:
                 return new Errores("Semantico", "ToString Invalido", this.fila, this.columna)
         }

@@ -26,44 +26,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Funcion = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
+const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-class FuncionesToUpper extends Instruccion_1.Instruccion {
-    constructor(operador, fila, columna, op_izquierda) {
-        super(new Tipo_1.default(Tipo_1.tipo_dato.CADENA), fila, columna);
-        this.operando_unico = op_izquierda;
-        this.operacion = operador;
+const Break_1 = __importDefault(require("./Break"));
+class If extends Instruccion_1.Instruccion {
+    constructor(cond, ins, fila, columna) {
+        super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
+        this.condicion = cond;
+        this.instrucciones = ins;
     }
     interpretar(arbol, tabla) {
-        let valor_unico = null;
-        if (this.operando_unico != null) {
-            valor_unico = this.operando_unico.interpretar(arbol, tabla);
-            if (valor_unico instanceof Errores_1.default)
-                return valor_unico;
+        let cond = this.condicion.interpretar(arbol, tabla);
+        if (cond instanceof Errores_1.default)
+            return cond;
+        if (this.condicion.tipo_dato.getTipo() != Tipo_1.tipo_dato.BOOLEANO) {
+            return new Errores_1.default("SEMANTICO", "La condicion debe ser bool", this.fila, this.columna);
         }
-        switch (this.operacion) {
-            case Funcion.TOUPPER:
-                return this.toupper(valor_unico);
-            default:
-                return new Errores_1.default("Semantico", "Funcion Invalido", this.fila, this.columna);
-        }
-    }
-    toupper(op_izquierda) {
-        var _a;
-        let op_unico = (_a = this.operando_unico) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
-        switch (op_unico) {
-            case Tipo_1.tipo_dato.CADENA:
-                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                return String(op_izquierda.toUpperCase());
-            default:
-                return new Errores_1.default("Semantico", "ToUpper Invalido", this.fila, this.columna);
+        let newTabla = new TablaSimbolo_1.default(tabla);
+        newTabla.setNombre("Sentencia IF");
+        if (cond) {
+            for (let i of this.instrucciones) {
+                if (i instanceof Break_1.default)
+                    return i;
+                let resultado = i.interpretar(arbol, newTabla);
+            }
         }
     }
 }
-exports.default = FuncionesToUpper;
-var Funcion;
-(function (Funcion) {
-    Funcion[Funcion["TOUPPER"] = 0] = "TOUPPER";
-})(Funcion || (exports.Funcion = Funcion = {}));
+exports.default = If;

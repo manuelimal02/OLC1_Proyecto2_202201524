@@ -56,6 +56,7 @@ export default class Aritmeticas extends Instruccion {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         switch (tipo1) {
+            //ENTERO CON TODOS LOS DEMÁS
             case tipo_dato.ENTERO:
                 switch (tipo2) 
                 {
@@ -67,9 +68,9 @@ export default class Aritmeticas extends Instruccion {
                         return parseFloat(op_izquierda) + parseFloat(op_derecha)
                     case tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo(tipo_dato.ENTERO)
-                        if (op_derecha.toLowerCase() === "true") {
+                        if (op_derecha === true) {
                             return parseInt(op_izquierda) + 1;
-                        } else if (op_derecha.toLowerCase() === "false") {
+                        } else if (op_derecha === false) {
                             return parseInt(op_izquierda);
                         }
                     case tipo_dato.CARACTER:
@@ -77,10 +78,11 @@ export default class Aritmeticas extends Instruccion {
                         return parseInt(op_izquierda) + op_derecha.charCodeAt(0)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        return String(op_izquierda + op_derecha)
                     default:
                         return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
                 }
+            //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.DECIMAL:
                 switch (tipo2) 
                 {
@@ -92,9 +94,9 @@ export default class Aritmeticas extends Instruccion {
                         return parseFloat(op_izquierda) + parseFloat(op_derecha)
                     case tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
-                        if (op_derecha.toLowerCase() === "true") {
+                        if (op_derecha === true) {
                             return parseFloat(op_izquierda) + 1;
-                        } else if (op_derecha.toLowerCase() === "false") {
+                        } else if (op_derecha === false) {
                             return parseFloat(op_izquierda);
                         }
                     case tipo_dato.CARACTER:
@@ -102,33 +104,39 @@ export default class Aritmeticas extends Instruccion {
                         return parseFloat(op_izquierda) + parseFloat(op_derecha.charCodeAt(0))
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        return String(op_izquierda + op_derecha)
                     default:
                         return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
                 }
+            //BOOLEANO CON TODOS LOS DEMÁS
             case tipo_dato.BOOLEANO:
                 switch (tipo2) 
                 {
                     case tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo(tipo_dato.ENTERO)
-                        if (op_izquierda.toLowerCase() === "true") {
+                        if (op_izquierda === true) {
                             return parseInt(op_derecha) + 1;
-                        } else if (op_izquierda.toLowerCase() === "false") {
+                        } else if (op_izquierda === false) {
                             return parseInt(op_derecha);
                         }
                     case tipo_dato.DECIMAL:
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
-                        if (op_izquierda.toLowerCase() === "true") {
+                        if (op_izquierda === true) {
                             return parseFloat(op_derecha) + 1;
-                        } else if (op_izquierda.toLowerCase() === "false") {
+                        } else if (op_izquierda=== false) {
                             return parseFloat(op_derecha);
                         }
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        if (op_izquierda === true) {
+                            return String("true" + op_derecha)
+                        } else if (op_izquierda=== false) {
+                            return String("false" + op_derecha)
+                        }
                     default:
                         return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
                 }
+            //CARACTER CON TODOS LOS DEMÁS
             case tipo_dato.CARACTER:
                 switch (tipo2) 
                 {
@@ -140,34 +148,35 @@ export default class Aritmeticas extends Instruccion {
                         return parseFloat(op_izquierda.charCodeAt(0)) + parseFloat(op_derecha)
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        return String(op_izquierda + op_derecha)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        return String(op_izquierda + op_derecha)
                     default:
                         return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
                 }
+            //CARACTER CON TODOS LOS DEMÁS
             case tipo_dato.CADENA:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        return String(op_izquierda + op_derecha)
                     case tipo_dato.DECIMAL:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        return String(op_izquierda + op_derecha)
                     case tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        if (op_derecha.toLowerCase() === "true") {
-                            return op_izquierda + "true";
-                        } else if (op_derecha.toLowerCase() === "false") {
-                            return op_izquierda + "false";
+                        if (op_derecha === true) {
+                            return String(op_izquierda + "true")
+                        } else if (op_derecha === false) {
+                            return String(op_izquierda + "false")
                         }
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        return String(op_izquierda + op_derecha)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                        return op_izquierda + op_derecha
+                        return String(op_izquierda + op_derecha)
                     default:
                         return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
                 }
@@ -181,6 +190,7 @@ export default class Aritmeticas extends Instruccion {
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         switch (tipo1) {
             case tipo_dato.ENTERO:
+                //ENTERO CON TODOS LOS DEMÁS
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo(tipo_dato.ENTERO)
@@ -190,10 +200,10 @@ export default class Aritmeticas extends Instruccion {
                         return parseFloat(op_izquierda) - parseFloat(op_derecha)
                     case tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo(tipo_dato.ENTERO)
-                        if (op_derecha.toLowerCase() === "true") {
+                        if (op_derecha === true) {
                             return parseInt(op_izquierda) - 1
                         }
-                        else if (op_derecha.toLowerCase() === "false") {
+                        else if (op_derecha === false) {
                             return parseInt(op_izquierda) 
                         }   
                     case tipo_dato.CARACTER:
@@ -202,6 +212,7 @@ export default class Aritmeticas extends Instruccion {
                     default:
                         return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
                 }
+            //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
@@ -212,10 +223,10 @@ export default class Aritmeticas extends Instruccion {
                         return parseFloat(op_izquierda) - parseFloat(op_derecha)
                     case tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
-                        if (op_derecha.toLowerCase() === "true") {
+                        if (op_derecha === true) {
                             return parseFloat(op_izquierda) - 1
                         }
-                        else if (op_derecha.toLowerCase() === "false") {
+                        else if (op_derecha === false) {
                             return parseFloat(op_izquierda) 
                         }  
                     case tipo_dato.CARACTER:
@@ -224,27 +235,29 @@ export default class Aritmeticas extends Instruccion {
                     default:
                         return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
                 }
+            //BOOLEANO CON TODOS LOS DEMÁS
             case tipo_dato.BOOLEANO:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo(tipo_dato.ENTERO)
-                        if (op_izquierda.toLowerCase() === "true") {
+                        if (op_izquierda === true) {
                             return 1 - parseInt(op_derecha)
                         }
-                        else if (op_izquierda.toLowerCase() === "false") {
+                        else if (op_izquierda === false) {
                             return 0 - parseInt(op_derecha)
                         }  
                     case tipo_dato.DECIMAL:
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
-                        if (op_izquierda.toLowerCase() === "true") {
+                        if (op_izquierda === true) {
                             return 1 - parseFloat(op_derecha)
                         }
-                        else if (op_izquierda.toLowerCase() === "false") {
+                        else if (op_izquierda === false) {
                             return 0 - parseFloat(op_derecha)
                         }  
                     default:
                         return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
                 }
+                //CARACTER CON TODOS LOS DEMÁS
                 case tipo_dato.CARACTER:
                     switch (tipo2) {
                         case tipo_dato.ENTERO:
@@ -265,7 +278,7 @@ export default class Aritmeticas extends Instruccion {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         switch (tipo1) {
-            //MULTIPLICACION CON ENTERO
+            //ENTERO CON TODOS LOS DEMÁS
             case tipo_dato.ENTERO:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
@@ -280,7 +293,7 @@ export default class Aritmeticas extends Instruccion {
                     default:
                         return new Errores("Semantico", "Multiplicación Invalida", this.fila, this.columna)
                 }
-            //MULTIPLICACION CON DECIMAL
+            //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
@@ -295,7 +308,7 @@ export default class Aritmeticas extends Instruccion {
                     default:
                         return new Errores("Semantico", "Multiplicación Invalida", this.fila, this.columna)
                 }
-            //MULTIPLICACION CON CARACTER
+            //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.CARACTER:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
@@ -311,7 +324,6 @@ export default class Aritmeticas extends Instruccion {
                 return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
         }
     }
-
     
     division(valor_izquierda: any, valor_derecha: any) {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
@@ -321,6 +333,7 @@ export default class Aritmeticas extends Instruccion {
         }
         else {
             switch (tipo1) {
+                //ENTERO CON TODOS LOS DEMÁS
                 case tipo_dato.ENTERO:
                     switch (tipo2) {
                         case tipo_dato.ENTERO:
@@ -330,11 +343,12 @@ export default class Aritmeticas extends Instruccion {
                             this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha)
                         case tipo_dato.CARACTER:
-                            this.tipo_dato = new Tipo(tipo_dato.ENTERO)
+                            this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha.charCodeAt(0))
                         default:
                             return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
                     }
+                //DECIMAL CON TODOS LOS DEMÁS
                 case tipo_dato.DECIMAL:
                     switch (tipo2) {
                         case tipo_dato.ENTERO:
@@ -349,6 +363,7 @@ export default class Aritmeticas extends Instruccion {
                         default:
                             return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
                     }
+                //CARACTER CON TODOS LOS DEMÁS
                 case tipo_dato.CARACTER:
                     switch (tipo2) {
                         case tipo_dato.ENTERO:
@@ -406,6 +421,7 @@ export default class Aritmeticas extends Instruccion {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         switch (tipo1) {
+            //ENTERO CON TODOS LOS DEMÁS
             case tipo_dato.ENTERO:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
@@ -417,6 +433,7 @@ export default class Aritmeticas extends Instruccion {
                     default:
                         return new Errores("Semantico", "Potencia Invalida", this.fila, this.columna)
                 }
+            //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
@@ -432,9 +449,7 @@ export default class Aritmeticas extends Instruccion {
                 return new Errores("Semantico", "Potencia Invalida", this.fila, this.columna)
         }
     }
-
-
-
+    
     negacion(op_izquierda: any) {
         let op_unico = this.operando_unico?.tipo_dato.getTipo()
         switch (op_unico) {

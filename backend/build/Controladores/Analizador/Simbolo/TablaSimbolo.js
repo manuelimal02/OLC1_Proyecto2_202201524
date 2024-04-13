@@ -2,15 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class TablaSimbolo {
     constructor(anterior) {
-        this.tablaAnterior = anterior;
+        this.tabla_anterior = anterior;
         this.tablaActual = new Map();
         this.nombre = "";
     }
     getAnterior() {
-        return this.tablaAnterior;
+        return this.tabla_anterior;
     }
     setAnterior(anterior) {
-        this.tablaAnterior = anterior;
+        this.tabla_anterior = anterior;
     }
     getTabla() {
         return this.tablaActual;
@@ -19,7 +19,12 @@ class TablaSimbolo {
         this.tablaActual = tabla;
     }
     getVariable(id) {
-        return this.getTabla().get(id.toLocaleLowerCase());
+        for (let i = this; i != null; i = i.getAnterior()) {
+            let busqueda = i.getTabla().get(id.toLocaleLowerCase());
+            if (busqueda != null)
+                return busqueda;
+        }
+        return null;
     }
     setVariable(simbolo) {
         let busqueda = this.getTabla().get(simbolo.getId().toLocaleLowerCase());

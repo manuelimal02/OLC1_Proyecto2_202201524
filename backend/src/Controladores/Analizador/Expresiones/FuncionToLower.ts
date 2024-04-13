@@ -34,7 +34,7 @@ export default class FuncionesToLower extends Instruccion {
         switch (op_unico) {
             case tipo_dato.CADENA:
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
-                return op_izquierda.toLowerCase()
+                return String(op_izquierda.toLowerCase())
             default:
                 return new Errores("Semantico", "ToLower Invalido", this.fila, this.columna)
         }

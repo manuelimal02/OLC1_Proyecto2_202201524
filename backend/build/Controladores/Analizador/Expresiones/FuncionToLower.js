@@ -56,7 +56,7 @@ class FuncionesToLower extends Instruccion_1.Instruccion {
         switch (op_unico) {
             case Tipo_1.tipo_dato.CADENA:
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                return op_izquierda.toLowerCase();
+                return String(op_izquierda.toLowerCase());
             default:
                 return new Errores_1.default("Semantico", "ToLower Invalido", this.fila, this.columna);
         }

@@ -81,6 +81,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         switch (tipo1) {
+            //ENTERO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.ENTERO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -91,10 +92,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         return parseFloat(op_izquierda) + parseFloat(op_derecha);
                     case Tipo_1.tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
-                        if (op_derecha.toLowerCase() === "true") {
+                        if (op_derecha === true) {
                             return parseInt(op_izquierda) + 1;
                         }
-                        else if (op_derecha.toLowerCase() === "false") {
+                        else if (op_derecha === false) {
                             return parseInt(op_izquierda);
                         }
                     case Tipo_1.tipo_dato.CARACTER:
@@ -102,10 +103,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         return parseInt(op_izquierda) + op_derecha.charCodeAt(0);
                     case Tipo_1.tipo_dato.CADENA:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        return String(op_izquierda + op_derecha);
                     default:
                         return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
                 }
+            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -116,10 +118,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         return parseFloat(op_izquierda) + parseFloat(op_derecha);
                     case Tipo_1.tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
-                        if (op_derecha.toLowerCase() === "true") {
+                        if (op_derecha === true) {
                             return parseFloat(op_izquierda) + 1;
                         }
-                        else if (op_derecha.toLowerCase() === "false") {
+                        else if (op_derecha === false) {
                             return parseFloat(op_izquierda);
                         }
                     case Tipo_1.tipo_dato.CARACTER:
@@ -127,34 +129,41 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         return parseFloat(op_izquierda) + parseFloat(op_derecha.charCodeAt(0));
                     case Tipo_1.tipo_dato.CADENA:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        return String(op_izquierda + op_derecha);
                     default:
                         return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
                 }
+            //BOOLEANO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.BOOLEANO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
-                        if (op_izquierda.toLowerCase() === "true") {
+                        if (op_izquierda === true) {
                             return parseInt(op_derecha) + 1;
                         }
-                        else if (op_izquierda.toLowerCase() === "false") {
+                        else if (op_izquierda === false) {
                             return parseInt(op_derecha);
                         }
                     case Tipo_1.tipo_dato.DECIMAL:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
-                        if (op_izquierda.toLowerCase() === "true") {
+                        if (op_izquierda === true) {
                             return parseFloat(op_derecha) + 1;
                         }
-                        else if (op_izquierda.toLowerCase() === "false") {
+                        else if (op_izquierda === false) {
                             return parseFloat(op_derecha);
                         }
                     case Tipo_1.tipo_dato.CADENA:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        if (op_izquierda === true) {
+                            return String("true" + op_derecha);
+                        }
+                        else if (op_izquierda === false) {
+                            return String("false" + op_derecha);
+                        }
                     default:
                         return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
                 }
+            //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -165,35 +174,36 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         return parseFloat(op_izquierda.charCodeAt(0)) + parseFloat(op_derecha);
                     case Tipo_1.tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        return String(op_izquierda + op_derecha);
                     case Tipo_1.tipo_dato.CADENA:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        return String(op_izquierda + op_derecha);
                     default:
                         return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
                 }
+            //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CADENA:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        return String(op_izquierda + op_derecha);
                     case Tipo_1.tipo_dato.DECIMAL:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        return String(op_izquierda + op_derecha);
                     case Tipo_1.tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        if (op_derecha.toLowerCase() === "true") {
-                            return op_izquierda + "true";
+                        if (op_derecha === true) {
+                            return String(op_izquierda + "true");
                         }
-                        else if (op_derecha.toLowerCase() === "false") {
-                            return op_izquierda + "false";
+                        else if (op_derecha === false) {
+                            return String(op_izquierda + "false");
                         }
                     case Tipo_1.tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        return String(op_izquierda + op_derecha);
                     case Tipo_1.tipo_dato.CADENA:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                        return op_izquierda + op_derecha;
+                        return String(op_izquierda + op_derecha);
                     default:
                         return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
                 }
@@ -207,6 +217,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         switch (tipo1) {
             case Tipo_1.tipo_dato.ENTERO:
+                //ENTERO CON TODOS LOS DEMÁS
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
@@ -216,10 +227,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         return parseFloat(op_izquierda) - parseFloat(op_derecha);
                     case Tipo_1.tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
-                        if (op_derecha.toLowerCase() === "true") {
+                        if (op_derecha === true) {
                             return parseInt(op_izquierda) - 1;
                         }
-                        else if (op_derecha.toLowerCase() === "false") {
+                        else if (op_derecha === false) {
                             return parseInt(op_izquierda);
                         }
                     case Tipo_1.tipo_dato.CARACTER:
@@ -228,6 +239,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
                 }
+            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -238,10 +250,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         return parseFloat(op_izquierda) - parseFloat(op_derecha);
                     case Tipo_1.tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
-                        if (op_derecha.toLowerCase() === "true") {
+                        if (op_derecha === true) {
                             return parseFloat(op_izquierda) - 1;
                         }
-                        else if (op_derecha.toLowerCase() === "false") {
+                        else if (op_derecha === false) {
                             return parseFloat(op_izquierda);
                         }
                     case Tipo_1.tipo_dato.CARACTER:
@@ -250,27 +262,29 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
                 }
+            //BOOLEANO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.BOOLEANO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
-                        if (op_izquierda.toLowerCase() === "true") {
+                        if (op_izquierda === true) {
                             return 1 - parseInt(op_derecha);
                         }
-                        else if (op_izquierda.toLowerCase() === "false") {
+                        else if (op_izquierda === false) {
                             return 0 - parseInt(op_derecha);
                         }
                     case Tipo_1.tipo_dato.DECIMAL:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
-                        if (op_izquierda.toLowerCase() === "true") {
+                        if (op_izquierda === true) {
                             return 1 - parseFloat(op_derecha);
                         }
-                        else if (op_izquierda.toLowerCase() === "false") {
+                        else if (op_izquierda === false) {
                             return 0 - parseFloat(op_derecha);
                         }
                     default:
                         return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
                 }
+            //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -291,7 +305,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         switch (tipo1) {
-            //MULTIPLICACION CON ENTERO
+            //ENTERO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.ENTERO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -306,7 +320,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         return new Errores_1.default("Semantico", "Multiplicación Invalida", this.fila, this.columna);
                 }
-            //MULTIPLICACION CON DECIMAL
+            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -321,7 +335,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         return new Errores_1.default("Semantico", "Multiplicación Invalida", this.fila, this.columna);
                 }
-            //MULTIPLICACION CON CARACTER
+            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -346,6 +360,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         }
         else {
             switch (tipo1) {
+                //ENTERO CON TODOS LOS DEMÁS
                 case Tipo_1.tipo_dato.ENTERO:
                     switch (tipo2) {
                         case Tipo_1.tipo_dato.ENTERO:
@@ -355,11 +370,12 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha);
                         case Tipo_1.tipo_dato.CARACTER:
-                            this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
+                            this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha.charCodeAt(0));
                         default:
                             return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
                     }
+                //DECIMAL CON TODOS LOS DEMÁS
                 case Tipo_1.tipo_dato.DECIMAL:
                     switch (tipo2) {
                         case Tipo_1.tipo_dato.ENTERO:
@@ -374,6 +390,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         default:
                             return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
                     }
+                //CARACTER CON TODOS LOS DEMÁS
                 case Tipo_1.tipo_dato.CARACTER:
                     switch (tipo2) {
                         case Tipo_1.tipo_dato.ENTERO:
@@ -431,6 +448,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         switch (tipo1) {
+            //ENTERO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.ENTERO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -442,6 +460,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         return new Errores_1.default("Semantico", "Potencia Invalida", this.fila, this.columna);
                 }
+            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
