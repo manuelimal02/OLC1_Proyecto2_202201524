@@ -5,22 +5,22 @@ import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from '../Simbolo/Tipo'
 
 export default class Asignacion extends Instruccion {
-    private id: string
-    private exp: Instruccion
+    private Identificador: string
+    private expresion: Instruccion
 
-    constructor(id: string, exp: Instruccion, fila: number, columna: number) {
+    constructor(Identificador: string, expresion: Instruccion, fila: number, columna: number) {
         super(new Tipo(tipo_dato.VOID), fila, columna)
-        this.id = id
-        this.exp = exp
+        this.Identificador = Identificador
+        this.expresion = expresion
     }
 
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
-        let NewValor = this.exp.interpretar(arbol, tabla)
-        if (NewValor instanceof Errores) return NewValor
-        let valor = tabla.getVariable(this.id.toLocaleLowerCase())
-        if (valor == null) return new Errores("SEMANTICO", "Variable No Existente", this.fila, this.columna)
-        if (this.exp.tipo_dato.getTipo() != valor.getTipo().getTipo()) return new Errores("SEMANTICO", "Asignacion Incorrecta", this.fila, this.columna)
+        let nuevo_valor = this.expresion.interpretar(arbol, tabla)
+        if (nuevo_valor instanceof Errores) return nuevo_valor
+        let valor = tabla.getVariable(this.Identificador.toLocaleLowerCase())
+        if (valor == null) return new Errores("Semántico", "Variable No Existente", this.fila, this.columna)
+        if (this.expresion.tipo_dato.getTipo() != valor.getTipo().getTipo()) return new Errores("Semántico", "Asignación Incorrecta", this.fila, this.columna)
         this.tipo_dato = valor.getTipo()
-        valor.setValor(NewValor)
+        valor.setValor(nuevo_valor)
     }
 }

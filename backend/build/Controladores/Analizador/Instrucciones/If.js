@@ -32,25 +32,25 @@ const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 const Break_1 = __importDefault(require("./Break"));
 class If extends Instruccion_1.Instruccion {
-    constructor(cond, ins, fila, columna) {
+    constructor(condicion, instrucciones, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
-        this.condicion = cond;
-        this.instrucciones = ins;
+        this.condicion = condicion;
+        this.instrucciones = instrucciones;
     }
     interpretar(arbol, tabla) {
-        let cond = this.condicion.interpretar(arbol, tabla);
-        if (cond instanceof Errores_1.default)
-            return cond;
+        let condicion = this.condicion.interpretar(arbol, tabla);
+        if (condicion instanceof Errores_1.default)
+            return condicion;
         if (this.condicion.tipo_dato.getTipo() != Tipo_1.tipo_dato.BOOLEANO) {
-            return new Errores_1.default("SEMANTICO", "La condicion debe ser bool", this.fila, this.columna);
+            return new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
         }
-        let newTabla = new TablaSimbolo_1.default(tabla);
-        newTabla.setNombre("Sentencia IF");
-        if (cond) {
+        let nueva_tabla = new TablaSimbolo_1.default(tabla);
+        nueva_tabla.setNombre("Sentencia IF");
+        if (condicion) {
             for (let i of this.instrucciones) {
                 if (i instanceof Break_1.default)
                     return i;
-                let resultado = i.interpretar(arbol, newTabla);
+                let resultado = i.interpretar(arbol, nueva_tabla);
             }
         }
     }

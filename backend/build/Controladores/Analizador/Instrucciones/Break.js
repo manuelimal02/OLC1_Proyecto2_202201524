@@ -26,8 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 class Break extends Instruccion_1.Instruccion {
-    constructor(linea, col) {
-        super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), linea, col);
+    constructor(fila, col) {
+        super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, col);
     }
     interpretar(arbol, tabla) {
         return;

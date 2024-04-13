@@ -73,7 +73,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
             case Operadores.NEGACION:
                 return this.negacion(valor_unico);
             default:
-                return new Errores_1.default("Semantico", "Operador Aritmetico Invalido", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Operador Aritmético Inválido", this.fila, this.columna);
         }
     }
     suma(op_izquierda, op_derecha) {
@@ -105,7 +105,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                         return String(op_izquierda + op_derecha);
                     default:
-                        return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
@@ -131,7 +131,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                         return String(op_izquierda + op_derecha);
                     default:
-                        return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                 }
             //BOOLEANO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.BOOLEANO:
@@ -161,7 +161,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             return String("false" + op_derecha);
                         }
                     default:
-                        return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                 }
             //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
@@ -179,7 +179,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                         return String(op_izquierda + op_derecha);
                     default:
-                        return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                 }
             //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CADENA:
@@ -205,10 +205,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                         return String(op_izquierda + op_derecha);
                     default:
-                        return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                 }
             default:
-                return new Errores_1.default("Semantico", "Suma Invalida", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
         }
     }
     resta(op_izquierda, op_derecha) {
@@ -237,7 +237,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
                         return parseInt(op_izquierda) - parseInt(op_derecha.charCodeAt(0));
                     default:
-                        return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
@@ -260,7 +260,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return parseFloat(op_izquierda) - parseFloat(op_derecha.charCodeAt(0));
                     default:
-                        return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                 }
             //BOOLEANO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.BOOLEANO:
@@ -282,7 +282,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             return 0 - parseFloat(op_derecha);
                         }
                     default:
-                        return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                 }
             //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
@@ -294,10 +294,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return parseFloat(op_izquierda.charCodeAt(0)) - parseFloat(op_derecha);
                     default:
-                        return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                 }
             default:
-                return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
         }
     }
     multiplicacion(op_izquierda, op_derecha) {
@@ -318,7 +318,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
                         return parseInt(op_izquierda) * parseInt(op_derecha.charCodeAt(0));
                     default:
-                        return new Errores_1.default("Semantico", "Multiplicación Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna);
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
@@ -333,7 +333,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return parseFloat(op_izquierda) * parseFloat(op_derecha.charCodeAt(0));
                     default:
-                        return new Errores_1.default("Semantico", "Multiplicación Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna);
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
@@ -345,10 +345,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return parseFloat(op_izquierda.charCodeAt(0)) * parseFloat(op_derecha);
                     default:
-                        return new Errores_1.default("Semantico", "Multiplicación Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna);
                 }
             default:
-                return new Errores_1.default("Semantico", "Resta Invalida", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna);
         }
     }
     division(valor_izquierda, valor_derecha) {
@@ -356,7 +356,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         if (parseFloat(valor_derecha) === 0) {
-            return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
+            return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
         }
         else {
             switch (tipo1) {
@@ -373,7 +373,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha.charCodeAt(0));
                         default:
-                            return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
+                            return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
                     }
                 //DECIMAL CON TODOS LOS DEMÁS
                 case Tipo_1.tipo_dato.DECIMAL:
@@ -388,7 +388,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha.charCodeAt(0));
                         default:
-                            return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
+                            return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
                     }
                 //CARACTER CON TODOS LOS DEMÁS
                 case Tipo_1.tipo_dato.CARACTER:
@@ -400,10 +400,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda.charCodeAt(0)) / parseFloat(valor_derecha);
                         default:
-                            return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
+                            return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
                     }
                 default:
-                    return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
+                    return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
             }
         }
     }
@@ -412,7 +412,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         if (parseFloat(valor_derecha) === 0) {
-            return new Errores_1.default("Semantico", "Modulo Invalida", this.fila, this.columna);
+            return new Errores_1.default("Semántico", "Operación Modulo Inválida", this.fila, this.columna);
         }
         else {
             switch (tipo1) {
@@ -425,7 +425,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) % parseFloat(valor_derecha);
                         default:
-                            return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
+                            return new Errores_1.default("Semántico", "Operación Modulo Inválida", this.fila, this.columna);
                     }
                 case Tipo_1.tipo_dato.DECIMAL:
                     switch (tipo2) {
@@ -436,10 +436,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) % parseFloat(valor_derecha);
                         default:
-                            return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
+                            return new Errores_1.default("Semántico", "Operación Modulo Inválida", this.fila, this.columna);
                     }
                 default:
-                    return new Errores_1.default("Semantico", "Division Invalida", this.fila, this.columna);
+                    return new Errores_1.default("Semántico", "Operación Modulo Inválida", this.fila, this.columna);
             }
         }
     }
@@ -458,7 +458,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return Math.pow(parseFloat(valor_izquierda), parseFloat(valor_derecha));
                     default:
-                        return new Errores_1.default("Semantico", "Potencia Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Potencia Inválida", this.fila, this.columna);
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
@@ -470,10 +470,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return Math.pow(parseFloat(valor_izquierda), parseFloat(valor_derecha));
                     default:
-                        return new Errores_1.default("Semantico", "Potencia Invalida", this.fila, this.columna);
+                        return new Errores_1.default("Semántico", "Operación Potencia Inválida", this.fila, this.columna);
                 }
             default:
-                return new Errores_1.default("Semantico", "Potencia Invalida", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Operación Potencia Inválida", this.fila, this.columna);
         }
     }
     negacion(op_izquierda) {
@@ -487,7 +487,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                 return parseFloat(op_izquierda) * -1;
             default:
-                return new Errores_1.default("Semantico", "Negacion Unaria invalida", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Operación Negación Unaria Inválida", this.fila, this.columna);
         }
     }
 }

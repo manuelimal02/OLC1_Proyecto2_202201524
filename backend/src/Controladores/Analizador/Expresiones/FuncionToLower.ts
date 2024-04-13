@@ -25,7 +25,7 @@ export default class FuncionesToLower extends Instruccion {
             case Funcion.TOLOWER:
                 return this.tolower(valor_unico)
             default:
-                return new Errores("Semantico", "Funcion Invalido", this.fila, this.columna)
+                return new Errores("Semántico", "Función ToLower Inválida", this.fila, this.columna)
         }
     }
 
@@ -36,7 +36,7 @@ export default class FuncionesToLower extends Instruccion {
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
                 return String(op_izquierda.toLowerCase())
             default:
-                return new Errores("Semantico", "ToLower Invalido", this.fila, this.columna)
+                return new Errores("Semántico", "Función ToLower Inválida", this.fila, this.columna)
         }
     }
 }

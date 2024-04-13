@@ -1,7 +1,7 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
 import Arbol from "../Simbolo/Arbol";
-import tablaSimbolo from "../Simbolo/TablaSimbolo";
+import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 
 export default class Aritmeticas extends Instruccion {
@@ -20,7 +20,7 @@ export default class Aritmeticas extends Instruccion {
         }
     }
 
-    interpretar(arbol: Arbol, tabla: tablaSimbolo) {
+    interpretar(arbol: Arbol, tabla: TablaSimbolo) {
         let valor_izquierda, valor_derecha, valor_unico = null
         if (this.operando_unico != null) {
             valor_unico = this.operando_unico.interpretar(arbol, tabla)
@@ -48,7 +48,7 @@ export default class Aritmeticas extends Instruccion {
             case Operadores.NEGACION:
                 return this.negacion(valor_unico)
             default:
-                return new Errores("Semantico", "Operador Aritmetico Invalido", this.fila, this.columna)
+                return new Errores("Semántico", "Operador Aritmético Inválido", this.fila, this.columna)
         }
     }
 
@@ -80,7 +80,7 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
                         return String(op_izquierda + op_derecha)
                     default:
-                        return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Suma Inválida", this.fila, this.columna)
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.DECIMAL:
@@ -106,7 +106,7 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
                         return String(op_izquierda + op_derecha)
                     default:
-                        return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Suma Inválida", this.fila, this.columna)
                 }
             //BOOLEANO CON TODOS LOS DEMÁS
             case tipo_dato.BOOLEANO:
@@ -134,7 +134,7 @@ export default class Aritmeticas extends Instruccion {
                             return String("false" + op_derecha)
                         }
                     default:
-                        return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Suma Inválida", this.fila, this.columna)
                 }
             //CARACTER CON TODOS LOS DEMÁS
             case tipo_dato.CARACTER:
@@ -153,7 +153,7 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
                         return String(op_izquierda + op_derecha)
                     default:
-                        return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Suma Inválida", this.fila, this.columna)
                 }
             //CARACTER CON TODOS LOS DEMÁS
             case tipo_dato.CADENA:
@@ -178,10 +178,10 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.CADENA)
                         return String(op_izquierda + op_derecha)
                     default:
-                        return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Suma Inválida", this.fila, this.columna)
                 }
             default:
-                return new Errores("Semantico", "Suma Invalida", this.fila, this.columna)
+                return new Errores("Semántico", "Operación Suma Inválida", this.fila, this.columna)
         }
     }
 
@@ -210,7 +210,7 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.ENTERO)
                         return parseInt(op_izquierda) - parseInt(op_derecha.charCodeAt(0))
                     default:
-                        return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Resta Inválida", this.fila, this.columna)
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.DECIMAL:
@@ -233,7 +233,7 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                         return parseFloat(op_izquierda) - parseFloat(op_derecha.charCodeAt(0))
                     default:
-                        return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Resta Inválida", this.fila, this.columna)
                 }
             //BOOLEANO CON TODOS LOS DEMÁS
             case tipo_dato.BOOLEANO:
@@ -255,7 +255,7 @@ export default class Aritmeticas extends Instruccion {
                             return 0 - parseFloat(op_derecha)
                         }  
                     default:
-                        return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Resta Inválida", this.fila, this.columna)
                 }
                 //CARACTER CON TODOS LOS DEMÁS
                 case tipo_dato.CARACTER:
@@ -267,10 +267,10 @@ export default class Aritmeticas extends Instruccion {
                             this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                             return parseFloat(op_izquierda.charCodeAt(0)) - parseFloat(op_derecha)
                         default:
-                            return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
+                            return new Errores("Semántico", "Operación Resta Inválida", this.fila, this.columna)
                 }
             default:
-                return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
+                return new Errores("Semántico", "Operación Resta Inválida", this.fila, this.columna)
         }
     }
 
@@ -291,7 +291,7 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.ENTERO)
                         return parseInt(op_izquierda) * parseInt(op_derecha.charCodeAt(0))
                     default:
-                        return new Errores("Semantico", "Multiplicación Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna)
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.DECIMAL:
@@ -306,7 +306,7 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                         return parseFloat(op_izquierda) * parseFloat(op_derecha.charCodeAt(0))
                     default:
-                        return new Errores("Semantico", "Multiplicación Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna)
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.CARACTER:
@@ -318,10 +318,10 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                         return parseFloat(op_izquierda.charCodeAt(0)) * parseFloat(op_derecha)
                     default:
-                        return new Errores("Semantico", "Multiplicación Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna)
                 }
             default:
-                return new Errores("Semantico", "Resta Invalida", this.fila, this.columna)
+                return new Errores("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna)
         }
     }
     
@@ -329,7 +329,7 @@ export default class Aritmeticas extends Instruccion {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         if (parseFloat(valor_derecha) === 0) {
-            return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
+            return new Errores("Semántico", "Operación División Invalida", this.fila, this.columna)
         }
         else {
             switch (tipo1) {
@@ -346,7 +346,7 @@ export default class Aritmeticas extends Instruccion {
                             this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha.charCodeAt(0))
                         default:
-                            return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
+                            return new Errores("Semántico", "Operación División Invalida", this.fila, this.columna)
                     }
                 //DECIMAL CON TODOS LOS DEMÁS
                 case tipo_dato.DECIMAL:
@@ -361,7 +361,7 @@ export default class Aritmeticas extends Instruccion {
                             this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha.charCodeAt(0))
                         default:
-                            return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
+                            return new Errores("Semántico", "Operación División Invalida", this.fila, this.columna)
                     }
                 //CARACTER CON TODOS LOS DEMÁS
                 case tipo_dato.CARACTER:
@@ -373,10 +373,10 @@ export default class Aritmeticas extends Instruccion {
                             this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                             return parseFloat(valor_izquierda.charCodeAt(0)) / parseFloat(valor_derecha)
                         default:
-                            return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
+                            return new Errores("Semántico", "Operación División Invalida", this.fila, this.columna)
                     }
                 default:
-                    return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
+                    return new Errores("Semántico", "Operación División Invalida", this.fila, this.columna)
             }
         }
     }
@@ -385,7 +385,7 @@ export default class Aritmeticas extends Instruccion {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         if (parseFloat(valor_derecha) === 0) {
-            return new Errores("Semantico", "Modulo Invalida", this.fila, this.columna)
+            return new Errores("Semántico", "Operación Modulo Inválida", this.fila, this.columna)
         }
         else {
             switch (tipo1) {
@@ -398,7 +398,7 @@ export default class Aritmeticas extends Instruccion {
                             this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                             return parseFloat(valor_izquierda) % parseFloat(valor_derecha)
                         default:
-                            return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
+                            return new Errores("Semántico", "Operación Modulo Inválida", this.fila, this.columna)
                     }
                 case tipo_dato.DECIMAL:
                     switch (tipo2) {
@@ -409,10 +409,10 @@ export default class Aritmeticas extends Instruccion {
                             this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                             return parseFloat(valor_izquierda) % parseFloat(valor_derecha)
                         default:
-                            return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
+                            return new Errores("Semántico", "Operación Modulo Inválida", this.fila, this.columna)
                     }
                 default:
-                    return new Errores("Semantico", "Division Invalida", this.fila, this.columna)
+                    return new Errores("Semántico", "Operación Modulo Inválida", this.fila, this.columna)
             }
         }
     }
@@ -431,7 +431,7 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                         return Math.pow(parseFloat(valor_izquierda), parseFloat(valor_derecha))
                     default:
-                        return new Errores("Semantico", "Potencia Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Potencia Inválida", this.fila, this.columna)
                 }
             //DECIMAL CON TODOS LOS DEMÁS
             case tipo_dato.DECIMAL:
@@ -443,10 +443,10 @@ export default class Aritmeticas extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                         return Math.pow(parseFloat(valor_izquierda), parseFloat(valor_derecha))
                     default:
-                        return new Errores("Semantico", "Potencia Invalida", this.fila, this.columna)
+                        return new Errores("Semántico", "Operación Potencia Inválida", this.fila, this.columna)
                 }
             default:
-                return new Errores("Semantico", "Potencia Invalida", this.fila, this.columna)
+                return new Errores("Semántico", "Operación Potencia Inválida", this.fila, this.columna)
         }
     }
     
@@ -460,7 +460,7 @@ export default class Aritmeticas extends Instruccion {
                 this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
                 return parseFloat(op_izquierda) * -1
             default:
-                return new Errores("Semantico", "Negacion Unaria invalida", this.fila, this.columna)
+                return new Errores("Semántico", "Operación Negación Unaria Inválida", this.fila, this.columna)
         }
     }
 

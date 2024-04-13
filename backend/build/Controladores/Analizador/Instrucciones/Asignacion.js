@@ -30,22 +30,22 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 class Asignacion extends Instruccion_1.Instruccion {
-    constructor(id, exp, fila, columna) {
+    constructor(Identificador, expresion, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
-        this.id = id;
-        this.exp = exp;
+        this.Identificador = Identificador;
+        this.expresion = expresion;
     }
     interpretar(arbol, tabla) {
-        let NewValor = this.exp.interpretar(arbol, tabla);
-        if (NewValor instanceof Errores_1.default)
-            return NewValor;
-        let valor = tabla.getVariable(this.id.toLocaleLowerCase());
+        let nuevo_valor = this.expresion.interpretar(arbol, tabla);
+        if (nuevo_valor instanceof Errores_1.default)
+            return nuevo_valor;
+        let valor = tabla.getVariable(this.Identificador.toLocaleLowerCase());
         if (valor == null)
-            return new Errores_1.default("SEMANTICO", "Variable No Existente", this.fila, this.columna);
-        if (this.exp.tipo_dato.getTipo() != valor.getTipo().getTipo())
-            return new Errores_1.default("SEMANTICO", "Asignacion Incorrecta", this.fila, this.columna);
+            return new Errores_1.default("Semántico", "Variable No Existente", this.fila, this.columna);
+        if (this.expresion.tipo_dato.getTipo() != valor.getTipo().getTipo())
+            return new Errores_1.default("Semántico", "Asignación Incorrecta", this.fila, this.columna);
         this.tipo_dato = valor.getTipo();
-        valor.setValor(NewValor);
+        valor.setValor(nuevo_valor);
     }
 }
 exports.default = Asignacion;

@@ -6,18 +6,18 @@ import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from '../Simbolo/Tipo'
 
 export default class Declaracion extends Instruccion {
-    private id: string[]
+    private Identificador: string[]
     private valor: Instruccion
 
-    constructor(tipo: Tipo, fila: number, columna: number, id: string[], valor: Instruccion) {
+    constructor(tipo: Tipo, fila: number, columna: number, Identificador: string[], valor: Instruccion) {
         super(tipo, fila, columna)
-        this.id = id
+        this.Identificador = Identificador
         this.valor = valor
     }
 
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
         let valor_variable;
-        this.id.forEach((elemento) => {
+        this.Identificador.forEach((elemento) => {
             if(this.valor === null){
                 valor_variable= this.valor_defecto(this.tipo_dato)
             }else{
@@ -26,16 +26,16 @@ export default class Declaracion extends Instruccion {
                 if ((valor_variable  == true || valor_variable  == false) && this.tipo_dato.getTipo() == tipo_dato.ENTERO) {
                     valor_variable = valor_variable == true ? 1 : 0;
                 }else if (this.valor.tipo_dato.getTipo() != this.tipo_dato.getTipo()) {
-                    return new Errores("SEMANTICO", "Error Al Declarar Variable.", this.fila, this.columna)
+                    return new Errores("Semántico", "Error Al Declarar Variable.", this.fila, this.columna)
                 }
             }
             if (this.tipo_dato.getTipo() == tipo_dato.ENTERO) {
                 if (parseInt(valor_variable) < -2147483648 || parseInt(valor_variable) > 2147483647) {
-                    return new Errores("SEMANTICO", "Variable Fuera De Rango.", this.fila, this.columna);
+                    return new Errores("Semántico", "Variable Fuera De Rango.", this.fila, this.columna);
                 }
             }
             if (!tabla.setVariable(new Simbolo(this.tipo_dato, elemento, valor_variable))){
-                return new Errores("SEMANTICO", "La Variable Ya Existe.", this.fila, this.columna)
+                return new Errores("Semántico", "La Variable Ya Existe.", this.fila, this.columna)
             }
         });
     }

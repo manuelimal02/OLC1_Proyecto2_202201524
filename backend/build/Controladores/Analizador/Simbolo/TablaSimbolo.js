@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class TablaSimbolo {
     constructor(anterior) {
         this.tabla_anterior = anterior;
-        this.tablaActual = new Map();
+        this.tabla_actual = new Map();
         this.nombre = "";
     }
     getAnterior() {
@@ -13,10 +13,10 @@ class TablaSimbolo {
         this.tabla_anterior = anterior;
     }
     getTabla() {
-        return this.tablaActual;
+        return this.tabla_actual;
     }
     setTabla(tabla) {
-        this.tablaActual = tabla;
+        this.tabla_actual = tabla;
     }
     getVariable(id) {
         for (let i = this; i != null; i = i.getAnterior()) {
@@ -29,7 +29,7 @@ class TablaSimbolo {
     setVariable(simbolo) {
         let busqueda = this.getTabla().get(simbolo.getId().toLocaleLowerCase());
         if (busqueda == null) {
-            this.tablaActual.set(simbolo.getId().toLocaleLowerCase(), simbolo);
+            this.tabla_actual.set(simbolo.getId().toLocaleLowerCase(), simbolo);
             return true;
         }
         return false;

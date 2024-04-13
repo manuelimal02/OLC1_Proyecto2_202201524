@@ -2,12 +2,12 @@ import Simbolo from "./Simbolo";
 
 export default class TablaSimbolo {
     private tabla_anterior: TablaSimbolo | any
-    private tablaActual: Map<string, Simbolo>
+    private tabla_actual: Map<string, Simbolo>
     private nombre: string
 
     constructor(anterior?: TablaSimbolo) {
         this.tabla_anterior = anterior
-        this.tablaActual = new Map<string, Simbolo>()
+        this.tabla_actual = new Map<string, Simbolo>()
         this.nombre = ""
     }
 
@@ -20,11 +20,11 @@ export default class TablaSimbolo {
     }
 
     public getTabla(): Map<String, Simbolo> {
-        return this.tablaActual;
+        return this.tabla_actual;
     }
 
     public setTabla(tabla: Map<string, Simbolo>) {
-        this.tablaActual = tabla
+        this.tabla_actual = tabla
     }
 
     public getVariable(id: string) {
@@ -38,7 +38,7 @@ export default class TablaSimbolo {
     public setVariable(simbolo: Simbolo) {
         let busqueda: Simbolo = <Simbolo>this.getTabla().get(simbolo.getId().toLocaleLowerCase())
         if (busqueda == null) {
-            this.tablaActual.set(simbolo.getId().toLocaleLowerCase(), simbolo)
+            this.tabla_actual.set(simbolo.getId().toLocaleLowerCase(), simbolo)
             return true
         }
         return false

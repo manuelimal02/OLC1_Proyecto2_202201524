@@ -30,16 +30,16 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 class AccesoVariable extends Instruccion_1.Instruccion {
-    constructor(id, fila, columna) {
+    constructor(Identificador, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
-        this.id = id;
+        this.Identificador = Identificador;
     }
     interpretar(arbol, tabla) {
-        let valorVariable = tabla.getVariable(this.id);
-        if (valorVariable == null)
-            return new Errores_1.default("SEMANTICO", "Acceso Inválido", this.fila, this.columna);
-        this.tipo_dato = valorVariable.getTipo();
-        return valorVariable.getValor();
+        let valor_variable = tabla.getVariable(this.Identificador);
+        if (valor_variable == null)
+            return new Errores_1.default("Semántico", "Acceso Inválido", this.fila, this.columna);
+        this.tipo_dato = valor_variable.getTipo();
+        return valor_variable.getValor();
     }
 }
 exports.default = AccesoVariable;

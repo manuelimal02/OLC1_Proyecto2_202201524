@@ -25,7 +25,7 @@ export default class FuncionesRound extends Instruccion {
             case Funcion.ROUND:
                 return this.round(valor_unico)
             default:
-                return new Errores("Semantico", "Funcion Invalido", this.fila, this.columna)
+                return new Errores("Semántico", "Función Round Inválida", this.fila, this.columna)
         }
     }
 
@@ -37,7 +37,7 @@ export default class FuncionesRound extends Instruccion {
                 let numero = parseFloat(op_izquierda)
                 return Math.round(numero)
             default:
-                return new Errores("Semantico", "Round Invalido", this.fila, this.columna)
+                return new Errores("Semántico", "Función Round Inválida", this.fila, this.columna)
         }
     }
 }

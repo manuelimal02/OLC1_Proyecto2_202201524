@@ -47,7 +47,7 @@ class FuncionesToLower extends Instruccion_1.Instruccion {
             case Funcion.TOLOWER:
                 return this.tolower(valor_unico);
             default:
-                return new Errores_1.default("Semantico", "Funcion Invalido", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Función ToLower Inválida", this.fila, this.columna);
         }
     }
     tolower(op_izquierda) {
@@ -58,7 +58,7 @@ class FuncionesToLower extends Instruccion_1.Instruccion {
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                 return String(op_izquierda.toLowerCase());
             default:
-                return new Errores_1.default("Semantico", "ToLower Invalido", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Función ToLower Inválida", this.fila, this.columna);
         }
     }
 }

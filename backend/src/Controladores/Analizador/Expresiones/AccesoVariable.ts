@@ -6,17 +6,17 @@ import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 
 export default class AccesoVariable extends Instruccion {
-    private id: string
+    private Identificador: string
 
-    constructor(id: string, fila: number, columna: number) {
+    constructor(Identificador: string, fila: number, columna: number) {
         super(new Tipo(tipo_dato.VOID), fila, columna)
-        this.id = id
+        this.Identificador = Identificador
     }
 
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
-        let valorVariable: Simbolo = tabla.getVariable(this.id)
-        if (valorVariable == null) return new Errores("SEMANTICO", "Acceso Inválido", this.fila, this.columna)
-        this.tipo_dato = valorVariable.getTipo()
-        return valorVariable.getValor()
+        let valor_variable: Simbolo = <Simbolo> tabla.getVariable(this.Identificador)
+        if (valor_variable == null) return new Errores("Semántico", "Acceso Inválido", this.fila, this.columna)
+        this.tipo_dato = valor_variable.getTipo()
+        return valor_variable.getValor()
     }
 }

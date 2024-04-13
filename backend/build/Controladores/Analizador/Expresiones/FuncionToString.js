@@ -47,7 +47,7 @@ class FuncionesToString extends Instruccion_1.Instruccion {
             case Funcion.TOSTRING:
                 return this.tostring(valor_unico);
             default:
-                return new Errores_1.default("Semantico", "Funcion Invalido", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Función ToString Inválida", this.fila, this.columna);
         }
     }
     tostring(op_izquierda) {
@@ -64,7 +64,7 @@ class FuncionesToString extends Instruccion_1.Instruccion {
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                 return String(op_izquierda);
             default:
-                return new Errores_1.default("Semantico", "ToString Invalido", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Función ToString Inválida", this.fila, this.columna);
         }
     }
 }

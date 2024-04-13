@@ -30,9 +30,9 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 class CoutEndl extends Instruccion_1.Instruccion {
-    constructor(exp, linea, col) {
-        super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), linea, col);
-        this.expresion = exp;
+    constructor(expresion, fila, columna) {
+        super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
+        this.expresion = expresion;
     }
     interpretar(arbol, tabla) {
         let valor = this.expresion.interpretar(arbol, tabla);

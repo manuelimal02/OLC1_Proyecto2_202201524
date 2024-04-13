@@ -47,7 +47,7 @@ class FuncionesRound extends Instruccion_1.Instruccion {
             case Funcion.ROUND:
                 return this.round(valor_unico);
             default:
-                return new Errores_1.default("Semantico", "Funcion Invalido", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Función Round Inválida", this.fila, this.columna);
         }
     }
     round(op_izquierda) {
@@ -59,7 +59,7 @@ class FuncionesRound extends Instruccion_1.Instruccion {
                 let numero = parseFloat(op_izquierda);
                 return Math.round(numero);
             default:
-                return new Errores_1.default("Semantico", "Round Invalido", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Función Round Inválida", this.fila, this.columna);
         }
     }
 }

@@ -25,7 +25,7 @@ export default class FuncionesToUpper extends Instruccion {
             case Funcion.TOUPPER:
                 return this.toupper(valor_unico)
             default:
-                return new Errores("Semantico", "Funcion Invalido", this.fila, this.columna)
+                return new Errores("Semantico", "Función ToUpper Inválida", this.fila, this.columna)
         }
     }
 
@@ -36,7 +36,7 @@ export default class FuncionesToUpper extends Instruccion {
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
                 return String(op_izquierda.toUpperCase())
             default:
-                return new Errores("Semantico", "ToUpper Invalido", this.fila, this.columna)
+                return new Errores("Semantico", "Función ToUpper Inválida", this.fila, this.columna)
         }
     }
 }
