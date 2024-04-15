@@ -1,18 +1,18 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
+import Bloque from "../Instrucciones/Bloque";
 import Arbol from "../Simbolo/Arbol";
 import tablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
-import Break from "./Break";
 
 export default class While extends Instruccion {
     private condicion: Instruccion
-    private instrucciones: Instruccion[]
+    private bloque: Bloque
 
-    constructor(condicion: Instruccion, instrucciones: Instruccion[], fila: number, columna: number) {
+    constructor(condicion: Instruccion, bloque:Bloque, fila: number, columna: number) {
         super(new Tipo(tipo_dato.VOID), fila, columna)
         this.condicion = condicion
-        this.instrucciones = instrucciones
+        this.bloque = bloque
     }
 
     interpretar(arbol: Arbol, tabla: tablaSimbolo) {
@@ -22,13 +22,8 @@ export default class While extends Instruccion {
             return new Errores("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna)
         }
         while (this.condicion.interpretar(arbol, tabla)) {
-            let nueva_tabla = new tablaSimbolo(tabla)
-            nueva_tabla.setNombre("Sentencia_While")
-            for (let i of this.instrucciones) {
-                if (i instanceof Break) return;
-                let resultado = i.interpretar(arbol, nueva_tabla)
-                if (resultado instanceof Break) return;
-            }
+            const retorno =  this.bloque.interpretar(arbol,tabla)
+            if (retorno) return retorno
         }
     }
 }

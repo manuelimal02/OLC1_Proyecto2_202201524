@@ -28,14 +28,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
-const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-const Break_1 = __importDefault(require("./Break"));
 class While extends Instruccion_1.Instruccion {
-    constructor(condicion, instrucciones, fila, columna) {
+    constructor(condicion, bloque, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
         this.condicion = condicion;
-        this.instrucciones = instrucciones;
+        this.bloque = bloque;
     }
     interpretar(arbol, tabla) {
         let condicion = this.condicion.interpretar(arbol, tabla);
@@ -45,15 +43,9 @@ class While extends Instruccion_1.Instruccion {
             return new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
         }
         while (this.condicion.interpretar(arbol, tabla)) {
-            let nueva_tabla = new TablaSimbolo_1.default(tabla);
-            nueva_tabla.setNombre("Sentencia_While");
-            for (let i of this.instrucciones) {
-                if (i instanceof Break_1.default)
-                    return;
-                let resultado = i.interpretar(arbol, nueva_tabla);
-                if (resultado instanceof Break_1.default)
-                    return;
-            }
+            const retorno = this.bloque.interpretar(arbol, tabla);
+            if (retorno)
+                return retorno;
         }
     }
 }

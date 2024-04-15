@@ -9,7 +9,9 @@
    const Cout                   = require('./Instrucciones/Cout')
    const CoutEndl               = require('./Instrucciones/CoutEndl')
    const ControlIf              = require('./Instrucciones/If')
+   const ControlWhile           = require('./Instrucciones/While')
    const Bloque                 = require('./Instrucciones/Bloque')
+   const Break                  = require('./Instrucciones/Break')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
    const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
    const FuncionRound           = require('./Expresiones/FuncionRound')
@@ -44,6 +46,8 @@
 "std::toString"             return 'TOSTRING'
 "if"                        return 'IF'
 "else"                      return 'ELSE'
+"while"                     return 'WHILE'
+"break"                     return 'BREAK'
 
 "["                         return 'CORCHETE_IZQUIERDP'
 "]"                         return 'CORCHETE_DERECHO'
@@ -133,6 +137,16 @@ instruccion : declaracion
     $$=$1;
 }
             | sentencia_if
+{
+    $$=$1;
+}
+
+            | sentencia_while
+{
+    $$=$1;
+}
+
+            | ts_break
 {
     $$=$1;
 }
@@ -335,4 +349,15 @@ sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque
         | IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque ELSE sentencia_if
 {
     $$ = new ControlIf.default($3,$5,$7,@1.first_line, @1.first_column);
+};
+
+sentencia_while : WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque
+{
+    $$ = new ControlWhile.default($3,$5,@1.first_line, @1.first_column);
+};
+
+
+ts_break: BREAK PUNTOYCOMA
+{
+    $$ = new Break.default(@1.first_line, @1.first_column);
 };
