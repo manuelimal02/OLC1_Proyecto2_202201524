@@ -3,6 +3,7 @@
    const Nativo                 = require('./Expresiones/Nativo')
    const Aritmetica             = require('./Expresiones/Aritmetica')
    const Relacional             = require('./Expresiones/Relacional')
+   const Logico                 = require('./Expresiones/Logico')
    const AccesoVariable         = require('./Expresiones/AccesoVariable')
    const Declaracion            = require('./Instrucciones/Declaracion')
    const Asignacion             = require('./Instrucciones/Asignacion')
@@ -101,7 +102,7 @@
 
 %left 'OR'
 %left 'AND'
-%right 'EXCLAMACION'
+%right 'NOT'
 %left 'IGUAL_IGUAL' 'DISTINTO' 'MENOR_QUE' 'MENOR_IGUAL' 'MAYOR_QUE' 'MAYOR_IGUAL'
 %left 'MAS', 'MENOS'
 %left 'DIVISION' 'MULTICACION' 'MODULO'
@@ -308,6 +309,18 @@ expresion : ENTERO
 { 
     $$ = new Relacional.default(Relacional.Operador.MAYORIGUAL, @1.first_line, @1.first_column, $1, $3); 
 }
+            | expresion OR expresion                          
+{
+    $$ = new Logico.default(Logico.Operador.OR, @1.first_line, @1.first_column, $1, $3);
+} 
+            | expresion AND expresion                        
+{
+    $$ = new Logico.default(Logico.Operador.AND, @1.first_line, @1.first_column, $1, $3);
+}
+            |NOT expresion
+{
+    $$ = new Logico.default(Logico.Operador.NOT, @1.first_line, @1.first_column, $2);
+}         
 ;
 
 tipo_dato : INT
