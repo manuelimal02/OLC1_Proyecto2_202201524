@@ -26,44 +26,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Operadores = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-class FuncionesToLower extends Instruccion_1.Instruccion {
-    constructor(operador, fila, columna, op_izquierda) {
-        super(new Tipo_1.default(Tipo_1.tipo_dato.CADENA), fila, columna);
-        this.operando_unico = op_izquierda;
-        this.operacion = operador;
+class IncrementoVariable extends Instruccion_1.Instruccion {
+    constructor(Identificador, fila, columna) {
+        super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
+        this.Identificador = Identificador;
     }
     interpretar(arbol, tabla) {
-        let valor_unico = null;
-        if (this.operando_unico != null) {
-            valor_unico = this.operando_unico.interpretar(arbol, tabla);
-            if (valor_unico instanceof Errores_1.default)
-                return valor_unico;
-        }
-        switch (this.operacion) {
-            case Operadores.TOLOWER:
-                return this.tolower(valor_unico);
+        let valor_variable = tabla.getVariable(this.Identificador);
+        if (valor_variable == null)
+            return new Errores_1.default("Semántico", "Variable No Existente", this.fila, this.columna);
+        let valor_incrementado;
+        switch (valor_variable.getTipo().getTipo()) {
+            case Tipo_1.tipo_dato.ENTERO:
+                valor_incrementado = valor_variable.getValor() + 1;
+                valor_variable.setValor(valor_incrementado);
+                this.tipo_dato = valor_variable.getTipo();
+                return valor_incrementado;
+            case Tipo_1.tipo_dato.DECIMAL:
+                valor_incrementado = valor_variable.getValor() + 1;
+                valor_variable.setValor(valor_incrementado);
+                this.tipo_dato = valor_variable.getTipo();
+                return valor_incrementado;
             default:
-                return new Errores_1.default("Semantico", "Funcion Invalido", this.fila, this.columna);
-        }
-    }
-    tolower(op_izquierda) {
-        var _a;
-        let op_unico = (_a = this.operando_unico) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
-        switch (op_unico) {
-            case Tipo_1.tipo_dato.CADENA:
-                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                return op_izquierda.toLowerCase();
-            default:
-                return new Errores_1.default("Semantico", "ToLower Invalido", this.fila, this.columna);
+                return new Errores_1.default("Semántico", "Tipo de dato no soportado para incremento", this.fila, this.columna);
         }
     }
 }
-exports.default = FuncionesToLower;
-var Operadores;
-(function (Operadores) {
-    Operadores[Operadores["TOLOWER"] = 0] = "TOLOWER";
-})(Operadores || (exports.Operadores = Operadores = {}));
+exports.default = IncrementoVariable;

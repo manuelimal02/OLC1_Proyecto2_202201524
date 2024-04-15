@@ -4,6 +4,7 @@ import Errores from "../Errores/Errores";
 import Arbol from "../Simbolo/Arbol";
 import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
+import Break from "./Break";
 
 export default class If extends Instruccion {
     private condicion: Instruccion

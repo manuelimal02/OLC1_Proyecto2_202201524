@@ -9,6 +9,6 @@ export default class Break extends Instruccion {
     }
 
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
-        return;
+        return
     }
 }

@@ -12,6 +12,7 @@
    const ControlIf              = require('./Instrucciones/If')
    const ControlWhile           = require('./Instrucciones/While')
    const ControlDoWhile         = require('./Instrucciones/DoWhile')
+   const ControlFor             = require('./Instrucciones/For')
    const Bloque                 = require('./Instrucciones/Bloque')
    const Break                  = require('./Instrucciones/Break')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
@@ -51,6 +52,7 @@
 "while"                     return 'WHILE'
 "do"                        return 'DO'
 "break"                     return 'BREAK'
+"for"                       return 'FOR'
 
 "["                         return 'CORCHETE_IZQUIERDP'
 "]"                         return 'CORCHETE_DERECHO'
@@ -127,15 +129,15 @@ instrucciones : instrucciones instruccion
     $$=[$1];
 };
 
-instruccion : declaracion 
+instruccion : declaracion PUNTOYCOMA
 {
     $$=$1;
 }
-            | asignacion
+            | asignacion PUNTOYCOMA
 {
     $$=$1;
 }
-            | counts
+            | counts PUNTOYCOMA
 {
     $$=$1;
 }
@@ -143,13 +145,11 @@ instruccion : declaracion
 {
     $$=$1;
 }
-
-            | sentencia_while
+            | sentencia_for 
 {
     $$=$1;
 }
-
-            | ts_break
+            | sentencia_while
 {
     $$=$1;
 }
@@ -157,13 +157,17 @@ instruccion : declaracion
 {
     $$=$1;
 } 
+            | ts_break PUNTOYCOMA
+{
+    $$=$1;
+}
 ;
 
-declaracion : tipo_dato identificador IGUAL expresion PUNTOYCOMA
+declaracion : tipo_dato identificador IGUAL expresion 
 {
     $$ = new Declaracion.default($1, @1.first_line, @1.first_column, $2, $4);
 } 
-            | tipo_dato identificador PUNTOYCOMA                      
+            | tipo_dato identificador                    
 {
     $$ = new Declaracion.default($1, @1.first_line, @1.first_column, $2, null);
 };
@@ -178,16 +182,21 @@ identificador : identificador COMA ID
     $$=[$1];
 };
 
-asignacion : ID IGUAL expresion PUNTOYCOMA
+asignacion : ID IGUAL expresion 
 {
     $$ = new Asignacion.default($1, $3, @1.first_line, @1.first_column);
 };
 
-counts : COUT MENOR_QUE MENOR_QUE expresion PUNTOYCOMA
+incremeneto : expresion MAS MAS 
+{
+    $$ = new Asignacion.default($1, @1.first_line, @1.first_column);
+};
+
+counts : COUT MENOR_QUE MENOR_QUE expresion 
 {
     $$= new Cout.default($4, @1.first_line, @1.first_column);
 }
-        | COUT MENOR_QUE MENOR_QUE expresion MENOR_QUE MENOR_QUE ENDL PUNTOYCOMA
+        | COUT MENOR_QUE MENOR_QUE expresion MENOR_QUE MENOR_QUE ENDL 
 {
     $$= new CoutEndl.default($4, @1.first_line, @1.first_column);
 };
@@ -380,14 +389,22 @@ sentencia_dowhile : DO bloque WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DE
     $$ = new ControlDoWhile.default($5,$2,@1.first_line, @1.first_column);
 };
 
-sentencia_for : DO bloque WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO PUNTOYCOMA
+verificacion_for : declaracion 
 {
-    $$ = new ControlDoWhile.default($5,$2,@1.first_line, @1.first_column);
+    $$=$1;
+}
+        | asignacion
+{
+    $$=$1;
+};
+
+sentencia_for : FOR PARENTESIS_IZQUIERDO verificacion_for PUNTOYCOMA expresion PUNTOYCOMA asignacion PARENTESIS_DERECHO bloque
+{
+    $$ = new ControlFor.default($3,$5,$7,$9,@1.first_line, @1.first_column);
 };
 
 
-
-ts_break: BREAK PUNTOYCOMA
+ts_break: BREAK 
 {
     $$ = new Break.default(@1.first_line, @1.first_column);
 };

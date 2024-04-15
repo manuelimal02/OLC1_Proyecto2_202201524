@@ -29,8 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
-class DoWhile extends Instruccion_1.Instruccion {
+class For extends Instruccion_1.Instruccion {
     constructor(declaracion, condicion, actualizacion, bloque, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
         this.declaracion = declaracion;
@@ -39,9 +38,7 @@ class DoWhile extends Instruccion_1.Instruccion {
         this.bloque = bloque;
     }
     interpretar(arbol, tabla) {
-        const nueva_tabla = new TablaSimbolo_1.default(tabla);
-        nueva_tabla.setNombre("Inicializacion For");
-        const resultado_inicializacion = this.declaracion.interpretar(arbol, nueva_tabla);
+        const resultado_inicializacion = this.declaracion.interpretar(arbol, tabla);
         if (resultado_inicializacion instanceof Errores_1.default)
             return resultado_inicializacion;
         let condicion = this.condicion.interpretar(arbol, tabla);
@@ -54,10 +51,10 @@ class DoWhile extends Instruccion_1.Instruccion {
             const retorno = this.bloque.interpretar(arbol, tabla);
             if (retorno)
                 return retorno;
-            const resultado_actualizacion = this.actualizacion.interpretar(arbol, nueva_tabla);
+            const resultado_actualizacion = this.actualizacion.interpretar(arbol, tabla);
             if (resultado_actualizacion instanceof Errores_1.default)
                 return resultado_actualizacion;
         }
     }
 }
-exports.default = DoWhile;
+exports.default = For;

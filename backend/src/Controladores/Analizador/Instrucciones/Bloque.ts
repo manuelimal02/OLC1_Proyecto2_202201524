@@ -2,6 +2,7 @@ import { Instruccion } from "../Abstract/Instruccion";
 import Arbol from "../Simbolo/Arbol";
 import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
+import Errores from "../Errores/Errores";
 import Break from "./Break";
 
 export default class Bloque extends Instruccion {
@@ -12,13 +13,17 @@ export default class Bloque extends Instruccion {
         this.instrucciones = instrucciones
     }
 
-    public interpretar(arbol: Arbol, tabla: TablaSimbolo) {
+    interpretar(arbol: Arbol, tabla: TablaSimbolo) {
+
         let nueva_tabla = new TablaSimbolo(tabla)
         nueva_tabla.setNombre("Tabla_Nueva")
+
         for (let i of this.instrucciones) {
-            if (i instanceof Break) return i;
+            if (i instanceof Break) return;
             let resultado = i.interpretar(arbol, nueva_tabla)
+            if (resultado instanceof Break) return;
         }
-        return null
+
+    return null
     }
 }

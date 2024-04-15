@@ -40,8 +40,10 @@ class Bloque extends Instruccion_1.Instruccion {
         nueva_tabla.setNombre("Tabla_Nueva");
         for (let i of this.instrucciones) {
             if (i instanceof Break_1.default)
-                return i;
+                return;
             let resultado = i.interpretar(arbol, nueva_tabla);
+            if (resultado instanceof Break_1.default)
+                return;
         }
         return null;
     }
