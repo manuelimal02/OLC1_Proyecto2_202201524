@@ -69,9 +69,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda) === parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                 }
@@ -93,9 +90,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseFloat(valor_izquierda) === parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                 }
@@ -128,9 +122,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return 1 === parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                 }
@@ -152,30 +143,11 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda.charCodeAt(0)) === parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                 }
                 case tipo_dato.CADENA:
                 switch (tipo2) {
-                    case tipo_dato.ENTERO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
-                    case tipo_dato.DECIMAL:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
-                    case tipo_dato.BOOLEANO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO);
-                        if (valor_derecha === true) {
-                            return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
-                        } else if (valor_derecha === false) {
-                            return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
-                        }
-                    case tipo_dato.CARACTER:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Igual-Igual Inválida", this.fila, this.columna)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return valor_izquierda.toString() === valor_derecha.toString()
@@ -209,10 +181,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda) != parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                 }
@@ -234,10 +202,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseFloat(valor_izquierda) != parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                 }
@@ -270,10 +234,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return 1 != parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                 }
@@ -295,31 +255,11 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda.charCodeAt(0)) != parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                 }
                 case tipo_dato.CADENA:
                 switch (tipo2) {
-                    case tipo_dato.ENTERO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
-                    case tipo_dato.DECIMAL:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
-                    case tipo_dato.BOOLEANO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO);
-                        //console.log("entro antes del if")
-                        if (valor_derecha === true) {
-                            return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
-                        } else if (valor_derecha === false) {
-                            return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
-                        }
-                    case tipo_dato.CARACTER:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Distinto Inválida", this.fila, this.columna)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return valor_izquierda.toString() != valor_derecha.toString()
@@ -353,10 +293,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda) < parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                 }
@@ -378,9 +314,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseFloat(valor_izquierda) < parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                 }
@@ -402,9 +335,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return 1 < parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                 }
@@ -426,30 +356,11 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda.charCodeAt(0)) < parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                 }
                 case tipo_dato.CADENA:
                 switch (tipo2) {
-                    case tipo_dato.ENTERO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
-                    case tipo_dato.DECIMAL:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
-                    case tipo_dato.BOOLEANO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO);
-                        if (valor_derecha === true) {
-                            return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
-                        } else if (valor_derecha === false) {
-                            return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
-                        }
-                    case tipo_dato.CARACTER:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor Que Inválida", this.fila, this.columna)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return false
@@ -483,10 +394,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda) <= parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "CComparación Menor-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
                 }
@@ -498,7 +405,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.DECIMAL:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseFloat(valor_izquierda) <= parseFloat(valor_derecha)
-
                     case tipo_dato.BOOLEANO:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO);
                         if (valor_derecha === true) {
@@ -509,10 +415,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseFloat(valor_izquierda) <= parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
                 }
@@ -534,10 +436,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return 1 <= parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
                 }
@@ -559,30 +457,11 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda.charCodeAt(0)) <= parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
                 }
                 case tipo_dato.CADENA:
                 switch (tipo2) {
-                    case tipo_dato.ENTERO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
-                    case tipo_dato.DECIMAL:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
-                    case tipo_dato.BOOLEANO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO);
-                        if (valor_derecha === true) {
-                            return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
-                        } else if (valor_derecha === false) {
-                            return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
-                        }
-                    case tipo_dato.CARACTER:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Menor-Igual Inválida", this.fila, this.columna)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return valor_izquierda.toString() === valor_derecha.toString()
@@ -598,7 +477,6 @@ export default class OperadorRelacional extends Instruccion {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         switch (tipo1) {
-            //enteros
             case tipo_dato.ENTERO:
                 switch (tipo2) {
                     case tipo_dato.ENTERO:
@@ -617,10 +495,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda) > parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                 }
@@ -642,10 +516,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseFloat(valor_izquierda) > parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                 }
@@ -667,10 +537,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return 1 > parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                 }
@@ -692,32 +558,11 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda.charCodeAt(0)) > parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        
-                        return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                 }
                 case tipo_dato.CADENA:
                 switch (tipo2) {
-                    case tipo_dato.ENTERO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
-                    case tipo_dato.DECIMAL:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
-                    case tipo_dato.BOOLEANO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO);
-                        if (valor_derecha === true) {
-                            return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
-                        } else if (valor_derecha === false) {
-                            
-                            return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
-                        }
-                    case tipo_dato.CARACTER:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Mayor Que Inválida", this.fila, this.columna)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return false
@@ -776,10 +621,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseFloat(valor_izquierda) >= parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
                 }
@@ -801,10 +642,6 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return 1 >= parseFloat(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        console.log("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
-                        return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
                 }
@@ -826,30 +663,11 @@ export default class OperadorRelacional extends Instruccion {
                     case tipo_dato.CARACTER:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return parseInt(valor_izquierda.charCodeAt(0)) >= parseInt(valor_derecha.charCodeAt(0))
-                    case tipo_dato.CADENA:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
                     default:
                         return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
                 }
                 case tipo_dato.CADENA:
                 switch (tipo2) {
-                    case tipo_dato.ENTERO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
-                    case tipo_dato.DECIMAL:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
-                    case tipo_dato.BOOLEANO:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO);
-                        if (valor_derecha === true) {
-                            return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
-                        } else if (valor_derecha === false) {
-                            return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
-                        }
-                    case tipo_dato.CARACTER:
-                        this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
-                        return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
                     case tipo_dato.CADENA:
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return valor_izquierda.toString() === valor_derecha.toString()
@@ -860,7 +678,6 @@ export default class OperadorRelacional extends Instruccion {
                 return new Errores("Semántico", "Comparación Mayor-Igual Inválida", this.fila, this.columna)
         }
     }
-
 }
 
 export enum Operador {
