@@ -23,7 +23,7 @@ export default class If extends Instruccion {
             return new Errores("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna)
         }
         let nueva_tabla = new TablaSimbolo(tabla)
-        nueva_tabla.setNombre("Sentencia IF")
+        nueva_tabla.setNombre("Sentencia_IF")
         if (condicion) {
             for (let i of this.instrucciones) {
                 if (i instanceof Break) return i;

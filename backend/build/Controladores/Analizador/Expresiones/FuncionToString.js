@@ -63,6 +63,12 @@ class FuncionesToString extends Instruccion_1.Instruccion {
             case Tipo_1.tipo_dato.BOOLEANO:
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                 return String(op_izquierda);
+            case Tipo_1.tipo_dato.CARACTER:
+                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
+                return String(op_izquierda);
+            case Tipo_1.tipo_dato.CADENA:
+                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
+                return String(op_izquierda);
             default:
                 return new Errores_1.default("Semántico", "Función ToString Inválida", this.fila, this.columna);
         }

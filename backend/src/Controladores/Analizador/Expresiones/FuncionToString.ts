@@ -41,6 +41,12 @@ export default class FuncionesToString extends Instruccion {
             case tipo_dato.BOOLEANO:
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
                 return String(op_izquierda)
+            case tipo_dato.CARACTER:
+                this.tipo_dato = new Tipo(tipo_dato.CADENA)
+                return String(op_izquierda)
+            case tipo_dato.CADENA:
+                this.tipo_dato = new Tipo(tipo_dato.CADENA)
+                return String(op_izquierda)
             default:
                 return new Errores("Semántico", "Función ToString Inválida", this.fila, this.columna)
         }

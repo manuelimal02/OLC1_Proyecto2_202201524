@@ -2,11 +2,13 @@
    const Tipo_Variable          = require('./Simbolo/Tipo')
    const Nativo                 = require('./Expresiones/Nativo')
    const Aritmetica             = require('./Expresiones/Aritmetica')
+   const Relacional             = require('./Expresiones/Relacional')
    const AccesoVariable         = require('./Expresiones/AccesoVariable')
    const Declaracion            = require('./Instrucciones/Declaracion')
    const Asignacion             = require('./Instrucciones/Asignacion')
    const Cout                   = require('./Instrucciones/Cout')
    const CoutEndl               = require('./Instrucciones/CoutEndl')
+   const ControlIf              = require('./Instrucciones/If')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
    const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
    const FuncionRound           = require('./Expresiones/FuncionRound')
@@ -39,17 +41,16 @@
 "toupper"                   return 'TO_UPPER'
 "round"                     return 'ROUND'
 "std::toString"             return 'TOSTRING'
+"if"                        return 'IF'
 
 "["                         return 'CORCHETE_IZQUIERDP'
 "]"                         return 'CORCHETE_DERECHO'
-"="                         return 'IGUAL'
 "("                         return 'PARENTESIS_IZQUIERDO'
 ")"                         return 'PARENTESIS_DERECHO'
 "{"                         return 'LLAVE_DERECHA'
 "}"                         return 'LLAVE_IZQUIERDA'
 ";"                         return 'PUNTOYCOMA'
 "?"                         return 'INTERROGACION'
-"!"                         return 'EXCLAMACION'
 ":"                         return 'DOSPUNTOS'
 ","                         return 'COMA'
 
@@ -60,14 +61,17 @@
 "%"                         return 'MODULO'
 
 "=="                        return 'IGUAL_IGUAL'
+"="                         return 'IGUAL'
 "!="                        return 'DISTINTO'
+"<="                        return 'MENOR_IGUAL'
+">="                        return 'MAYOR_IGUAL'
 "<"                         return 'MENOR_QUE'
 ">"                         return 'MAYOR_QUE'
-"<="                        return 'MENOR_IGUAL'
-"=>"                        return 'MAYOR_IGUAL'
 
+"!"                         return 'NOT'
 "||"                        return 'OR'
 "&&"                        return 'AND'
+
 
 [a-z][a-z0-9_]*                                                                 return 'ID'
 [0-9]+"."[0-9]+                                                                 return 'DECIMAL'
@@ -87,16 +91,17 @@
 
 /lex
 
-// precedencias
+%left 'OR'
+%left 'AND'
+%right 'EXCLAMACION'
+%left 'IGUAL_IGUAL' 'DISTINTO' 'MENOR_QUE' 'MENOR_IGUAL' 'MAYOR_QUE' 'MAYOR_IGUAL'
 %left 'MAS', 'MENOS'
-%right 'UMENOS'
-%left 'MULTICACION', 'DIVISION', 'MODULO'
+%left 'DIVISION' 'MULTICACION' 'MODULO'
 %right 'POW'
-
+%right 'UMENOS'
 
 %start inicio
 %%
-
 
 inicio : instrucciones EOF 
 {
@@ -124,7 +129,12 @@ instruccion : declaracion
             | counts
 {
     $$=$1;
-};
+}
+            | sentencia_if
+{
+    $$=$1;
+}
+;
 
 declaracion : tipo_dato identificador IGUAL expresion PUNTOYCOMA
 {
@@ -204,7 +214,7 @@ expresion : ENTERO
 {
     $$ = new AccesoVariable.default($1, @1.first_line, @1.first_column);
 } 
-            | PARENTESIS_DERECHO expresion PARENTESIS_IZQUIERDO
+            | PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO
 {
     $$ = $2;
 } 
@@ -251,7 +261,32 @@ expresion : ENTERO
             | TOSTRING PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO
 {
     $$ = new FuncionToString.default(FuncionToString.Funcion.TOSTRING, @1.first_line, @1.first_column, $3);
-};
+}
+            | expresion MENOR_QUE expresion 
+{
+    $$ = new Relacional.default(Relacional.Operador.MENORQUE, @1.first_line, @1.first_column, $1, $3); 
+}
+            | expresion MAYOR_QUE expresion
+{ 
+    $$ = new Relacional.default(Relacional.Operador.MAYORQUE, @1.first_line, @1.first_column, $1, $3); 
+}
+            | expresion MENOR_IGUAL expresion 
+{ 
+    $$ = new Relacional.default(Relacional.Operador.MENORIGUAL, @1.first_line, @1.first_column, $1, $3); 
+}
+            | expresion IGUAL_IGUAL expresion 
+{ 
+    $$ = new Relacional.default(Relacional.Operador.IGUALIGUAL, @1.first_line, @1.first_column, $1, $3); 
+}
+            | expresion DISTINTO expresion 
+{ 
+    $$ = new Relacional.default(Relacional.Operador.DISTINTO, @1.first_line, @1.first_column, $1, $3); 
+}
+            | expresion MAYOR_IGUAL expresion 
+{ 
+    $$ = new Relacional.default(Relacional.Operador.MAYORIGUAL, @1.first_line, @1.first_column, $1, $3); 
+}
+;
 
 tipo_dato : INT
 {
@@ -273,4 +308,9 @@ tipo_dato : INT
 {
     $$ = new Tipo_Variable.default(Tipo_Variable.tipo_dato.CADENA);
     
+};
+
+sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA    
+{
+    $$ = new ControlIf.default($3, $6, @1.first_line, @1.first_column );
 };
