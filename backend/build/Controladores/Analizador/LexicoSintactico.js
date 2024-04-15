@@ -515,7 +515,7 @@ parse: function parse(input) {
    const CoutEndl               = require('./Instrucciones/CoutEndl')
    const ControlIf              = require('./Instrucciones/If')
    const ControlWhile           = require('./Instrucciones/While')
-   const ControlDoWhile         = require('./Instrucciones/While')
+   const ControlDoWhile         = require('./Instrucciones/DoWhile')
    const Bloque                 = require('./Instrucciones/Bloque')
    const Break                  = require('./Instrucciones/Break')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
