@@ -10,6 +10,7 @@
    const CoutEndl               = require('./Instrucciones/CoutEndl')
    const ControlIf              = require('./Instrucciones/If')
    const ControlWhile           = require('./Instrucciones/While')
+   const ControlDoWhile         = require('./Instrucciones/While')
    const Bloque                 = require('./Instrucciones/Bloque')
    const Break                  = require('./Instrucciones/Break')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
@@ -47,6 +48,7 @@
 "if"                        return 'IF'
 "else"                      return 'ELSE'
 "while"                     return 'WHILE'
+"do"                        return 'DO'
 "break"                     return 'BREAK'
 
 "["                         return 'CORCHETE_IZQUIERDP'
@@ -150,6 +152,10 @@ instruccion : declaracion
 {
     $$=$1;
 }
+            | sentencia_dowhile
+{
+    $$=$1;
+} 
 ;
 
 declaracion : tipo_dato identificador IGUAL expresion PUNTOYCOMA
@@ -354,6 +360,11 @@ sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque
 sentencia_while : WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque
 {
     $$ = new ControlWhile.default($3,$5,@1.first_line, @1.first_column);
+};
+
+sentencia_dowhile : DO bloque WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO PUNTOYCOMA
+{
+    $$ = new ControlDoWhile.default($5,$2,@1.first_line, @1.first_column);
 };
 
 
