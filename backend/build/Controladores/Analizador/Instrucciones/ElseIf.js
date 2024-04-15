@@ -28,33 +28,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
+const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
+const Break_1 = __importDefault(require("./Break"));
 class If extends Instruccion_1.Instruccion {
-    constructor(condicion, bloque_if, bloque_else, fila, columna) {
+    constructor(condicion, instrucciones, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
         this.condicion = condicion;
-        this.bloque_if = bloque_if;
-        this.bloque_else = bloque_else;
+        this.instrucciones = instrucciones;
     }
     interpretar(arbol, tabla) {
-        var _a;
         let condicion = this.condicion.interpretar(arbol, tabla);
         if (condicion instanceof Errores_1.default)
             return condicion;
         if (this.condicion.tipo_dato.getTipo() != Tipo_1.tipo_dato.BOOLEANO) {
             return new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
         }
+        let nueva_tabla = new TablaSimbolo_1.default(tabla);
+        nueva_tabla.setNombre("Sentencia_ElseIf");
         if (condicion) {
-            const retorno = this.bloque_if.interpretar(arbol, tabla);
-            if (retorno)
-                return retorno;
+            for (let i of this.instrucciones) {
+                if (i instanceof Break_1.default)
+                    return i;
+                let resultado = i.interpretar(arbol, nueva_tabla);
+            }
         }
-        else {
-            const retorno = (_a = this.bloque_else) === null || _a === void 0 ? void 0 : _a.interpretar(arbol, tabla);
-            if (retorno)
-                return retorno;
-        }
-        return null;
     }
 }
 exports.default = If;

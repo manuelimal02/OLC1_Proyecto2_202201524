@@ -22,6 +22,8 @@ class Controller {
                 var resultado = i.interpretar(ArbolAst, Tabla_Simbolos);
             }
             console.log(Tabla_Simbolos);
+            //console.log("-----------------")
+            //console.log(ArbolAst)
             res.send({ "Respuesta": ArbolAst.getConsola() });
         }
         catch (err) {

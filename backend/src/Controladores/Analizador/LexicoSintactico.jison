@@ -9,6 +9,7 @@
    const Cout                   = require('./Instrucciones/Cout')
    const CoutEndl               = require('./Instrucciones/CoutEndl')
    const ControlIf              = require('./Instrucciones/If')
+   const Bloque                 = require('./Instrucciones/Bloque')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
    const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
    const FuncionRound           = require('./Expresiones/FuncionRound')
@@ -42,6 +43,7 @@
 "round"                     return 'ROUND'
 "std::toString"             return 'TOSTRING'
 "if"                        return 'IF'
+"else"                      return 'ELSE'
 
 "["                         return 'CORCHETE_IZQUIERDP'
 "]"                         return 'CORCHETE_DERECHO'
@@ -308,9 +310,29 @@ tipo_dato : INT
 {
     $$ = new Tipo_Variable.default(Tipo_Variable.tipo_dato.CADENA);
     
+}
+;
+
+bloque  : LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA      
+{ 
+    $$ = new Bloque.default($2, @1.first_line, @1.first_column );
+}
+        | LLAVE_DERECHA LLAVE_IZQUIERDA
+
+{
+    $$ = new Bloque.default([], @1.first_line, @1.first_column );
 };
 
-sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA    
+
+sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque
 {
-    $$ = new ControlIf.default($3, $6, @1.first_line, @1.first_column );
+    $$ = new ControlIf.default($3,$5,null,@1.first_line, @1.first_column);
+}
+        | IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque ELSE bloque
+{
+    $$ = new ControlIf.default($3,$5,$7,@1.first_line, @1.first_column);
+}
+        | IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque ELSE sentencia_if
+{
+    $$ = new ControlIf.default($3,$5,$7,@1.first_line, @1.first_column);
 };
