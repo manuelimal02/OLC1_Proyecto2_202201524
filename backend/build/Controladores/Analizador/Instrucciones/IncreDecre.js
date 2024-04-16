@@ -30,38 +30,26 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 class IncrementoDeremento extends Instruccion_1.Instruccion {
-    constructor(operando, fila, columna, op_unico) {
+    constructor(operando, fila, columna, operando_unico) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
-        this.operando_unico = op_unico;
         this.operando = operando;
+        this.operando_unico = operando_unico;
     }
     interpretar(arbol, tabla) {
         let valor_variable = tabla.getVariable(this.operando_unico.toLocaleLowerCase());
-        if (valor_variable == null) {
+        if (!valor_variable) {
             return new Errores_1.default("Semántico", "La Variable No Existe.", this.fila, this.columna);
         }
-        if (valor_variable.getTipo().getTipo() != Tipo_1.tipo_dato.ENTERO && valor_variable.getTipo().getTipo() != Tipo_1.tipo_dato.DECIMAL) {
+        let tipo = valor_variable.getTipo().getTipo();
+        if (tipo != Tipo_1.tipo_dato.ENTERO && tipo != Tipo_1.tipo_dato.DECIMAL) {
             return new Errores_1.default("Semántico", "No Se Puede Aplicar El Incremeneto y Decremento.", this.fila, this.columna);
         }
-        if (this.operando == "INC") {
-            if (valor_variable.getTipo().getTipo() == Tipo_1.tipo_dato.ENTERO) {
-                valor_variable.setValor(parseInt(valor_variable.getValor()) + 1);
-            }
-            else if (valor_variable.getTipo().getTipo() == Tipo_1.tipo_dato.DECIMAL) {
-                valor_variable.setValor(parseFloat(valor_variable.getValor()) + 1);
-            }
-        }
-        else if (this.operando == "DEC") {
-            if (valor_variable.getTipo().getTipo() == Tipo_1.tipo_dato.ENTERO) {
-                valor_variable.setValor(parseInt(valor_variable.getValor()) - 1);
-            }
-            else if (valor_variable.getTipo().getTipo() == Tipo_1.tipo_dato.DECIMAL) {
-                valor_variable.setValor(parseFloat(valor_variable.getValor()) - 1);
-            }
-        }
-        else {
+        let incremento = this.operando == "INC" ? 1 : this.operando == "DEC" ? -1 : null;
+        if (incremento === null) {
             return new Errores_1.default("Semántico", "No Se Puede Aplicar El Incremeneto y Decremento.", this.fila, this.columna);
         }
+        let valor = tipo == Tipo_1.tipo_dato.ENTERO ? parseInt(valor_variable.getValor()) : parseFloat(valor_variable.getValor());
+        valor_variable.setValor(valor + incremento);
     }
 }
 exports.default = IncrementoDeremento;

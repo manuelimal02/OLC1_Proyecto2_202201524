@@ -1,17 +1,18 @@
-import tablaSimbolo from "../Simbolo/TablaSimbolo";
+import * as fs from 'fs';
+import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
 
 export default class Arbol {
     private instrucciones: Array<Instruccion>
     private consola: string
-    private tabla_global: tablaSimbolo
+    private tabla_global: TablaSimbolo
     private errores: Array<Errores>
 
     constructor(instrucciones: Array<Instruccion>) {
         this.instrucciones = instrucciones
         this.consola = ""
-        this.tabla_global = new tablaSimbolo()
+        this.tabla_global = new TablaSimbolo()
         this.errores = new Array<Errores>
     }
 
@@ -39,15 +40,68 @@ export default class Arbol {
         this.instrucciones = instrucciones
     }
 
-    public getTablaGlobal(): tablaSimbolo {
+    public getTablaGlobal(): TablaSimbolo {
         return this.tabla_global
     }
 
-    public setTablaGlobal(tabla: tablaSimbolo) {
+    public setTablaGlobal(tabla: TablaSimbolo) {
         this.tabla_global = tabla
     }
 
     public getErrores(): any {
         return this.errores
     }
+    public agregarError(error: Errores): void {
+        this.errores.push(error);
+    }
+
+    public generarReporteErrores(): void {
+        let html = 
+        `<html>
+        <head>
+            <title>Reporte de Errores</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f0f0f0;
+                    text-align: center;
+                }
+                table {
+                    margin: 0 auto;
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    width: 80%;
+                    background-color: white;
+                }
+                th, td {
+                    border: 1px solid black;
+                    padding: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Reporte de Errores</h1>
+            <table>
+                <tr>
+                    <th>Tipo de Error</th>
+                    <th>Descripción</th>
+                    <th>Fila</th>
+                    <th>Columna</th>
+                </tr>`;
+                for (let error of this.errores) {
+                    html += `
+                    <tr>
+                        <td>${error.getTipoError()}</td>
+                        <td>${error.getDescripcion()}</td>
+                        <td>${error.getFila()}</td>
+                        <td>${error.getColumna()}</td>
+                    </tr>`;
+                }
+                html += `
+            </table>
+        </body>
+        </html>`;
+        fs.writeFileSync('reporteErrores.html', html);
+    }
+    
 }

@@ -27,16 +27,25 @@ class Declaracion extends Instruccion_1.Instruccion {
                     valor_variable = valor_variable == true ? 1 : 0;
                 }
                 else if (this.valor.tipo_dato.getTipo() != this.tipo_dato.getTipo()) {
-                    return new Errores_1.default("Semántico", "Error Al Declarar Variable.", this.fila, this.columna);
+                    let error = new Errores_1.default("Semántico", "Error Al Declarar Variable.", this.fila, this.columna);
+                    arbol.agregarError(error);
+                    arbol.setConsola("Semántico: Error Al Declarar Variable.");
+                    return error;
                 }
             }
             if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.ENTERO) {
                 if (parseInt(valor_variable) < -2147483648 || parseInt(valor_variable) > 2147483647) {
-                    return new Errores_1.default("Semántico", "Variable Fuera De Rango.", this.fila, this.columna);
+                    let error = new Errores_1.default("Semántico", "Variable Int Fuera De Rango.", this.fila, this.columna);
+                    arbol.agregarError(error);
+                    arbol.setConsola("Semántico: Variable Int Fuera De Rango.");
+                    return error;
                 }
             }
             if (!tabla.setVariable(new Simbolo_1.default(this.tipo_dato, elemento, valor_variable))) {
-                return new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: La Variable Ya Existe.");
+                return error;
             }
         });
     }

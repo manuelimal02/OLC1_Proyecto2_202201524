@@ -20,7 +20,10 @@ export default class DoWhile extends Instruccion {
         if (condicion instanceof Errores) return condicion
 
         if (this.condicion.tipo_dato.getTipo() != tipo_dato.BOOLEANO) {
-            return new Errores("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna)
+            let error = new Errores("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna)
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana")
+            return error
         }
 
         let nueva_tabla = new tablaSimbolo(tabla)

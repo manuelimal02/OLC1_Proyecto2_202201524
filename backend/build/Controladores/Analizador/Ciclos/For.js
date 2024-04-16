@@ -31,6 +31,8 @@ const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
+const Continue_1 = __importDefault(require("../Transferencia/Continue"));
+const Return_1 = __importDefault(require("../Transferencia/Return"));
 class For extends Instruccion_1.Instruccion {
     constructor(declaracion, condicion, actualizacion, bloque, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -41,7 +43,7 @@ class For extends Instruccion_1.Instruccion {
     }
     interpretar(arbol, tabla) {
         const nueva_tabla1 = new TablaSimbolo_1.default(tabla);
-        nueva_tabla1.setNombre("DoWhile");
+        nueva_tabla1.setNombre("CondicionesFor");
         const resultado_inicializacion = this.declaracion.interpretar(arbol, nueva_tabla1);
         if (resultado_inicializacion instanceof Errores_1.default)
             return resultado_inicializacion;
@@ -53,13 +55,21 @@ class For extends Instruccion_1.Instruccion {
         }
         while (this.condicion.interpretar(arbol, nueva_tabla1)) {
             const nueva_tabla2 = new TablaSimbolo_1.default(nueva_tabla1);
-            nueva_tabla2.setNombre("DoWhile");
+            nueva_tabla2.setNombre("For");
             for (let ins of this.bloque) {
                 if (ins instanceof Break_1.default)
                     return ins;
+                if (ins instanceof Continue_1.default)
+                    return ins;
+                if (ins instanceof Return_1.default)
+                    return ins;
                 let resultado = ins.interpretar(arbol, nueva_tabla2);
                 if (resultado instanceof Break_1.default)
-                    return;
+                    break;
+                if (resultado instanceof Continue_1.default)
+                    continue;
+                if (resultado instanceof Return_1.default)
+                    return resultado;
             }
             const resultado_actualizacion = this.actualizacion.interpretar(arbol, nueva_tabla1);
             if (resultado_actualizacion instanceof Errores_1.default)

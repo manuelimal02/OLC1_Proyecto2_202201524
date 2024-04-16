@@ -10,6 +10,7 @@ class router {
     }
     config() {
         this.router.post('/interpretar', index_controlador_1.indexController.interpretar);
+        this.router.post('/generarReporte', index_controlador_1.indexController.generarReporte);
     }
 }
 const indexRouter = new router();

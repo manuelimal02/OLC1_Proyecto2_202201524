@@ -14,6 +14,8 @@
    const ControlDoWhile         = require('./Ciclos/DoWhile')
    const ControlFor             = require('./Ciclos/For')
    const Break                  = require('./Transferencia/Break')
+   const Continue               = require('./Transferencia/Continue')
+   const Return                 = require('./Transferencia/Return')
    const IncreDecre             = require('./Instrucciones/IncreDecre')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
    const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
@@ -51,8 +53,10 @@
 "else"                      return 'ELSE'
 "while"                     return 'WHILE'
 "do"                        return 'DO'
-"break"                     return 'BREAK'
 "for"                       return 'FOR'
+"break"                     return 'BREAK'
+"continue"                  return 'CONTINUE'
+"return"                    return 'RETURN'
 
 "["                         return 'CORCHETE_IZQUIERDP'
 "]"                         return 'CORCHETE_DERECHO'
@@ -159,6 +163,14 @@ instruccion : declaracion PUNTOYCOMA
     $$=$1;
 } 
             | ts_break PUNTOYCOMA
+{
+    $$=$1;
+}
+            | ts_continue PUNTOYCOMA
+{
+    $$=$1;
+}
+            | ts_return PUNTOYCOMA
 {
     $$=$1;
 }
@@ -414,4 +426,14 @@ sentencia_for : FOR PARENTESIS_IZQUIERDO verificacion_for PUNTOYCOMA expresion P
 ts_break: BREAK 
 {
     $$ = new Break.default(@1.first_line, @1.first_column);
+};
+
+ts_continue: CONTINUE 
+{
+    $$ = new Continue.default(@1.first_line, @1.first_column);
+};
+
+ts_return: RETURN expresion
+{
+    $$ = new Return.default($2,@1.first_line, @1.first_column);
 };

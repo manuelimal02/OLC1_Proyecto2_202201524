@@ -34,6 +34,29 @@ function App() {
       });
   }
 
+  function generarReporte() {
+    fetch('http://localhost:4000/generarReporte', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ entrada: editorRef.current.getValue() }),
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'reporteErrores.html';
+        a.click();
+      })
+      .catch((error) => {
+        alert("ERROR")
+        console.error('Error:', error);
+      });
+  }
+
+
   const CargarArchivo = (event) => {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -63,10 +86,10 @@ function App() {
           <div class="dropdown">
           <button class="btn dropdown-btn">Reportes</button>
             <div class="dropdown-content">
-                <a href="#">Opción 1</a>
-                <a href="#">Opción 2</a>
-                <a href="#">Opción 3</a>
-            </div>
+              <a href="#" onClick={generarReporte}>Opción 1</a>
+              <a href="#">Opción 2</a>
+              <a href="#">Opción 3</a>
+              </div>
             </div>
           </div>
         </nav>

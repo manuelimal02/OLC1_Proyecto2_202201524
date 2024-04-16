@@ -10,6 +10,7 @@ class router {
 
     config(): void {
         this.router.post('/interpretar', indexController.interpretar)
+        this.router.post('/generarReporte', indexController.generarReporte) 
     }
 }
 

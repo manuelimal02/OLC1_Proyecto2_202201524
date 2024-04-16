@@ -40,10 +40,18 @@ class Asignacion extends Instruccion_1.Instruccion {
         if (nuevo_valor instanceof Errores_1.default)
             return nuevo_valor;
         let valor = tabla.getVariable(this.Identificador.toLocaleLowerCase());
-        if (valor == null)
-            return new Errores_1.default("Semántico", "Variable No Existente", this.fila, this.columna);
-        if (this.expresion.tipo_dato.getTipo() != valor.getTipo().getTipo())
-            return new Errores_1.default("Semántico", "Asignación Incorrecta", this.fila, this.columna);
+        if (valor == null) {
+            let error = new Errores_1.default("Semántico", "Variable No Existente", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Variable No Existente.");
+            return error;
+        }
+        if (this.expresion.tipo_dato.getTipo() != valor.getTipo().getTipo()) {
+            let error = new Errores_1.default("Semántico", "Asignación Incorrecta", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Asignación Incorrecta.");
+            return error;
+        }
         this.tipo_dato = valor.getTipo();
         valor.setValor(nuevo_valor);
     }

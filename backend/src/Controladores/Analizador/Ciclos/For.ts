@@ -4,6 +4,8 @@ import Arbol from "../Simbolo/Arbol";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Break from "../Transferencia/Break";
+import Continue from "../Transferencia/Continue";
+import Return from "../Transferencia/Return";
 
 export default class For extends Instruccion {
     private declaracion: Instruccion
@@ -21,7 +23,7 @@ export default class For extends Instruccion {
 
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
         const nueva_tabla1 = new TablaSimbolo(tabla)
-        nueva_tabla1.setNombre("DoWhile")
+        nueva_tabla1.setNombre("CondicionesFor")
 
         const  resultado_inicializacion = this.declaracion.interpretar(arbol, nueva_tabla1)
         if (resultado_inicializacion instanceof Errores) return resultado_inicializacion
@@ -36,14 +38,18 @@ export default class For extends Instruccion {
         while (this.condicion.interpretar(arbol, nueva_tabla1)) {
 
             const nueva_tabla2 = new TablaSimbolo(nueva_tabla1)
-            nueva_tabla2.setNombre("DoWhile")
+            nueva_tabla2.setNombre("For")
 
             for (let ins of this.bloque) {
                 if (ins instanceof Break) return ins;
-
+                if (ins instanceof Continue) return ins;
+                if (ins instanceof Return) return ins;
+            
                 let resultado = ins.interpretar(arbol, nueva_tabla2)
-
-                if (resultado instanceof Break) return;
+            
+                if (resultado instanceof Break) break;
+                if (resultado instanceof Continue) continue;
+                if (resultado instanceof Return) return resultado;
             }
             const  resultado_actualizacion = this.actualizacion.interpretar(arbol, nueva_tabla1)
             if (resultado_actualizacion instanceof Errores) return resultado_actualizacion
