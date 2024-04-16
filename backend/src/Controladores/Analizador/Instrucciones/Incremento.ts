@@ -1,37 +1,66 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
 import Arbol from "../Simbolo/Arbol";
-import Simbolo from "../Simbolo/Simbolo";
 import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 
-export default class IncrementoVariable extends Instruccion {
-    private Identificador: string
+export default class Incremento extends Instruccion {
+    private operando_unico: Instruccion | undefined
+    private operacion: Funcion
 
-    constructor(Identificador: string, fila: number, columna: number) {
-        super(new Tipo(tipo_dato.VOID), fila, columna)
-        this.Identificador = Identificador
+    constructor(operador: Funcion, fila: number, columna: number, op_izquierda: Instruccion) {
+        super(new Tipo(tipo_dato.DECIMAL), fila, columna)
+        this.operando_unico = op_izquierda
+        this.operacion = operador
+        
     }
 
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
-        let valor_variable: Simbolo = <Simbolo> tabla.getVariable(this.Identificador)
-        if (valor_variable == null) return new Errores("Semántico", "Variable No Existente", this.fila, this.columna)
-
-        let valor_incrementado: number;
-        switch (valor_variable.getTipo().getTipo()) {
-            case tipo_dato.ENTERO:
-                valor_incrementado = valor_variable.getValor() + 1
-                valor_variable.setValor(valor_incrementado)
-                this.tipo_dato = valor_variable.getTipo()
-                return valor_incrementado
-            case tipo_dato.DECIMAL:
-                valor_incrementado = valor_variable.getValor() + 1
-                valor_variable.setValor(valor_incrementado)
-                this.tipo_dato = valor_variable.getTipo()
-                return valor_incrementado
+        let valor_unico = null
+        if (this.operando_unico != null) {
+            valor_unico = this.operando_unico.interpretar(arbol, tabla)
+            if (valor_unico instanceof Errores) return valor_unico
+        } 
+        switch (this.operacion) {
+            case Funcion.INC:
+                return this.incremento(valor_unico)
+            case Funcion.DEC:
+                return this.decremento(valor_unico)
             default:
-                return new Errores("Semántico", "Tipo de dato no soportado para incremento", this.fila, this.columna)
+                return new Errores("Semántico", "Función Inválida", this.fila, this.columna)
+        }
+    }
+
+    incremento(op_izquierda: any) {
+        let op_unico = this.operando_unico?.tipo_dato.getTipo()
+        switch (op_unico) {
+            case tipo_dato.ENTERO:
+                this.tipo_dato = new Tipo(tipo_dato.ENTERO)
+                op_izquierda.setValor(parseInt(op_izquierda)+1)
+            case tipo_dato.DECIMAL:
+                    this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
+                    return parseInt(op_izquierda+1)
+            default:
+                return new Errores("Semántico", "Función Incremento Inválida", this.fila, this.columna)
+        }
+    }
+
+    decremento(op_izquierda: any) {
+        let op_unico = this.operando_unico?.tipo_dato.getTipo()
+        switch (op_unico) {
+            case tipo_dato.ENTERO:
+                this.tipo_dato = new Tipo(tipo_dato.ENTERO)
+                return parseInt(op_izquierda) - 1
+            case tipo_dato.DECIMAL:
+                    this.tipo_dato = new Tipo(tipo_dato.DECIMAL)
+                    return parseInt(op_izquierda) - 1
+            default:
+                return new Errores("Semántico", "Función Decremento Inválida", this.fila, this.columna)
         }
     }
 }
 
+export enum Funcion {
+    INC,
+    DEC
+}

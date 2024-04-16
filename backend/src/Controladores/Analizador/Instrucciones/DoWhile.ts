@@ -1,4 +1,4 @@
-import { Instruccion } from "../Abstract/Instruccion";
+/*import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
 import Bloque from "./Bloque";
 import Arbol from "../Simbolo/Arbol";
@@ -26,4 +26,4 @@ export default class DoWhile extends Instruccion {
             if (retorno) return retorno;
         } while (this.condicion.interpretar(arbol, tabla));
     }
-}
+}*/

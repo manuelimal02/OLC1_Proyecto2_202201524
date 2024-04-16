@@ -1,6 +1,5 @@
-import { Instruccion } from "../Abstract/Instruccion";
+/*import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
-import Bloque from "./Bloque";
 import Arbol from "../Simbolo/Arbol";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 import TablaSimbolo from "../Simbolo/TablaSimbolo";
@@ -34,4 +33,4 @@ export default class For extends Instruccion {
             if (resultado_actualizacion instanceof Errores) return resultado_actualizacion
         }
     }
-}
+}*/

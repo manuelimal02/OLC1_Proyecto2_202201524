@@ -1,6 +1,5 @@
-import { Instruccion } from "../Abstract/Instruccion";
+/*import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
-import Bloque from "../Instrucciones/Bloque";
 import Arbol from "../Simbolo/Arbol";
 import tablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
@@ -26,4 +25,4 @@ export default class While extends Instruccion {
             if (retorno) return retorno
         }
     }
-}
+}*/

@@ -9,12 +9,12 @@
    const Asignacion             = require('./Instrucciones/Asignacion')
    const Cout                   = require('./Instrucciones/Cout')
    const CoutEndl               = require('./Instrucciones/CoutEndl')
-   const ControlIf              = require('./Instrucciones/If')
+   const ControlIf              = require('./Control/If')
    const ControlWhile           = require('./Instrucciones/While')
    const ControlDoWhile         = require('./Instrucciones/DoWhile')
    const ControlFor             = require('./Instrucciones/For')
-   const Bloque                 = require('./Instrucciones/Bloque')
-   const Break                  = require('./Instrucciones/Break')
+   const Break                  = require('./Transferencia/Break')
+   const Incremento             = require('./Instrucciones/Incremento')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
    const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
    const FuncionRound           = require('./Expresiones/FuncionRound')
@@ -64,7 +64,7 @@
 "?"                         return 'INTERROGACION'
 ":"                         return 'DOSPUNTOS'
 ","                         return 'COMA'
-
+"++"                        return 'MAS_MAS'
 "+"                         return 'MAS'
 "-"                         return 'MENOS'
 "*"                         return 'MULTICACION'
@@ -161,6 +161,10 @@ instruccion : declaracion PUNTOYCOMA
 {
     $$=$1;
 }
+            | incremento PUNTOYCOMA
+{
+    $$=$1;
+}
 ;
 
 declaracion : tipo_dato identificador IGUAL expresion 
@@ -187,9 +191,9 @@ asignacion : ID IGUAL expresion
     $$ = new Asignacion.default($1, $3, @1.first_line, @1.first_column);
 };
 
-incremeneto : expresion MAS MAS 
+incremento : expresion MAS_MAS 
 {
-    $$ = new Asignacion.default($1, @1.first_line, @1.first_column);
+    $$ = new Incremento.default(Incremento.Funcion. DEC, @1.first_line, @1.first_column, $1);
 };
 
 counts : COUT MENOR_QUE MENOR_QUE expresion 
@@ -355,52 +359,26 @@ tipo_dato : INT
 }
 ;
 
-bloque  : LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA      
+
+sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA
+{
+    $$ = new ControlIf.default($3,$6,null,@1.first_line, @1.first_column);
+}
+        | IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA sentencia_else
+{
+    $$ = new ControlIf.default($3,$6,$8,@1.first_line, @1.first_column);
+}     
+;
+
+sentencia_else :   ELSE sentencia_if
 { 
-    $$ = new Bloque.default($2, @1.first_line, @1.first_column );
+    let instrucciones_else = [];
+    instrucciones_else.push($2);
+    $$ = instrucciones_else;
 }
-        | LLAVE_DERECHA LLAVE_IZQUIERDA
-
+        | ELSE LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA
 {
-    $$ = new Bloque.default([], @1.first_line, @1.first_column );
-};
-
-
-sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque
-{
-    $$ = new ControlIf.default($3,$5,null,@1.first_line, @1.first_column);
-}
-        | IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque ELSE bloque
-{
-    $$ = new ControlIf.default($3,$5,$7,@1.first_line, @1.first_column);
-}
-        | IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque ELSE sentencia_if
-{
-    $$ = new ControlIf.default($3,$5,$7,@1.first_line, @1.first_column);
-};
-
-sentencia_while : WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO bloque
-{
-    $$ = new ControlWhile.default($3,$5,@1.first_line, @1.first_column);
-};
-
-sentencia_dowhile : DO bloque WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO PUNTOYCOMA
-{
-    $$ = new ControlDoWhile.default($5,$2,@1.first_line, @1.first_column);
-};
-
-verificacion_for : declaracion 
-{
-    $$=$1;
-}
-        | asignacion
-{
-    $$=$1;
-};
-
-sentencia_for : FOR PARENTESIS_IZQUIERDO verificacion_for PUNTOYCOMA expresion PUNTOYCOMA asignacion PARENTESIS_DERECHO bloque
-{
-    $$ = new ControlFor.default($3,$5,$7,$9,@1.first_line, @1.first_column);
+    $$ = $3;
 };
 
 

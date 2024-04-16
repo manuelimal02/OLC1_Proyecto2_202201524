@@ -27,25 +27,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
+const Errores_1 = __importDefault(require("../Errores/Errores"));
 const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
-class Bloque extends Instruccion_1.Instruccion {
-    constructor(instrucciones, fila, columna) {
+class Else extends Instruccion_1.Instruccion {
+    constructor(condicion, bloque_if, bloque_else, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
-        this.instrucciones = instrucciones;
+        this.condicion = condicion;
+        this.bloque_1 = bloque_if;
+        this.bloque_2 = bloque_else;
     }
     interpretar(arbol, tabla) {
-        let nueva_tabla = new TablaSimbolo_1.default(tabla);
-        nueva_tabla.setNombre("Tabla_Nueva");
-        for (let i of this.instrucciones) {
-            if (i instanceof Break_1.default)
-                i;
-            let resultado = i.interpretar(arbol, nueva_tabla);
-            if (resultado instanceof Break_1.default)
-                resultado;
+        let condicion = this.condicion.interpretar(arbol, tabla);
+        if (condicion instanceof Errores_1.default)
+            return condicion;
+        if (this.condicion.tipo_dato.getTipo() != Tipo_1.tipo_dato.BOOLEANO) {
+            return new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
         }
-        return null;
+        let nueva_tabla = new TablaSimbolo_1.default(tabla);
+        nueva_tabla.setNombre("IF");
+        if (condicion) {
+            for (let ins of this.bloque_1) {
+                if (ins instanceof Break_1.default)
+                    return ins;
+                let resultado = ins.interpretar(arbol, nueva_tabla);
+                if (resultado instanceof Break_1.default)
+                    return;
+            }
+        }
+        else {
+            if (this.bloque_2) {
+                for (let ins of this.bloque_2) {
+                    if (ins instanceof Break_1.default)
+                        return ins;
+                    let resultado = ins.interpretar(arbol, nueva_tabla);
+                    if (resultado instanceof Break_1.default)
+                        return;
+                }
+            }
+        }
     }
 }
-exports.default = Bloque;
+exports.default = Else;
