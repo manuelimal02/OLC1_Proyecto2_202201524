@@ -10,7 +10,7 @@
    const Cout                   = require('./Instrucciones/Cout')
    const CoutEndl               = require('./Instrucciones/CoutEndl')
    const ControlIf              = require('./Control/If')
-   const ControlWhile           = require('./Instrucciones/While')
+   const ControlWhile           = require('./Ciclos/While')
    const ControlDoWhile         = require('./Instrucciones/DoWhile')
    const ControlFor             = require('./Instrucciones/For')
    const Break                  = require('./Transferencia/Break')
@@ -379,6 +379,11 @@ sentencia_else :   ELSE sentencia_if
         | ELSE LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA
 {
     $$ = $3;
+};
+
+sentencia_while : WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA
+{
+    $$ = new ControlWhile.default($3,$6,@1.first_line, @1.first_column);
 };
 
 
