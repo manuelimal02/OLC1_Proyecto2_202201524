@@ -23,13 +23,16 @@ export default class FuncionesToString extends Instruccion {
         } 
         switch (this.operacion) {
             case Funcion.TOSTRING:
-                return this.tostring(valor_unico)
+                return this.tostring(valor_unico, arbol)
             default:
-                return new Errores("Semántico", "Función ToString Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Función ToString Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Función ToString Inválida.")
+                return error
         }
     }
 
-    tostring(op_izquierda: any) {
+    tostring(op_izquierda: any, arbol:Arbol) {
         let op_unico = this.operando_unico?.tipo_dato.getTipo()
         switch (op_unico) {
             case tipo_dato.ENTERO:
@@ -48,7 +51,10 @@ export default class FuncionesToString extends Instruccion {
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
                 return String(op_izquierda)
             default:
-                return new Errores("Semántico", "Función ToString Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Función ToString Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Función ToString Inválida.")
+                return error
         }
     }
 }

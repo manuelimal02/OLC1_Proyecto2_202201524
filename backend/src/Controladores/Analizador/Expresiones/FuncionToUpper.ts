@@ -23,20 +23,26 @@ export default class FuncionesToUpper extends Instruccion {
         } 
         switch (this.operacion) {
             case Funcion.TOUPPER:
-                return this.toupper(valor_unico)
+                return this.toupper(valor_unico, arbol)
             default:
-                return new Errores("Semantico", "Función ToUpper Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Función ToUpper Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Función ToUpper Inválida.")
+                return error
         }
     }
 
-    toupper(op_izquierda: any) {
+    toupper(op_izquierda: any, arbol:Arbol) {
         let op_unico = this.operando_unico?.tipo_dato.getTipo()
         switch (op_unico) {
             case tipo_dato.CADENA:
                 this.tipo_dato = new Tipo(tipo_dato.CADENA)
                 return String(op_izquierda.toUpperCase())
             default:
-                return new Errores("Semantico", "Función ToUpper Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Función ToUpper Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Función ToUpper Inválida.")
+                return error
         }
     }
 }

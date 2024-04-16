@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import Arbol from './Analizador/Simbolo/Arbol';
 import TablaSimbolo from './Analizador/Simbolo/TablaSimbolo';
 import * as path from 'path';
-import * as fs from 'fs';
 
 class Controller {
     public prueba(req: Request, res: Response) {

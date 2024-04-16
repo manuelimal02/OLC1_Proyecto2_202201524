@@ -23,13 +23,16 @@ export default class FuncionesRound extends Instruccion {
         } 
         switch (this.operacion) {
             case Funcion.ROUND:
-                return this.round(valor_unico)
+                return this.round(valor_unico, arbol)
             default:
-                return new Errores("Semántico", "Función Round Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Función Round Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Función Round Inválida.")
+                return error
         }
     }
 
-    round(op_izquierda: any) {
+    round(op_izquierda: any, arbol: Arbol) {
         let op_unico = this.operando_unico?.tipo_dato.getTipo()
         switch (op_unico) {
             case tipo_dato.DECIMAL:
@@ -37,7 +40,10 @@ export default class FuncionesRound extends Instruccion {
                 let numero = parseFloat(op_izquierda)
                 return Math.round(numero)
             default:
-                return new Errores("Semántico", "Función Round Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Función Round Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Función Round Inválida.")
+                return error
         }
     }
 }

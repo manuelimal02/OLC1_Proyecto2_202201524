@@ -51,10 +51,11 @@ export default class Arbol {
     public getErrores(): any {
         return this.errores
     }
+
     public agregarError(error: Errores): void {
         this.errores.push(error);
     }
-
+    
     public generarReporteErrores(): void {
         let html = 
         `<html>

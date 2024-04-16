@@ -34,17 +34,20 @@ export default class OperadorLogico extends Instruccion {
 
         switch (this.operacion) {
             case Operador.OR:
-                return this.logico_or(valor_izquierda, valor_derecha);
+                return this.logico_or(valor_izquierda, valor_derecha, arbol);
             case Operador.AND:
-                return this.logico_and(valor_izquierda, valor_derecha);
+                return this.logico_and(valor_izquierda, valor_derecha, arbol);
             case Operador.NOT:
-                return this.logico_not(valor_unico);
+                return this.logico_not(valor_unico, arbol);
             default:
-                return new Errores("Semántico", "Operador Logico Inválido", this.fila, this.columna);
+                let error = new Errores("Semántico", "Operador Logico Inválido", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operador Logico Inválido.")
+                return error
         }
     }
 
-    logico_or(valor_izquierda: any, valor_derecha: any) {
+    logico_or(valor_izquierda: any, valor_derecha: any, arbol:Arbol) {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         switch (tipo1) {
@@ -54,14 +57,20 @@ export default class OperadorLogico extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return valor_izquierda || valor_derecha
                     default:
-                        return new Errores("Semántico", "Operación Or Inválida", this.fila, this.columna)
+                        let error = new Errores("Semántico", "Operación Or Inválida", this.fila, this.columna)
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Or Inválida.")
+                        return error
                 }
             default:
-                return new Errores("Semántico", "Operación Or Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Operación Or Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Or Inválida.")
+                return error
         }
     }
 
-    logico_and(valor_izquierda: any, valor_derecha: any) {
+    logico_and(valor_izquierda: any, valor_derecha: any, arbol:Arbol) {
         let tipo1 = this.operando_izquierda?.tipo_dato.getTipo()
         let tipo2 = this.operando_derecha?.tipo_dato.getTipo()
         switch (tipo1) {
@@ -71,21 +80,30 @@ export default class OperadorLogico extends Instruccion {
                         this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                         return valor_izquierda && valor_derecha
                     default:
-                        return new Errores("Semántico", "Operación And Inválida", this.fila, this.columna)
+                        let error = new Errores("Semántico", "Operación And Inválida", this.fila, this.columna)
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación And Inválida.")
+                        return error
                 }
             default:
-                return new Errores("Semántico", "Operación And Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Operación And Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación And Inválida.")
+                return error
         }
     }
 
-    logico_not(valor_unico: any) {
+    logico_not(valor_unico: any, arbol:Arbol) {
         let op_unico = this.operando_unico?.tipo_dato.getTipo()
         switch (op_unico) {
             case tipo_dato.BOOLEANO:
                 this.tipo_dato = new Tipo(tipo_dato.BOOLEANO)
                 return !valor_unico
             default:
-                return new Errores("Semántico", "Operación Not Inválida", this.fila, this.columna)
+                let error = new Errores("Semántico", "Operación Not Inválida", this.fila, this.columna)
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Not Inválida.")
+                return error
         }
     }
 }
