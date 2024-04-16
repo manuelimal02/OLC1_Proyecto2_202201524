@@ -12,7 +12,7 @@
    const ControlIf              = require('./Control/If')
    const ControlWhile           = require('./Ciclos/While')
    const ControlDoWhile         = require('./Ciclos/DoWhile')
-   const ControlFor             = require('./Instrucciones/For')
+   const ControlFor             = require('./Ciclos/For')
    const Break                  = require('./Transferencia/Break')
    const Incremento             = require('./Instrucciones/Incremento')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
@@ -391,6 +391,19 @@ sentencia_dowhile : DO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA WHILE PARENTE
     $$ = new ControlDoWhile.default($7,$3,@1.first_line, @1.first_column);
 };
 
+verificacion_for : declaracion 
+{
+    $$=$1;
+}
+        | asignacion
+{
+    $$=$1;
+};
+
+sentencia_for : FOR PARENTESIS_IZQUIERDO verificacion_for PUNTOYCOMA expresion PUNTOYCOMA asignacion PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA
+{
+    $$ = new ControlFor.default($3,$5,$7,$10,@1.first_line, @1.first_column);
+};
 
 
 ts_break: BREAK 
