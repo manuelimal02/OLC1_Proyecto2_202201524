@@ -11,7 +11,7 @@
    const CoutEndl               = require('./Instrucciones/CoutEndl')
    const ControlIf              = require('./Control/If')
    const ControlWhile           = require('./Ciclos/While')
-   const ControlDoWhile         = require('./Instrucciones/DoWhile')
+   const ControlDoWhile         = require('./Ciclos/DoWhile')
    const ControlFor             = require('./Instrucciones/For')
    const Break                  = require('./Transferencia/Break')
    const Incremento             = require('./Instrucciones/Incremento')
@@ -385,6 +385,12 @@ sentencia_while : WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_
 {
     $$ = new ControlWhile.default($3,$6,@1.first_line, @1.first_column);
 };
+
+sentencia_dowhile : DO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA WHILE PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO PUNTOYCOMA
+{
+    $$ = new ControlDoWhile.default($7,$3,@1.first_line, @1.first_column);
+};
+
 
 
 ts_break: BREAK 
