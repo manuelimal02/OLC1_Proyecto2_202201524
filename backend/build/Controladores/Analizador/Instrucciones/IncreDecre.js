@@ -26,45 +26,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Funcion = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 class IncrementoDeremento extends Instruccion_1.Instruccion {
-    constructor(operador, fila, columna, op_izquierda) {
+    constructor(operando, fila, columna, op_unico) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
-        this.operando_unico = op_izquierda;
-        this.operacion = operador;
+        this.operando_unico = op_unico;
+        this.operando = operando;
     }
     interpretar(arbol, tabla) {
-        let valor_unico = tabla.getVariable(this.operando_unico.toLocaleLowerCase());
-        if (valor_unico == null) {
+        let valor_variable = tabla.getVariable(this.operando_unico.toLocaleLowerCase());
+        if (valor_variable == null) {
             return new Errores_1.default("Semántico", "La Variable No Existe.", this.fila, this.columna);
         }
-        switch (this.operacion) {
-            case Funcion.INC:
-                return this.incremento(valor_unico);
-            default:
-                return new Errores_1.default("Semántico", "Función Inválida", this.fila, this.columna);
+        if (valor_variable.getTipo().getTipo() != Tipo_1.tipo_dato.ENTERO && valor_variable.getTipo().getTipo() != Tipo_1.tipo_dato.DECIMAL) {
+            return new Errores_1.default("Semántico", "No Se Puede Aplicar El Incremeneto y Decremento.", this.fila, this.columna);
         }
-    }
-    incremento(op_izquierda) {
-        let op_unico = op_izquierda.getTipo().getTipo();
-        switch (op_unico) {
-            case Tipo_1.tipo_dato.ENTERO:
-                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
-                op_izquierda.setValor(parseInt(op_izquierda) + 1);
-            case Tipo_1.tipo_dato.DECIMAL:
-                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
-                return parseFloat(op_izquierda + 1);
-            default:
-                return new Errores_1.default("Semántico", "Función Incremento Inválida", this.fila, this.columna);
+        if (this.operando == "INC") {
+            if (valor_variable.getTipo().getTipo() == Tipo_1.tipo_dato.ENTERO) {
+                valor_variable.setValor(parseInt(valor_variable.getValor()) + 1);
+            }
+            else if (valor_variable.getTipo().getTipo() == Tipo_1.tipo_dato.DECIMAL) {
+                valor_variable.setValor(parseFloat(valor_variable.getValor()) + 1);
+            }
+        }
+        else if (this.operando == "DEC") {
+            if (valor_variable.getTipo().getTipo() == Tipo_1.tipo_dato.ENTERO) {
+                valor_variable.setValor(parseInt(valor_variable.getValor()) - 1);
+            }
+            else if (valor_variable.getTipo().getTipo() == Tipo_1.tipo_dato.DECIMAL) {
+                valor_variable.setValor(parseFloat(valor_variable.getValor()) - 1);
+            }
+        }
+        else {
+            return new Errores_1.default("Semántico", "No Se Puede Aplicar El Incremeneto y Decremento.", this.fila, this.columna);
         }
     }
 }
 exports.default = IncrementoDeremento;
-var Funcion;
-(function (Funcion) {
-    Funcion[Funcion["INC"] = 0] = "INC";
-    Funcion[Funcion["DEC"] = 1] = "DEC";
-})(Funcion || (exports.Funcion = Funcion = {}));

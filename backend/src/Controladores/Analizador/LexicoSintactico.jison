@@ -14,7 +14,7 @@
    const ControlDoWhile         = require('./Ciclos/DoWhile')
    const ControlFor             = require('./Ciclos/For')
    const Break                  = require('./Transferencia/Break')
-   const Incremento             = require('./Instrucciones/Incremento')
+   const IncreDecre             = require('./Instrucciones/IncreDecre')
    const FuncionToLower         = require('./Expresiones/FuncionToLower')
    const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
    const FuncionRound           = require('./Expresiones/FuncionRound')
@@ -66,6 +66,7 @@
 ","                         return 'COMA'
 "++"                        return 'MAS_MAS'
 "+"                         return 'MAS'
+"--"                        return 'MENOS_MENOS'
 "-"                         return 'MENOS'
 "*"                         return 'MULTICACION'
 "/"                         return 'DIVISION'
@@ -161,10 +162,6 @@ instruccion : declaracion PUNTOYCOMA
 {
     $$=$1;
 }
-            | incremento PUNTOYCOMA
-{
-    $$=$1;
-}
 ;
 
 declaracion : tipo_dato identificador IGUAL expresion 
@@ -189,11 +186,19 @@ identificador : identificador COMA ID
 asignacion : ID IGUAL expresion 
 {
     $$ = new Asignacion.default($1, $3, @1.first_line, @1.first_column);
+}
+        | incremento
+{
+    $$=$1
 };
 
-incremento : expresion MAS_MAS 
+incremento : ID MAS_MAS 
 {
-    $$ = new Incremento.default(Incremento.Funcion. DEC, @1.first_line, @1.first_column, $1);
+    $$ = new IncreDecre.default("INC", @1.first_line, @1.first_column, $1);
+}
+        | ID MENOS_MENOS  
+{
+    $$ = new IncreDecre.default("DEC", @1.first_line, @1.first_column, $1);
 };
 
 counts : COUT MENOR_QUE MENOR_QUE expresion 
@@ -370,11 +375,11 @@ sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECH
 }     
 ;
 
-sentencia_else :   ELSE sentencia_if
+sentencia_else : ELSE sentencia_if
 { 
-    let instrucciones_else = [];
-    instrucciones_else.push($2);
-    $$ = instrucciones_else;
+    let instrucciones = [];
+    instrucciones.push($2);
+    $$ = instrucciones;
 }
         | ELSE LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA
 {
