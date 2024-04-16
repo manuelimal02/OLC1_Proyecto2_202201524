@@ -31,7 +31,7 @@ class Continue extends Instruccion_1.Instruccion {
         this.expresion = expresion;
     }
     interpretar(arbol, tabla) {
-        return this.expresion;
+        return;
     }
 }
 exports.default = Continue;

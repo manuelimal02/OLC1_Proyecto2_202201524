@@ -38,15 +38,24 @@ class IncrementoDeremento extends Instruccion_1.Instruccion {
     interpretar(arbol, tabla) {
         let valor_variable = tabla.getVariable(this.operando_unico.toLocaleLowerCase());
         if (!valor_variable) {
-            return new Errores_1.default("Semántico", "La Variable No Existe.", this.fila, this.columna);
+            let error = new Errores_1.default("Semántico", "La Variable No Existe.", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: La Variable No Existe.");
+            return error;
         }
         let tipo = valor_variable.getTipo().getTipo();
         if (tipo != Tipo_1.tipo_dato.ENTERO && tipo != Tipo_1.tipo_dato.DECIMAL) {
-            return new Errores_1.default("Semántico", "No Se Puede Aplicar El Incremeneto y Decremento.", this.fila, this.columna);
+            let error = new Errores_1.default("Semántico", "No Se Puede Aplicar El Incremeneto o Decremento.", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: No Se Puede Aplicar El Incremeneto o Decremento.");
+            return error;
         }
         let incremento = this.operando == "INC" ? 1 : this.operando == "DEC" ? -1 : null;
         if (incremento === null) {
-            return new Errores_1.default("Semántico", "No Se Puede Aplicar El Incremeneto y Decremento.", this.fila, this.columna);
+            let error = new Errores_1.default("Semántico", "Error En Incremento o Decremento.", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Error En Incremento o Decremento.");
+            return error;
         }
         let valor = tipo == Tipo_1.tipo_dato.ENTERO ? parseInt(valor_variable.getValor()) : parseFloat(valor_variable.getValor());
         valor_variable.setValor(valor + incremento);

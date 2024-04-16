@@ -1,26 +1,26 @@
 %{
-   const Tipo_Variable          = require('./Simbolo/Tipo')
-   const Nativo                 = require('./Expresiones/Nativo')
-   const Aritmetica             = require('./Expresiones/Aritmetica')
-   const Relacional             = require('./Expresiones/Relacional')
-   const Logico                 = require('./Expresiones/Logico')
-   const AccesoVariable         = require('./Expresiones/AccesoVariable')
-   const Declaracion            = require('./Instrucciones/Declaracion')
-   const Asignacion             = require('./Instrucciones/Asignacion')
-   const Cout                   = require('./Instrucciones/Cout')
-   const CoutEndl               = require('./Instrucciones/CoutEndl')
-   const ControlIf              = require('./Control/If')
-   const ControlWhile           = require('./Ciclos/While')
-   const ControlDoWhile         = require('./Ciclos/DoWhile')
-   const ControlFor             = require('./Ciclos/For')
-   const Break                  = require('./Transferencia/Break')
-   const Continue               = require('./Transferencia/Continue')
-   const Return                 = require('./Transferencia/Return')
-   const IncreDecre             = require('./Instrucciones/IncreDecre')
-   const FuncionToLower         = require('./Expresiones/FuncionToLower')
-   const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
-   const FuncionRound           = require('./Expresiones/FuncionRound')
-   const FuncionToString        = require('./Expresiones/FuncionToString')
+    const Tipo_Variable          = require('./Simbolo/Tipo')
+    const Nativo                 = require('./Expresiones/Nativo')
+    const Aritmetica             = require('./Expresiones/Aritmetica')
+    const Relacional             = require('./Expresiones/Relacional')
+    const Logico                 = require('./Expresiones/Logico')
+    const AccesoVariable         = require('./Expresiones/AccesoVariable')
+    const Declaracion            = require('./Instrucciones/Declaracion')
+    const Asignacion             = require('./Instrucciones/Asignacion')
+    const Cout                   = require('./Instrucciones/Cout')
+    const CoutEndl               = require('./Instrucciones/CoutEndl')
+    const ControlIf              = require('./Control/If')
+    const ControlWhile           = require('./Ciclos/While')
+    const ControlDoWhile         = require('./Ciclos/DoWhile')
+    const ControlFor             = require('./Ciclos/For')
+    const Break                  = require('./Transferencia/Break')
+    const Continue               = require('./Transferencia/Continue')
+    const Return                 = require('./Transferencia/Return')
+    const IncreDecre             = require('./Instrucciones/IncreDecre')
+    const FuncionToLower         = require('./Expresiones/FuncionToLower')
+    const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
+    const FuncionRound           = require('./Expresiones/FuncionRound')
+    const FuncionToString        = require('./Expresiones/FuncionToString')
 %}
 
 
@@ -129,7 +129,7 @@ instrucciones : instrucciones instruccion
     $1.push($2); 
     $$=$1;
 }
-              | instruccion
+            | instruccion
 {
     $$=[$1];
 };

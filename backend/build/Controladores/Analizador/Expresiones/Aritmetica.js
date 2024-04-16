@@ -59,29 +59,31 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         }
         switch (this.operacion) {
             case Operadores.SUMA:
-                return this.suma(valor_izquierda, valor_derecha);
+                return this.suma(valor_izquierda, valor_derecha, arbol);
             case Operadores.RESTA:
-                return this.resta(valor_izquierda, valor_derecha);
+                return this.resta(valor_izquierda, valor_derecha, arbol);
             case Operadores.MULTICACION:
-                return this.multiplicacion(valor_izquierda, valor_derecha);
+                return this.multiplicacion(valor_izquierda, valor_derecha, arbol);
             case Operadores.DIVISION:
-                return this.division(valor_izquierda, valor_derecha);
+                return this.division(valor_izquierda, valor_derecha, arbol);
             case Operadores.MODULO:
-                return this.modulo(valor_izquierda, valor_derecha);
+                return this.modulo(valor_izquierda, valor_derecha, arbol);
             case Operadores.POTENCIA:
-                return this.potencia(valor_izquierda, valor_derecha);
+                return this.potencia(valor_izquierda, valor_derecha, arbol);
             case Operadores.NEGACION:
-                return this.negacion(valor_unico);
+                return this.negacion(valor_unico, arbol);
             default:
-                return new Errores_1.default("Semántico", "Operador Aritmético Inválido", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operador Aritmético Inválido", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operador Aritmético Inválido");
+                return error;
         }
     }
-    suma(op_izquierda, op_derecha) {
+    suma(op_izquierda, op_derecha, arbol) {
         var _a, _b;
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         switch (tipo1) {
-            //ENTERO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.ENTERO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -105,9 +107,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                         return String(op_izquierda + op_derecha);
                     default:
-                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        return error;
                 }
-            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -131,9 +135,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                         return String(op_izquierda + op_derecha);
                     default:
-                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        return error;
                 }
-            //BOOLEANO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.BOOLEANO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -161,9 +167,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             return String("false" + op_derecha);
                         }
                     default:
-                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        return error;
                 }
-            //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -179,9 +187,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                         return String(op_izquierda + op_derecha);
                     default:
-                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        return error;
                 }
-            //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CADENA:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -205,19 +215,24 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
                         return String(op_izquierda + op_derecha);
                     default:
-                        return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        return error;
                 }
             default:
-                return new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Suma Inválida");
+                return error;
         }
     }
-    resta(op_izquierda, op_derecha) {
+    resta(op_izquierda, op_derecha, arbol) {
         var _a, _b;
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         switch (tipo1) {
             case Tipo_1.tipo_dato.ENTERO:
-                //ENTERO CON TODOS LOS DEMÁS
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
@@ -237,9 +252,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
                         return parseInt(op_izquierda) - parseInt(op_derecha.charCodeAt(0));
                     default:
-                        return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Resta Inválida");
+                        return error;
                 }
-            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -260,9 +277,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return parseFloat(op_izquierda) - parseFloat(op_derecha.charCodeAt(0));
                     default:
-                        return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Resta Inválida");
+                        return error;
                 }
-            //BOOLEANO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.BOOLEANO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -282,9 +301,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             return 0 - parseFloat(op_derecha);
                         }
                     default:
-                        return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Resta Inválida");
+                        return error;
                 }
-            //CARACTER CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -294,18 +315,23 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return parseFloat(op_izquierda.charCodeAt(0)) - parseFloat(op_derecha);
                     default:
-                        return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Resta Inválida");
+                        return error;
                 }
             default:
-                return new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Resta Inválida");
+                return error;
         }
     }
-    multiplicacion(op_izquierda, op_derecha) {
+    multiplicacion(op_izquierda, op_derecha, arbol) {
         var _a, _b;
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         switch (tipo1) {
-            //ENTERO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.ENTERO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -318,9 +344,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
                         return parseInt(op_izquierda) * parseInt(op_derecha.charCodeAt(0));
                     default:
-                        return new Errores_1.default("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Multiplicación Inválida.", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.");
+                        return error;
                 }
-            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -333,9 +361,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return parseFloat(op_izquierda) * parseFloat(op_derecha.charCodeAt(0));
                     default:
-                        return new Errores_1.default("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Multiplicación Inválida.", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.");
+                        return error;
                 }
-            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.CARACTER:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -345,22 +375,30 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return parseFloat(op_izquierda.charCodeAt(0)) * parseFloat(op_derecha);
                     default:
-                        return new Errores_1.default("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Multiplicación Inválida.", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.");
+                        return error;
                 }
             default:
-                return new Errores_1.default("Semántico", "Operación Multiplicación Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operación Multiplicación Inválida.", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Multiplicación Inválida.");
+                return error;
         }
     }
-    division(valor_izquierda, valor_derecha) {
+    division(valor_izquierda, valor_derecha, arbol) {
         var _a, _b;
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         if (parseFloat(valor_derecha) === 0) {
-            return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
+            let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Operación División Invalida.");
+            return error;
         }
         else {
             switch (tipo1) {
-                //ENTERO CON TODOS LOS DEMÁS
                 case Tipo_1.tipo_dato.ENTERO:
                     switch (tipo2) {
                         case Tipo_1.tipo_dato.ENTERO:
@@ -373,9 +411,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha.charCodeAt(0));
                         default:
-                            return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
+                            let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
+                            arbol.agregarError(error);
+                            arbol.setConsola("Semántico: Operación División Invalida.");
+                            return error;
                     }
-                //DECIMAL CON TODOS LOS DEMÁS
                 case Tipo_1.tipo_dato.DECIMAL:
                     switch (tipo2) {
                         case Tipo_1.tipo_dato.ENTERO:
@@ -388,9 +428,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) / parseFloat(valor_derecha.charCodeAt(0));
                         default:
-                            return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
+                            let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
+                            arbol.agregarError(error);
+                            arbol.setConsola("Semántico: Operación División Invalida.");
+                            return error;
                     }
-                //CARACTER CON TODOS LOS DEMÁS
                 case Tipo_1.tipo_dato.CARACTER:
                     switch (tipo2) {
                         case Tipo_1.tipo_dato.ENTERO:
@@ -400,19 +442,28 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda.charCodeAt(0)) / parseFloat(valor_derecha);
                         default:
-                            return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
+                            let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
+                            arbol.agregarError(error);
+                            arbol.setConsola("Semántico: Operación División Invalida.");
+                            return error;
                     }
                 default:
-                    return new Errores_1.default("Semántico", "Operación División Invalida", this.fila, this.columna);
+                    let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
+                    arbol.agregarError(error);
+                    arbol.setConsola("Semántico: Operación División Invalida.");
+                    return error;
             }
         }
     }
-    modulo(valor_izquierda, valor_derecha) {
+    modulo(valor_izquierda, valor_derecha, arbol) {
         var _a, _b;
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         if (parseFloat(valor_derecha) === 0) {
-            return new Errores_1.default("Semántico", "Operación Modulo Inválida", this.fila, this.columna);
+            let error = new Errores_1.default("Semántico", "Operación Modulo Inválida.", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Operación Modulo Inválida.");
+            return error;
         }
         else {
             switch (tipo1) {
@@ -425,7 +476,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) % parseFloat(valor_derecha);
                         default:
-                            return new Errores_1.default("Semántico", "Operación Modulo Inválida", this.fila, this.columna);
+                            let error = new Errores_1.default("Semántico", "Operación Modulo Inválida.", this.fila, this.columna);
+                            arbol.agregarError(error);
+                            arbol.setConsola("Semántico: Operación Modulo Inválida.");
+                            return error;
                     }
                 case Tipo_1.tipo_dato.DECIMAL:
                     switch (tipo2) {
@@ -436,19 +490,24 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                             this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                             return parseFloat(valor_izquierda) % parseFloat(valor_derecha);
                         default:
-                            return new Errores_1.default("Semántico", "Operación Modulo Inválida", this.fila, this.columna);
+                            let error = new Errores_1.default("Semántico", "Operación Modulo Inválida.", this.fila, this.columna);
+                            arbol.agregarError(error);
+                            arbol.setConsola("Semántico: Operación Modulo Inválida.");
+                            return error;
                     }
                 default:
-                    return new Errores_1.default("Semántico", "Operación Modulo Inválida", this.fila, this.columna);
+                    let error = new Errores_1.default("Semántico", "Operación Modulo Inválida.", this.fila, this.columna);
+                    arbol.agregarError(error);
+                    arbol.setConsola("Semántico: Operación Modulo Inválida.");
+                    return error;
             }
         }
     }
-    potencia(valor_izquierda, valor_derecha) {
+    potencia(valor_izquierda, valor_derecha, arbol) {
         var _a, _b;
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
         switch (tipo1) {
-            //ENTERO CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.ENTERO:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -458,9 +517,11 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return Math.pow(parseFloat(valor_izquierda), parseFloat(valor_derecha));
                     default:
-                        return new Errores_1.default("Semántico", "Operación Potencia Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Potencia Inválida.", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Potencia Inválida.");
+                        return error;
                 }
-            //DECIMAL CON TODOS LOS DEMÁS
             case Tipo_1.tipo_dato.DECIMAL:
                 switch (tipo2) {
                     case Tipo_1.tipo_dato.ENTERO:
@@ -470,13 +531,19 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                         return Math.pow(parseFloat(valor_izquierda), parseFloat(valor_derecha));
                     default:
-                        return new Errores_1.default("Semántico", "Operación Potencia Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Potencia Inválida.", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Potencia Inválida.");
+                        return error;
                 }
             default:
-                return new Errores_1.default("Semántico", "Operación Potencia Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operación Potencia Inválida.", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Potencia Inválida.");
+                return error;
         }
     }
-    negacion(op_izquierda) {
+    negacion(op_izquierda, arbol) {
         var _a;
         let op_unico = (_a = this.operando_unico) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         switch (op_unico) {
@@ -487,7 +554,10 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.DECIMAL);
                 return parseFloat(op_izquierda) * -1;
             default:
-                return new Errores_1.default("Semántico", "Operación Negación Unaria Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operación Negación Unaria Inválida.", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Negación Unaria Inválida.");
+                return error;
         }
     }
 }

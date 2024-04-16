@@ -31,6 +31,7 @@ const Errores_1 = __importDefault(require("../Errores/Errores"));
 const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
+const Continue_1 = __importDefault(require("../Transferencia/Continue"));
 class DoWhile extends Instruccion_1.Instruccion {
     constructor(condicion, bloque, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -52,10 +53,14 @@ class DoWhile extends Instruccion_1.Instruccion {
         do {
             for (let ins of this.bloque) {
                 if (ins instanceof Break_1.default)
-                    return ins;
+                    return;
+                if (ins instanceof Continue_1.default)
+                    break;
                 let resultado = ins.interpretar(arbol, nueva_tabla);
                 if (resultado instanceof Break_1.default)
                     return;
+                if (resultado instanceof Continue_1.default)
+                    break;
             }
         } while (this.condicion.interpretar(arbol, tabla));
     }

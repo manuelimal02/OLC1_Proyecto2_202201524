@@ -5,7 +5,6 @@ import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Break from "../Transferencia/Break";
 import Continue from "../Transferencia/Continue";
-import Return from "../Transferencia/Return";
 
 export default class For extends Instruccion {
     private declaracion: Instruccion
@@ -41,18 +40,17 @@ export default class For extends Instruccion {
             nueva_tabla2.setNombre("For")
 
             for (let ins of this.bloque) {
-                if (ins instanceof Break) return ins;
-                if (ins instanceof Continue) return ins;
-                if (ins instanceof Return) return ins;
+                if (ins instanceof Break) return;
+                if (ins instanceof Continue) break;
             
                 let resultado = ins.interpretar(arbol, nueva_tabla2)
             
-                if (resultado instanceof Break) break;
-                if (resultado instanceof Continue) continue;
-                if (resultado instanceof Return) return resultado;
+                if (resultado instanceof Break) return;
+                if (resultado instanceof Continue) break;
             }
             const  resultado_actualizacion = this.actualizacion.interpretar(arbol, nueva_tabla1)
             if (resultado_actualizacion instanceof Errores) return resultado_actualizacion
         }
+        
     }
 }

@@ -32,7 +32,6 @@ const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
 const Continue_1 = __importDefault(require("../Transferencia/Continue"));
-const Return_1 = __importDefault(require("../Transferencia/Return"));
 class For extends Instruccion_1.Instruccion {
     constructor(declaracion, condicion, actualizacion, bloque, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -58,18 +57,14 @@ class For extends Instruccion_1.Instruccion {
             nueva_tabla2.setNombre("For");
             for (let ins of this.bloque) {
                 if (ins instanceof Break_1.default)
-                    return ins;
+                    return;
                 if (ins instanceof Continue_1.default)
-                    return ins;
-                if (ins instanceof Return_1.default)
-                    return ins;
+                    break;
                 let resultado = ins.interpretar(arbol, nueva_tabla2);
                 if (resultado instanceof Break_1.default)
-                    break;
+                    return;
                 if (resultado instanceof Continue_1.default)
-                    continue;
-                if (resultado instanceof Return_1.default)
-                    return resultado;
+                    break;
             }
             const resultado_actualizacion = this.actualizacion.interpretar(arbol, nueva_tabla1);
             if (resultado_actualizacion instanceof Errores_1.default)

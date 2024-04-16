@@ -4,6 +4,7 @@ import Arbol from "../Simbolo/Arbol";
 import tablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 import Break from "../Transferencia/Break";
+import Continue from "../Transferencia/Continue";
 
 
 export default class Else extends Instruccion {
@@ -33,15 +34,19 @@ export default class Else extends Instruccion {
         if (condicion) {
             for (let ins of this.bloque_1) {
                 if (ins instanceof Break) return ins;
+                if(ins instanceof Continue) return ins;
                 let resultado = ins.interpretar(arbol, nueva_tabla)
-                if (resultado instanceof Break) return;
+                if (resultado instanceof Break) return resultado;
+                if (resultado instanceof Continue) return resultado;
             }
         }else{
             if(this.bloque_2){
                 for (let ins of this.bloque_2) {
                     if (ins instanceof Break) return ins;
+                    if(ins instanceof Continue) return ins;
                     let resultado = ins.interpretar(arbol, nueva_tabla)
-                    if (resultado instanceof Break) return;
+                    if (resultado instanceof Break) return resultado;
+                    if (resultado instanceof Continue) return resultado;
                 }
             }
             

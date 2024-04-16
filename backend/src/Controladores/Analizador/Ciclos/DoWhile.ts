@@ -4,6 +4,7 @@ import Arbol from "../Simbolo/Arbol";
 import tablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 import Break from "../Transferencia/Break";
+import Continue from "../Transferencia/Continue";
 
 export default class DoWhile extends Instruccion {
     private condicion: Instruccion
@@ -31,11 +32,13 @@ export default class DoWhile extends Instruccion {
 
         do {
             for (let ins of this.bloque) {
-                if (ins instanceof Break) return ins;
-
+                if (ins instanceof Break) return;
+                if (ins instanceof Continue) break;
+            
                 let resultado = ins.interpretar(arbol, nueva_tabla)
-
+            
                 if (resultado instanceof Break) return;
+                if (resultado instanceof Continue) break;
             }
         } while (this.condicion.interpretar(arbol, tabla));
     }

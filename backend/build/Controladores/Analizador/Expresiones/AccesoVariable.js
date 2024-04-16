@@ -36,8 +36,12 @@ class AccesoVariable extends Instruccion_1.Instruccion {
     }
     interpretar(arbol, tabla) {
         let valor_variable = tabla.getVariable(this.Identificador);
-        if (valor_variable == null)
-            return new Errores_1.default("Semántico", "Acceso Inválido", this.fila, this.columna);
+        if (valor_variable == null) {
+            let error = new Errores_1.default("Semántico", "Acceso Inválido.", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Acceso Inválido.");
+            return error;
+        }
         this.tipo_dato = valor_variable.getTipo();
         return valor_variable.getValor();
     }

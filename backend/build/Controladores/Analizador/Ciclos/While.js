@@ -31,6 +31,7 @@ const Errores_1 = __importDefault(require("../Errores/Errores"));
 const TablaSimbolo_1 = __importDefault(require("../Simbolo/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
+const Continue_1 = __importDefault(require("../Transferencia/Continue"));
 class While extends Instruccion_1.Instruccion {
     constructor(condicion, bloque, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -50,9 +51,13 @@ class While extends Instruccion_1.Instruccion {
             for (let ins of this.bloque) {
                 if (ins instanceof Break_1.default)
                     return ins;
+                if (ins instanceof Continue_1.default)
+                    return ins;
                 let resultado = ins.interpretar(arbol, nueva_tabla);
                 if (resultado instanceof Break_1.default)
                     return;
+                if (resultado instanceof Continue_1.default)
+                    break;
             }
         }
     }

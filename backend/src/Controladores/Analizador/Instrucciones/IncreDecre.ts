@@ -12,17 +12,26 @@ export default class IncrementoDeremento extends Instruccion {
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
         let valor_variable = tabla.getVariable(this.operando_unico.toLocaleLowerCase());
         if (!valor_variable) {
-            return new Errores("Semántico", "La Variable No Existe.", this.fila, this.columna);
+            let error = new Errores("Semántico", "La Variable No Existe.", this.fila, this.columna)
+            arbol.agregarError(error)
+            arbol.setConsola("Semántico: La Variable No Existe.")
+            return error
         }
 
         let tipo = valor_variable.getTipo().getTipo();
         if (tipo != tipo_dato.ENTERO && tipo != tipo_dato.DECIMAL) {
-            return new Errores("Semántico", "No Se Puede Aplicar El Incremeneto y Decremento.", this.fila, this.columna);
+            let error = new Errores("Semántico", "No Se Puede Aplicar El Incremeneto o Decremento.", this.fila, this.columna);
+            arbol.agregarError(error)
+            arbol.setConsola("Semántico: No Se Puede Aplicar El Incremeneto o Decremento.")
+            return error
         }
 
         let incremento = this.operando == "INC" ? 1 : this.operando == "DEC" ? -1 : null;
         if (incremento === null) {
-            return new Errores("Semántico", "No Se Puede Aplicar El Incremeneto y Decremento.", this.fila, this.columna);
+            let error = new Errores("Semántico", "Error En Incremento o Decremento.", this.fila, this.columna);
+            arbol.agregarError(error)
+            arbol.setConsola("Semántico: Error En Incremento o Decremento.")
+            return error
         }
 
         let valor = tipo == tipo_dato.ENTERO ? parseInt(valor_variable.getValor()) : parseFloat(valor_variable.getValor());

@@ -9,6 +9,6 @@ export default class Continue extends Instruccion {
     }
 
     interpretar(arbol: Arbol, tabla: tablaSimbolo) {
-        return
+        return;
     }
 }
