@@ -9,8 +9,9 @@ class router {
         this.config();
     }
     config() {
-        this.router.post('/interpretar', index_controlador_1.indexController.interpretar);
-        this.router.post('/generarReporte', index_controlador_1.indexController.generarReporte);
+        this.router.post('/interpretar_entrada', index_controlador_1.indexController.interpretar_entrada);
+        this.router.post('/generar_reporte_errores', index_controlador_1.indexController.generar_reporte_errores);
+        this.router.post('/generar_reporte_tablas', index_controlador_1.indexController.generar_reporte_tablas);
     }
 }
 const indexRouter = new router();

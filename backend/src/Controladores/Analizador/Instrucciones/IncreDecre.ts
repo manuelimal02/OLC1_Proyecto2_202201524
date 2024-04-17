@@ -14,7 +14,7 @@ export default class IncrementoDeremento extends Instruccion {
         if (!valor_variable) {
             let error = new Errores("Semántico", "La Variable No Existe.", this.fila, this.columna)
             arbol.agregarError(error)
-            arbol.setConsola("Semántico: La Variable No Existe.")
+            arbol.setConsola("Semántico: La Variable No Existe.\n")
             return error
         }
 
@@ -22,7 +22,7 @@ export default class IncrementoDeremento extends Instruccion {
         if (tipo != tipo_dato.ENTERO && tipo != tipo_dato.DECIMAL) {
             let error = new Errores("Semántico", "No Se Puede Aplicar El Incremeneto o Decremento.", this.fila, this.columna);
             arbol.agregarError(error)
-            arbol.setConsola("Semántico: No Se Puede Aplicar El Incremeneto o Decremento.")
+            arbol.setConsola("Semántico: No Se Puede Aplicar El Incremeneto o Decremento.\n")
             return error
         }
 
@@ -30,7 +30,7 @@ export default class IncrementoDeremento extends Instruccion {
         if (incremento === null) {
             let error = new Errores("Semántico", "Error En Incremento o Decremento.", this.fila, this.columna);
             arbol.agregarError(error)
-            arbol.setConsola("Semántico: Error En Incremento o Decremento.")
+            arbol.setConsola("Semántico: Error En Incremento o Decremento.\n")
             return error
         }
 

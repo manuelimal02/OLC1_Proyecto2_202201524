@@ -44,10 +44,14 @@ class Else extends Instruccion_1.Instruccion {
         if (condicion instanceof Errores_1.default)
             return condicion;
         if (this.condicion.tipo_dato.getTipo() != Tipo_1.tipo_dato.BOOLEANO) {
-            return new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
+            let error = new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana.\n");
+            return error;
         }
         let nueva_tabla = new TablaSimbolo_1.default(tabla);
         nueva_tabla.setNombre("IF");
+        arbol.agregarTabla(nueva_tabla);
         if (condicion) {
             for (let ins of this.bloque_1) {
                 if (ins instanceof Break_1.default)

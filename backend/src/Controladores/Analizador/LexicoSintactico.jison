@@ -100,13 +100,15 @@
 
 <<EOF>>                     return 'EOF'
 
-
-%{
-
-%}
+. { 
+    var mensajeError = "Error léxico: carácter inesperado: " + yytext;
+    console.log(mensajeError);
+    throw new Error(mensajeError); 
+}
 
 /lex
 
+//--------------------------------------------------------------------------------------------------------------------------
 %left 'OR'
 %left 'AND'
 %right 'NOT'

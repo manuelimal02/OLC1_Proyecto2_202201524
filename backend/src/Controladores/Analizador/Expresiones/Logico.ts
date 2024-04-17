@@ -42,7 +42,7 @@ export default class OperadorLogico extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Operador Logico Inválido", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operador Logico Inválido.")
+                arbol.setConsola("Semántico: Operador Logico Inválido.\n")
                 return error
         }
     }
@@ -59,13 +59,13 @@ export default class OperadorLogico extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Or Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Or Inválida.")
+                        arbol.setConsola("Semántico: Operación Or Inválida.\n")
                         return error
                 }
             default:
                 let error = new Errores("Semántico", "Operación Or Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Or Inválida.")
+                arbol.setConsola("Semántico: Operación Or Inválida.\n")
                 return error
         }
     }
@@ -82,13 +82,13 @@ export default class OperadorLogico extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación And Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación And Inválida.")
+                        arbol.setConsola("Semántico: Operación And Inválida.\n")
                         return error
                 }
             default:
                 let error = new Errores("Semántico", "Operación And Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación And Inválida.")
+                arbol.setConsola("Semántico: Operación And Inválida.\n")
                 return error
         }
     }
@@ -102,7 +102,7 @@ export default class OperadorLogico extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Operación Not Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Not Inválida.")
+                arbol.setConsola("Semántico: Operación Not Inválida.\n")
                 return error
         }
     }

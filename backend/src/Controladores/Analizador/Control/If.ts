@@ -27,12 +27,13 @@ export default class Else extends Instruccion {
         if (this.condicion.tipo_dato.getTipo() != tipo_dato.BOOLEANO) {
             let error = new Errores("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna)
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana")
+            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana.\n")
             return error
         }
 
         let nueva_tabla = new tablaSimbolo(tabla)
         nueva_tabla.setNombre("IF")
+        arbol.agregarTabla(nueva_tabla)
 
         if (condicion) {
             for (let ins of this.bloque_1) {

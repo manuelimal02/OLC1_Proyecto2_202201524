@@ -75,7 +75,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
             default:
                 let error = new Errores_1.default("Semántico", "Operador Aritmético Inválido", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operador Aritmético Inválido");
+                arbol.setConsola("Semántico: Operador Aritmético Inválido.\n");
                 return error;
         }
     }
@@ -109,7 +109,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        arbol.setConsola("Semántico: Operación Suma Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.DECIMAL:
@@ -137,7 +137,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        arbol.setConsola("Semántico: Operación Suma Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.BOOLEANO:
@@ -169,7 +169,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        arbol.setConsola("Semántico: Operación Suma Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.CARACTER:
@@ -189,7 +189,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        arbol.setConsola("Semántico: Operación Suma Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.CADENA:
@@ -217,13 +217,13 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Suma Inválida");
+                        arbol.setConsola("Semántico: Operación Suma Inválida.\n");
                         return error;
                 }
             default:
                 let error = new Errores_1.default("Semántico", "Operación Suma Inválida", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Suma Inválida");
+                arbol.setConsola("Semántico: Operación Suma Inválida.\n");
                 return error;
         }
     }
@@ -254,7 +254,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Resta Inválida");
+                        arbol.setConsola("Semántico: Operación Resta Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.DECIMAL:
@@ -279,7 +279,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Resta Inválida");
+                        arbol.setConsola("Semántico: Operación Resta Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.BOOLEANO:
@@ -303,7 +303,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Resta Inválida");
+                        arbol.setConsola("Semántico: Operación Resta Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.CARACTER:
@@ -317,13 +317,13 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Resta Inválida");
+                        arbol.setConsola("Semántico: Operación Resta Inválida.\n");
                         return error;
                 }
             default:
                 let error = new Errores_1.default("Semántico", "Operación Resta Inválida", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Resta Inválida");
+                arbol.setConsola("Semántico: Operación Resta Inválida.\n");
                 return error;
         }
     }
@@ -346,7 +346,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Multiplicación Inválida.", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.");
+                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.DECIMAL:
@@ -363,7 +363,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Multiplicación Inválida.", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.");
+                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.CARACTER:
@@ -377,13 +377,13 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Multiplicación Inválida.", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.");
+                        arbol.setConsola("Semántico: Operación Multiplicación Inválida.\n");
                         return error;
                 }
             default:
                 let error = new Errores_1.default("Semántico", "Operación Multiplicación Inválida.", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Multiplicación Inválida.");
+                arbol.setConsola("Semántico: Operación Multiplicación Inválida.\n");
                 return error;
         }
     }
@@ -394,7 +394,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         if (parseFloat(valor_derecha) === 0) {
             let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: Operación División Invalida.");
+            arbol.setConsola("Semántico: Operación División Invalida.\n");
             return error;
         }
         else {
@@ -413,7 +413,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         default:
                             let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
                             arbol.agregarError(error);
-                            arbol.setConsola("Semántico: Operación División Invalida.");
+                            arbol.setConsola("Semántico: Operación División Invalida.\n");
                             return error;
                     }
                 case Tipo_1.tipo_dato.DECIMAL:
@@ -430,7 +430,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         default:
                             let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
                             arbol.agregarError(error);
-                            arbol.setConsola("Semántico: Operación División Invalida.");
+                            arbol.setConsola("Semántico: Operación División Invalida.\n");
                             return error;
                     }
                 case Tipo_1.tipo_dato.CARACTER:
@@ -444,13 +444,13 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         default:
                             let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
                             arbol.agregarError(error);
-                            arbol.setConsola("Semántico: Operación División Invalida.");
+                            arbol.setConsola("Semántico: Operación División Invalida.\n");
                             return error;
                     }
                 default:
                     let error = new Errores_1.default("Semántico", "Operación División Invalida.", this.fila, this.columna);
                     arbol.agregarError(error);
-                    arbol.setConsola("Semántico: Operación División Invalida.");
+                    arbol.setConsola("Semántico: Operación División Invalida.\n");
                     return error;
             }
         }
@@ -462,7 +462,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         if (parseFloat(valor_derecha) === 0) {
             let error = new Errores_1.default("Semántico", "Operación Modulo Inválida.", this.fila, this.columna);
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: Operación Modulo Inválida.");
+            arbol.setConsola("Semántico: Operación Modulo Inválida.\n");
             return error;
         }
         else {
@@ -478,7 +478,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         default:
                             let error = new Errores_1.default("Semántico", "Operación Modulo Inválida.", this.fila, this.columna);
                             arbol.agregarError(error);
-                            arbol.setConsola("Semántico: Operación Modulo Inválida.");
+                            arbol.setConsola("Semántico: Operación Modulo Inválida.\n");
                             return error;
                     }
                 case Tipo_1.tipo_dato.DECIMAL:
@@ -492,13 +492,13 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                         default:
                             let error = new Errores_1.default("Semántico", "Operación Modulo Inválida.", this.fila, this.columna);
                             arbol.agregarError(error);
-                            arbol.setConsola("Semántico: Operación Modulo Inválida.");
+                            arbol.setConsola("Semántico: Operación Modulo Inválida.\n");
                             return error;
                     }
                 default:
                     let error = new Errores_1.default("Semántico", "Operación Modulo Inválida.", this.fila, this.columna);
                     arbol.agregarError(error);
-                    arbol.setConsola("Semántico: Operación Modulo Inválida.");
+                    arbol.setConsola("Semántico: Operación Modulo Inválida.\n");
                     return error;
             }
         }
@@ -519,7 +519,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Potencia Inválida.", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Potencia Inválida.");
+                        arbol.setConsola("Semántico: Operación Potencia Inválida.\n");
                         return error;
                 }
             case Tipo_1.tipo_dato.DECIMAL:
@@ -533,13 +533,13 @@ class Aritmeticas extends Instruccion_1.Instruccion {
                     default:
                         let error = new Errores_1.default("Semántico", "Operación Potencia Inválida.", this.fila, this.columna);
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Potencia Inválida.");
+                        arbol.setConsola("Semántico: Operación Potencia Inválida.\n");
                         return error;
                 }
             default:
                 let error = new Errores_1.default("Semántico", "Operación Potencia Inválida.", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Potencia Inválida.");
+                arbol.setConsola("Semántico: Operación Potencia Inválida.\n");
                 return error;
         }
     }
@@ -556,7 +556,7 @@ class Aritmeticas extends Instruccion_1.Instruccion {
             default:
                 let error = new Errores_1.default("Semántico", "Operación Negación Unaria Inválida.", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Negación Unaria Inválida.");
+                arbol.setConsola("Semántico: Operación Negación Unaria Inválida.\n");
                 return error;
         }
     }

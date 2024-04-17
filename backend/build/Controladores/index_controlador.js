@@ -31,45 +31,63 @@ const Arbol_1 = __importDefault(require("./Analizador/Simbolo/Arbol"));
 const TablaSimbolo_1 = __importDefault(require("./Analizador/Simbolo/TablaSimbolo"));
 const path = __importStar(require("path"));
 class Controller {
-    prueba(req, res) {
-        res.json({ "funciona": "la api" });
-    }
-    interpretar(req, res) {
+    interpretar_entrada(req, res) {
         try {
             let parser = require('./Analizador/LexicoSintactico');
             let ArbolAst = new Arbol_1.default(parser.parse(req.body.entrada));
             let Tabla_Simbolos = new TablaSimbolo_1.default();
-            Tabla_Simbolos.setNombre("Ejemplo1");
+            Tabla_Simbolos.setNombre("Tabla Global");
             ArbolAst.setTablaGlobal(Tabla_Simbolos);
+            ArbolAst.agregarTabla(Tabla_Simbolos);
             ArbolAst.setConsola("");
             for (let i of ArbolAst.getInstrucciones()) {
                 var resultado = i.interpretar(ArbolAst, Tabla_Simbolos);
             }
-            console.log(Tabla_Simbolos);
             res.send({ "Respuesta": ArbolAst.getConsola() });
         }
         catch (err) {
             console.log(err);
-            res.send({ "Error": "Ya no sale compi1" });
+            res.send({ "Error": "Error Al Interpretar." });
         }
     }
-    generarReporte(req, res) {
+    generar_reporte_errores(req, res) {
         try {
             let parser = require('./Analizador/LexicoSintactico');
             let ArbolAst = new Arbol_1.default(parser.parse(req.body.entrada));
             let Tabla_Simbolos = new TablaSimbolo_1.default();
-            Tabla_Simbolos.setNombre("Ejemplo1");
+            Tabla_Simbolos.setNombre("Tabla Global");
             ArbolAst.setTablaGlobal(Tabla_Simbolos);
+            ArbolAst.agregarTabla(Tabla_Simbolos);
             ArbolAst.setConsola("");
             for (let i of ArbolAst.getInstrucciones()) {
                 var resultado = i.interpretar(ArbolAst, Tabla_Simbolos);
             }
             ArbolAst.generarReporteErrores();
-            res.sendFile(path.resolve('reporteErrores.html'));
+            res.sendFile(path.resolve('ReporteErrores.html'));
         }
         catch (err) {
             console.log(err);
-            res.send({ "Error": "Hubo un error al generar el reporte de errores" });
+            res.send({ "Error": "Error Al Generar Reporte De Errores." });
+        }
+    }
+    generar_reporte_tablas(req, res) {
+        try {
+            let parser = require('./Analizador/LexicoSintactico');
+            let ArbolAst = new Arbol_1.default(parser.parse(req.body.entrada));
+            let Tabla_Simbolos = new TablaSimbolo_1.default();
+            Tabla_Simbolos.setNombre("Tabla Global");
+            ArbolAst.setTablaGlobal(Tabla_Simbolos);
+            ArbolAst.agregarTabla(Tabla_Simbolos);
+            ArbolAst.setConsola("");
+            for (let i of ArbolAst.getInstrucciones()) {
+                var resultado = i.interpretar(ArbolAst, Tabla_Simbolos);
+            }
+            ArbolAst.generarReporteTablas();
+            res.sendFile(path.resolve('ReporteTablas.html'));
+        }
+        catch (err) {
+            console.log(err);
+            res.send({ "Error": "Error Al Generar Reporte De Tablas De Simbolos." });
         }
     }
 }

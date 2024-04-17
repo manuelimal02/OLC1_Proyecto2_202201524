@@ -18,7 +18,7 @@ export default class AccesoVariable extends Instruccion {
         if (valor_variable == null){
             let error = new Errores("Semántico", "Acceso Inválido.", this.fila, this.columna)
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: Acceso Inválido.")
+            arbol.setConsola("Semántico: Acceso Inválido.\n")
             return error 
         }
         this.tipo_dato = valor_variable.getTipo()

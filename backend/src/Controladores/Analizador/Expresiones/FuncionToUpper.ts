@@ -27,7 +27,7 @@ export default class FuncionesToUpper extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Función ToUpper Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función ToUpper Inválida.")
+                arbol.setConsola("Semántico: Función ToUpper Inválida.\n")
                 return error
         }
     }
@@ -41,7 +41,7 @@ export default class FuncionesToUpper extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Función ToUpper Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función ToUpper Inválida.")
+                arbol.setConsola("Semántico: Función ToUpper Inválida.\n")
                 return error
         }
     }

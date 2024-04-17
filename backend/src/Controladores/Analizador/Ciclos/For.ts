@@ -23,6 +23,7 @@ export default class For extends Instruccion {
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
         const nueva_tabla1 = new TablaSimbolo(tabla)
         nueva_tabla1.setNombre("CondicionesFor")
+        arbol.agregarTabla(nueva_tabla1)
 
         const  resultado_inicializacion = this.declaracion.interpretar(arbol, nueva_tabla1)
         if (resultado_inicializacion instanceof Errores) return resultado_inicializacion
@@ -33,7 +34,7 @@ export default class For extends Instruccion {
         if (this.condicion.tipo_dato.getTipo() != tipo_dato.BOOLEANO) {
             let error = new Errores("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna)
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana")
+            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana.\n")
             return error
         }
 
@@ -41,6 +42,7 @@ export default class For extends Instruccion {
 
             const nueva_tabla2 = new TablaSimbolo(nueva_tabla1)
             nueva_tabla2.setNombre("For")
+            arbol.agregarTabla(nueva_tabla2)
 
             for (let ins of this.bloque) {
                 if (ins instanceof Break) return;

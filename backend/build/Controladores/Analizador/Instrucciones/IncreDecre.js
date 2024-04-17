@@ -40,21 +40,21 @@ class IncrementoDeremento extends Instruccion_1.Instruccion {
         if (!valor_variable) {
             let error = new Errores_1.default("Semántico", "La Variable No Existe.", this.fila, this.columna);
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: La Variable No Existe.");
+            arbol.setConsola("Semántico: La Variable No Existe.\n");
             return error;
         }
         let tipo = valor_variable.getTipo().getTipo();
         if (tipo != Tipo_1.tipo_dato.ENTERO && tipo != Tipo_1.tipo_dato.DECIMAL) {
             let error = new Errores_1.default("Semántico", "No Se Puede Aplicar El Incremeneto o Decremento.", this.fila, this.columna);
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: No Se Puede Aplicar El Incremeneto o Decremento.");
+            arbol.setConsola("Semántico: No Se Puede Aplicar El Incremeneto o Decremento.\n");
             return error;
         }
         let incremento = this.operando == "INC" ? 1 : this.operando == "DEC" ? -1 : null;
         if (incremento === null) {
             let error = new Errores_1.default("Semántico", "Error En Incremento o Decremento.", this.fila, this.columna);
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: Error En Incremento o Decremento.");
+            arbol.setConsola("Semántico: Error En Incremento o Decremento.\n");
             return error;
         }
         let valor = tipo == Tipo_1.tipo_dato.ENTERO ? parseInt(valor_variable.getValor()) : parseFloat(valor_variable.getValor());

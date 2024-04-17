@@ -27,7 +27,7 @@ export default class FuncionesRound extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Función Round Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función Round Inválida.")
+                arbol.setConsola("Semántico: Función Round Inválida.\n")
                 return error
         }
     }
@@ -42,7 +42,7 @@ export default class FuncionesRound extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Función Round Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función Round Inválida.")
+                arbol.setConsola("Semántico: Función Round Inválida.\n")
                 return error
         }
     }

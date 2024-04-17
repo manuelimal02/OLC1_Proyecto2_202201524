@@ -27,7 +27,7 @@ export default class FuncionesToLower extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Función ToLower Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función ToLower Inválida.")
+                arbol.setConsola("Semántico: Función ToLower Inválida.\n")
                 return error
         }
     }
@@ -41,7 +41,7 @@ export default class FuncionesToLower extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Función ToLower Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función ToLower Inválida.")
+                arbol.setConsola("Semántico: Función ToLower Inválida.\n")
                 return error
         }
     }

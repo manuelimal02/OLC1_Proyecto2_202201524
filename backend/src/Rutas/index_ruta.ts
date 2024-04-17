@@ -7,10 +7,10 @@ class router {
         this.config();
     }
 
-
     config(): void {
-        this.router.post('/interpretar', indexController.interpretar)
-        this.router.post('/generarReporte', indexController.generarReporte) 
+        this.router.post('/interpretar_entrada', indexController.interpretar_entrada)
+        this.router.post('/generar_reporte_errores', indexController.generar_reporte_errores)
+        this.router.post('/generar_reporte_tablas', indexController.generar_reporte_tablas)  
     }
 }
 

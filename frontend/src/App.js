@@ -14,10 +14,9 @@ function App() {
     }
   }
 
-
-  function interpretar() {
+  function interpretar_entrada() {
     var entrada = editorRef.current.getValue();
-    fetch('http://localhost:4000/interpretar', {
+    fetch('http://localhost:4000/interpretar_entrada', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,8 +33,8 @@ function App() {
       });
   }
 
-  function generarReporte() {
-    fetch('http://localhost:4000/generarReporte', {
+  function reporte_errores() {
+    fetch('http://localhost:4000/generar_reporte_errores', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +46,7 @@ function App() {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'reporteErrores.html';
+        a.download = 'ReporteErrores.html';
         a.click();
       })
       .catch((error) => {
@@ -56,6 +55,27 @@ function App() {
       });
   }
 
+  function reporte_tabla() {
+    fetch('http://localhost:4000/generar_reporte_tablas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ entrada: editorRef.current.getValue() }),
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ReporteTablas.html';
+        a.click();
+      })
+      .catch((error) => {
+        alert("ERROR")
+        console.error('Error:', error);
+      });
+  }
 
   const CargarArchivo = (event) => {
     var file = event.target.files[0];
@@ -70,7 +90,6 @@ function App() {
 
   return (
     <div className="App">
-
       <div>
         <nav class="navbar">
           <div class="rowBar">
@@ -80,15 +99,15 @@ function App() {
             <input type="file" id="file" class="btn" onChange={CargarArchivo} />
           </div>
           <div class="rowBar">
-            <input type="button" value="Ejecutar" class="btn" onClick={interpretar} />
+            <input type="button" value="Ejecutar" class="btn" onClick={interpretar_entrada} />
           </div>
           <div class="rowBar">
           <div class="dropdown">
           <button class="btn dropdown-btn">Reportes</button>
             <div class="dropdown-content">
-              <a href="#" onClick={generarReporte}>Opción 1</a>
-              <a href="#">Opción 2</a>
-              <a href="#">Opción 3</a>
+              <a href="#" onClick={reporte_errores}>Errores</a>
+              <a href="#" onClick={reporte_tabla}>Tabla Simbolos</a>
+              <a href="#">Arbol AST</a>
               </div>
             </div>
           </div>

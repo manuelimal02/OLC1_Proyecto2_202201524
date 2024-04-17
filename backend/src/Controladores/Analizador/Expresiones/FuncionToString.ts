@@ -27,7 +27,7 @@ export default class FuncionesToString extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Función ToString Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función ToString Inválida.")
+                arbol.setConsola("Semántico: Función ToString Inválida.\n")
                 return error
         }
     }
@@ -53,7 +53,7 @@ export default class FuncionesToString extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Función ToString Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función ToString Inválida.")
+                arbol.setConsola("Semántico: Función ToString Inválida.\n")
                 return error
         }
     }

@@ -45,7 +45,7 @@ export default class OperadorRelacional extends Instruccion {
             default:
                 let error = new Errores("Semántico", "Operador Relacional Inválido", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operador Relacional Inválido.")
+                arbol.setConsola("Semántico: Operador Relacional Inválido.\n")
                 return error
         }
     }
@@ -75,7 +75,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Igual-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.\n")
                         return error
                 }
             case tipo_dato.DECIMAL:
@@ -99,7 +99,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Igual-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.\n")
                         return error
                 }
             case tipo_dato.BOOLEANO:
@@ -134,7 +134,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Igual-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.\n")
                         return error
                 }
                 case tipo_dato.CARACTER:
@@ -158,7 +158,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Igual-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.\n")
                         return error
                 }
                 case tipo_dato.CADENA:
@@ -169,13 +169,13 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Igual-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Igual-Igual Inválida.\n")
                         return error
                 }
             default:
                 let error = new Errores("Semántico", "Operación Igual-Igual Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Igual-Igual Inválida.")
+                arbol.setConsola("Semántico: Operación Igual-Igual Inválida.\n")
                 return error
         }
     }
@@ -205,7 +205,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Distinto Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Distinto Inválida.")
+                        arbol.setConsola("Semántico: Operación Distinto Inválida.\n")
                         return error
                 }
             case tipo_dato.DECIMAL:
@@ -229,7 +229,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Distinto Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Distinto Inválida.")
+                        arbol.setConsola("Semántico: Operación Distinto Inválida.\n")
                         return error
                 }
             case tipo_dato.BOOLEANO:
@@ -264,7 +264,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Distinto Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Distinto Inválida.")
+                        arbol.setConsola("Semántico: Operación Distinto Inválida.\n")
                         return error
                 }
                 case tipo_dato.CARACTER:
@@ -288,7 +288,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Distinto Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Distinto Inválida.")
+                        arbol.setConsola("Semántico: Operación Distinto Inválida.\n")
                         return error
                 }
                 case tipo_dato.CADENA:
@@ -299,13 +299,13 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Distinto Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Distinto Inválida.")
+                        arbol.setConsola("Semántico: Operación Distinto Inválida.\n")
                         return error
                 }
             default:
                 let error = new Errores("Semántico", "Operación Distinto Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Distinto Inválida.")
+                arbol.setConsola("Semántico: Operación Distinto Inválida.\n")
                 return error
         }
     }
@@ -335,7 +335,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor Que Inválida.\n")
                         return error
                 }
             case tipo_dato.DECIMAL:
@@ -359,7 +359,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor Que Inválida.\n")
                         return error
                 }
             case tipo_dato.BOOLEANO:
@@ -383,7 +383,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor Que Inválida.\n")
                         return error
                 }
                 case tipo_dato.CARACTER:
@@ -407,7 +407,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor Que Inválida.\n")
                         return error
                 }
                 case tipo_dato.CADENA:
@@ -418,13 +418,13 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor Que Inválida.\n")
                         return error
                 }
             default:
                 let error = new Errores("Semántico", "Operación Menor Que Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Menor Que Inválida.")
+                arbol.setConsola("Semántico: Operación Menor Que Inválida.\n")
                 return error
         }
     }
@@ -454,7 +454,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.\n")
                         return error
                 }
             case tipo_dato.DECIMAL:
@@ -478,7 +478,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.\n")
                         return error
                 }
             case tipo_dato.BOOLEANO:
@@ -502,7 +502,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.\n")
                         return error
                 }
                 case tipo_dato.CARACTER:
@@ -526,7 +526,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.\n")
                         return error
                 }
                 case tipo_dato.CADENA:
@@ -537,13 +537,13 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Menor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Menor-Igual Inválida.\n")
                         return error
                 }
             default:
                 let error = new Errores("Semántico", "Operación Menor-Igual Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Menor-Igual Inválida.")
+                arbol.setConsola("Semántico: Operación Menor-Igual Inválida.\n")
                 return error
         }
     }
@@ -573,7 +573,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.\n")
                         return error
                 }
             case tipo_dato.DECIMAL:
@@ -597,7 +597,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.\n")
                         return error
                 }
             case tipo_dato.BOOLEANO:
@@ -621,7 +621,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.\n")
                         return error
                 }
                 case tipo_dato.CARACTER:
@@ -645,7 +645,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.\n")
                         return error
                 }
                 case tipo_dato.CADENA:
@@ -656,13 +656,13 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor Que Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor Que Inválida.\n")
                         return error
                 }
             default:
                 let error = new Errores("Semántico", "Operación Mayor Que Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Mayor Que Inválida.")
+                arbol.setConsola("Semántico: Operación Mayor Que Inválida.\n")
                 return error
         }
     }
@@ -692,7 +692,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.\n")
                         return error
                 }
             case tipo_dato.DECIMAL:
@@ -716,7 +716,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.\n")
                         return error
                 }
             case tipo_dato.BOOLEANO:
@@ -740,7 +740,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.\n")
                         return error
                 }
                 case tipo_dato.CARACTER:
@@ -764,7 +764,7 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.\n")
                         return error
                 }
                 case tipo_dato.CADENA:
@@ -775,13 +775,13 @@ export default class OperadorRelacional extends Instruccion {
                     default:
                         let error = new Errores("Semántico", "Operación Mayor-Igual Inválida", this.fila, this.columna)
                         arbol.agregarError(error);
-                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.")
+                        arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.\n")
                         return error
                 }
             default:
                 let error = new Errores("Semántico", "Operación Mayor-Igual Inválida", this.fila, this.columna)
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.")
+                arbol.setConsola("Semántico: Operación Mayor-Igual Inválida.\n")
                 return error
         }
     }

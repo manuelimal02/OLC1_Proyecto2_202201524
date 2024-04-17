@@ -59,16 +59,19 @@ class OperadorLogico extends Instruccion_1.Instruccion {
         }
         switch (this.operacion) {
             case Operador.OR:
-                return this.logico_or(valor_izquierda, valor_derecha);
+                return this.logico_or(valor_izquierda, valor_derecha, arbol);
             case Operador.AND:
-                return this.logico_and(valor_izquierda, valor_derecha);
+                return this.logico_and(valor_izquierda, valor_derecha, arbol);
             case Operador.NOT:
-                return this.logico_not(valor_unico);
+                return this.logico_not(valor_unico, arbol);
             default:
-                return new Errores_1.default("Semántico", "Operador Logico Inválido", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operador Logico Inválido", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operador Logico Inválido.\n");
+                return error;
         }
     }
-    logico_or(valor_izquierda, valor_derecha) {
+    logico_or(valor_izquierda, valor_derecha, arbol) {
         var _a, _b;
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
@@ -79,13 +82,19 @@ class OperadorLogico extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.BOOLEANO);
                         return valor_izquierda || valor_derecha;
                     default:
-                        return new Errores_1.default("Semántico", "Operación Or Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación Or Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación Or Inválida.\n");
+                        return error;
                 }
             default:
-                return new Errores_1.default("Semántico", "Operación Or Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operación Or Inválida", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Or Inválida.\n");
+                return error;
         }
     }
-    logico_and(valor_izquierda, valor_derecha) {
+    logico_and(valor_izquierda, valor_derecha, arbol) {
         var _a, _b;
         let tipo1 = (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         let tipo2 = (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.tipo_dato.getTipo();
@@ -96,13 +105,19 @@ class OperadorLogico extends Instruccion_1.Instruccion {
                         this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.BOOLEANO);
                         return valor_izquierda && valor_derecha;
                     default:
-                        return new Errores_1.default("Semántico", "Operación And Inválida", this.fila, this.columna);
+                        let error = new Errores_1.default("Semántico", "Operación And Inválida", this.fila, this.columna);
+                        arbol.agregarError(error);
+                        arbol.setConsola("Semántico: Operación And Inválida.\n");
+                        return error;
                 }
             default:
-                return new Errores_1.default("Semántico", "Operación And Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operación And Inválida", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación And Inválida.\n");
+                return error;
         }
     }
-    logico_not(valor_unico) {
+    logico_not(valor_unico, arbol) {
         var _a;
         let op_unico = (_a = this.operando_unico) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         switch (op_unico) {
@@ -110,7 +125,10 @@ class OperadorLogico extends Instruccion_1.Instruccion {
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.BOOLEANO);
                 return !valor_unico;
             default:
-                return new Errores_1.default("Semántico", "Operación Not Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Operación Not Inválida", this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Operación Not Inválida.\n");
+                return error;
         }
     }
 }

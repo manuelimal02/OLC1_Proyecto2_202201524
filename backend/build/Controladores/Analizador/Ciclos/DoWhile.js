@@ -45,11 +45,12 @@ class DoWhile extends Instruccion_1.Instruccion {
         if (this.condicion.tipo_dato.getTipo() != Tipo_1.tipo_dato.BOOLEANO) {
             let error = new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana");
+            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana.\n");
             return error;
         }
         let nueva_tabla = new TablaSimbolo_1.default(tabla);
         nueva_tabla.setNombre("DoWhile");
+        arbol.agregarTabla(nueva_tabla);
         do {
             for (let ins of this.bloque) {
                 if (ins instanceof Break_1.default)

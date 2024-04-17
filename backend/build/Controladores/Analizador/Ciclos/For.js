@@ -43,6 +43,7 @@ class For extends Instruccion_1.Instruccion {
     interpretar(arbol, tabla) {
         const nueva_tabla1 = new TablaSimbolo_1.default(tabla);
         nueva_tabla1.setNombre("CondicionesFor");
+        arbol.agregarTabla(nueva_tabla1);
         const resultado_inicializacion = this.declaracion.interpretar(arbol, nueva_tabla1);
         if (resultado_inicializacion instanceof Errores_1.default)
             return resultado_inicializacion;
@@ -50,11 +51,15 @@ class For extends Instruccion_1.Instruccion {
         if (condicion instanceof Errores_1.default)
             return condicion;
         if (this.condicion.tipo_dato.getTipo() != Tipo_1.tipo_dato.BOOLEANO) {
-            return new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
+            let error = new Errores_1.default("Semántico", "Condición Debe Ser Del Tipo Booleana", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Condición Debe Ser Del Tipo Booleana.\n");
+            return error;
         }
         while (this.condicion.interpretar(arbol, nueva_tabla1)) {
             const nueva_tabla2 = new TablaSimbolo_1.default(nueva_tabla1);
             nueva_tabla2.setNombre("For");
+            arbol.agregarTabla(nueva_tabla2);
             for (let ins of this.bloque) {
                 if (ins instanceof Break_1.default)
                     return;
