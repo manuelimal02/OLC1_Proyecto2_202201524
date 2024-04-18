@@ -7,7 +7,6 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = require("../Simbolo/Tipo");
 const SimboloM_1 = __importDefault(require("../Simbolo/SimboloM"));
-const Nativo_1 = __importDefault(require("../Expresiones/Nativo"));
 class DeclaracionMatriz extends Instruccion_1.Instruccion {
     constructor(tipo, fila, columna, identificador, valor, tamano1, tamano2) {
         super(tipo, fila, columna);
@@ -22,10 +21,7 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                 case Tipo_1.tipo_dato.ENTERO:
                     let matriz = new Array(this.tamano1);
                     for (let i = 0; i < matriz.length; i++) {
-                        matriz[i] = new Array(this.tamano2);
-                        for (let j = 0; j < matriz[i].length; j++) {
-                            matriz[i][j] = new Nativo_1.default(this.tipo_dato, "0", 0, 0);
-                        }
+                        matriz[i] = new Array(this.tamano2).fill(0);
                     }
                     if (!tabla.setMatriz(new SimboloM_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, matriz))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
@@ -37,10 +33,7 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                 case Tipo_1.tipo_dato.DECIMAL:
                     let matriz1 = new Array(this.tamano1);
                     for (let i = 0; i < matriz1.length; i++) {
-                        matriz1[i] = new Array(this.tamano2);
-                        for (let j = 0; j < matriz1[i].length; j++) {
-                            matriz1[i][j] = new Nativo_1.default(this.tipo_dato, "0.0", 0, 0);
-                        }
+                        matriz1[i] = new Array(this.tamano2).fill(0.0);
                     }
                     if (!tabla.setMatriz(new SimboloM_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, matriz1))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
@@ -52,10 +45,7 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                 case Tipo_1.tipo_dato.BOOLEANO:
                     let matriz3 = new Array(this.tamano1);
                     for (let i = 0; i < matriz3.length; i++) {
-                        matriz3[i] = new Array(this.tamano2);
-                        for (let j = 0; j < matriz3[i].length; j++) {
-                            matriz3[i][j] = new Nativo_1.default(this.tipo_dato, true, 0, 0);
-                        }
+                        matriz3[i] = new Array(this.tamano2).fill(true);
                     }
                     if (!tabla.setMatriz(new SimboloM_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, matriz3))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
@@ -67,10 +57,7 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                 case Tipo_1.tipo_dato.CADENA:
                     let matriz4 = new Array(this.tamano1);
                     for (let i = 0; i < matriz4.length; i++) {
-                        matriz4[i] = new Array(this.tamano2);
-                        for (let j = 0; j < matriz4[i].length; j++) {
-                            matriz4[i][j] = new Nativo_1.default(this.tipo_dato, "", 0, 0);
-                        }
+                        matriz4[i] = new Array(this.tamano2).fill("");
                     }
                     if (!tabla.setMatriz(new SimboloM_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, matriz4))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
@@ -82,10 +69,7 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                 case Tipo_1.tipo_dato.CARACTER:
                     let matriz5 = new Array(this.tamano1);
                     for (let i = 0; i < matriz5.length; i++) {
-                        matriz5[i] = new Array(this.tamano2);
-                        for (let j = 0; j < matriz5[i].length; j++) {
-                            matriz5[i][j] = new Nativo_1.default(this.tipo_dato, '', 0, 0);
-                        }
+                        matriz5[i] = new Array(this.tamano2).fill('');
                     }
                     if (!tabla.setMatriz(new SimboloM_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, matriz5))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);

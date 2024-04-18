@@ -19,7 +19,12 @@ export default class AccesoMatriz extends Instruccion {
 
     interpretar(arbol: Arbol, tabla: tablaSimbolo) {
         let valor_variable: Matriz = <Matriz> tabla.getMatriz(this.identificador)
-        if (valor_variable == null) return new Errores("SEMANTICO", "Acceso invalido", this.fila, this.columna)
+        if (valor_variable == null) {
+            let error = new Errores("Semántico", "Acceso Matriz Inválido.", this.fila, this.columna)
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Acceso Matriz Inválido.\n")
+            return error 
+        }
         this.tipo_dato = valor_variable.getTipo()
         return valor_variable.getValores(this.posicion_1, this.posicion_2)
     }

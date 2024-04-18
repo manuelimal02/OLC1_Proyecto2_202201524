@@ -24,6 +24,7 @@
     const DeclaracionMatriz      = require('./Matriz/DeclaracionMatriz')
     const AsignacionMatriz       = require('./Matriz/AsignacionMatriz')
     const AccesoMatriz           = require('./Matriz/AccesoMatriz')
+    const DeclaracionArreglo     = require('./Arreglo/DeclaracionArreglo')
     
 %}
 
@@ -194,7 +195,13 @@ declaracion : tipo_dato identificador IGUAL expresion
             | matriz
 {
     $$=$1;
-};
+}
+            | arreglo
+{
+    $$=$1;
+}
+
+;
 
 identificador : identificador COMA ID
 {
@@ -402,6 +409,16 @@ matriz: tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL CORIZ contenido2 CORDE
         |tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL NEW tipo_dato CORIZ ENTERO CORDE CORIZ ENTERO CORDE
 {
     $$=new DeclaracionMatriz.default($1, @1.first_line, @1.first_column,$2,null,parseInt($11),parseInt($14));
+}
+;
+
+arreglo: tipo_dato ID CORIZ CORDE  IGUAL CORIZ contenido1 CORDE 
+{
+    $$=new DeclaracionArreglo.default($1, @1.first_line, @1.first_column,$2,$7);
+}
+        |tipo_dato ID CORIZ CORDE IGUAL NEW tipo_dato CORIZ ENTERO CORDE
+{
+    $$=new DeclaracionArreglo.default($1, @1.first_line, @1.first_column,$2,null,parseInt($9));
 }
 ;
 

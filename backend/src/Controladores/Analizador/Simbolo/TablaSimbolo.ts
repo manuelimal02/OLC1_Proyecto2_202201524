@@ -54,7 +54,7 @@ export default class TablaSimbolo {
         return null
     }
 
-    public setArrglo(simbolo: SimboloA) {
+    public setArreglo(simbolo: SimboloA) {
         let busqueda: SimboloA = <SimboloA>this.getTabla().get(simbolo.getIdentificador().toLocaleLowerCase())
         if (busqueda == null) {
             this.tabla_actual.set(simbolo.getIdentificador().toLocaleLowerCase(), simbolo)

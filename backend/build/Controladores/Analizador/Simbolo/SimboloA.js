@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Arreglo {
-    constructor(tipo_arreglo, identificador, valores, size) {
+    constructor(tipo_arreglo, fila, columna, identificador, valores) {
         this.tipo_arreglo = tipo_arreglo;
         this.identificador = identificador.toLocaleLowerCase();
         this.valores = valores;
-        this.size = size;
+        this.fila = fila;
+        this.columna = columna;
     }
     getTipo() {
         return this.tipo_arreglo;
@@ -19,14 +20,23 @@ class Arreglo {
     setIdentificador(identificador) {
         this.identificador = identificador;
     }
-    getValores(posicion) {
-        return this.valores[posicion].valor;
+    getValores(posicion_1) {
+        return this.valores[posicion_1].valor;
     }
-    setValores(posicion, valores) {
-        this.valores[posicion].valor = valores;
+    getValor() {
+        return this.valores.map(nativo => nativo.valor);
+    }
+    setValores(posicion_1, valores) {
+        this.valores[posicion_1].valor = valores;
     }
     getSize() {
         return this.valores.length;
+    }
+    getFila() {
+        return this.fila;
+    }
+    getColumna() {
+        return this.columna;
     }
 }
 exports.default = Arreglo;

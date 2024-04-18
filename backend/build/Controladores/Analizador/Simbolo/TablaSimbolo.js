@@ -44,7 +44,7 @@ class TablaSimbolo {
         }
         return null;
     }
-    setArrglo(simbolo) {
+    setArreglo(simbolo) {
         let busqueda = this.getTabla().get(simbolo.getIdentificador().toLocaleLowerCase());
         if (busqueda == null) {
             this.tabla_actual.set(simbolo.getIdentificador().toLocaleLowerCase(), simbolo);

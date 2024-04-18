@@ -38,8 +38,12 @@ class AccesoMatriz extends Instruccion_1.Instruccion {
     }
     interpretar(arbol, tabla) {
         let valor_variable = tabla.getMatriz(this.identificador);
-        if (valor_variable == null)
-            return new Errores_1.default("SEMANTICO", "Acceso invalido", this.fila, this.columna);
+        if (valor_variable == null) {
+            let error = new Errores_1.default("Semántico", "Acceso Matriz Inválido.", this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: Acceso Matriz Inválido.\n");
+            return error;
+        }
         this.tipo_dato = valor_variable.getTipo();
         return valor_variable.getValores(this.posicion_1, this.posicion_2);
     }
