@@ -29,7 +29,7 @@ class Declaracion extends Instruccion_1.Instruccion {
                 else if (this.valor.tipo_dato.getTipo() != this.tipo_dato.getTipo()) {
                     let error = new Errores_1.default("Semántico", "Error Al Declarar Variable.", this.fila, this.columna);
                     arbol.agregarError(error);
-                    arbol.setConsola("Semántico: Error Al Declarar Variable.\n");
+                    arbol.setConsola("Semántico: Error Al Declarar Variable Los Tipos no coinciden.\n");
                     return error;
                 }
             }

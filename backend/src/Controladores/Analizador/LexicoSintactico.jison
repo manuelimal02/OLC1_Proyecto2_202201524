@@ -21,6 +21,10 @@
     const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
     const FuncionRound           = require('./Expresiones/FuncionRound')
     const FuncionToString        = require('./Expresiones/FuncionToString')
+    const DeclaracionMatriz      = require('./Matriz/DeclaracionMatriz')
+    const AsignacionMatriz       = require('./Matriz/AsignacionMatriz')
+    const AccesoMatriz           = require('./Matriz/AccesoMatriz')
+    
 %}
 
 
@@ -57,9 +61,10 @@
 "break"                     return 'BREAK'
 "continue"                  return 'CONTINUE'
 "return"                    return 'RETURN'
+"new"                       return 'NEW'
 
-"["                         return 'CORCHETE_IZQUIERDP'
-"]"                         return 'CORCHETE_DERECHO'
+"["                         return 'CORIZ'
+"]"                         return 'CORDE'
 "("                         return 'PARENTESIS_IZQUIERDO'
 ")"                         return 'PARENTESIS_DERECHO'
 "{"                         return 'LLAVE_DERECHA'
@@ -185,6 +190,10 @@ declaracion : tipo_dato identificador IGUAL expresion
             | tipo_dato identificador                    
 {
     $$ = new Declaracion.default($1, @1.first_line, @1.first_column, $2, null);
+}
+            | matriz
+{
+    $$=$1;
 };
 
 identificador : identificador COMA ID
@@ -204,6 +213,10 @@ asignacion : ID IGUAL expresion
         | incremento
 {
     $$=$1
+}       
+        | ID CORIZ ENTERO CORDE CORIZ ENTERO CORDE IGUAL expresion
+{
+    $$ = new AsignacionMatriz.default($1,parseInt($3),parseInt($6),$9,@1.first_line, @1.first_column);
 };
 
 incremento : ID MAS_MAS 
@@ -268,7 +281,11 @@ expresion : ENTERO
             | ID
 {
     $$ = new AccesoVariable.default($1, @1.first_line, @1.first_column);
-} 
+}
+            | ID CORIZ ENTERO CORDE CORIZ ENTERO CORDE
+{
+    $$ = new AccesoMatriz.default($1, @1.first_line, @1.first_column, parseInt($3), parseInt($6));
+}  
             | PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO
 {
     $$ = $2;
@@ -378,6 +395,35 @@ tipo_dato : INT
 }
 ;
 
+matriz: tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL CORIZ contenido2 CORDE 
+{
+    $$=new DeclaracionMatriz.default($1, @1.first_line, @1.first_column,$2,$9);
+}
+        |tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL NEW tipo_dato CORIZ ENTERO CORDE CORIZ ENTERO CORDE
+{
+    $$=new DeclaracionMatriz.default($1, @1.first_line, @1.first_column,$2,null,parseInt($11),parseInt($14));
+}
+;
+
+contenido1 : contenido1 COMA expresion
+{
+    $1.push($3);
+    $$ = $1;
+}
+        | expresion
+{
+    $$ =[$1];
+};
+
+contenido2 : contenido2 COMA CORIZ contenido1 CORDE
+{
+    $1.push($4);
+    $$ = $1;
+}
+        | CORIZ contenido1 CORDE
+{
+    $$ =[$2];
+}; 
 
 sentencia_if : IF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA
 {

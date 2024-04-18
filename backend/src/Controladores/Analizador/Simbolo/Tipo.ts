@@ -32,8 +32,6 @@ export default class Tipo {
                 return "Tipo desconocido";
         }
     }
-    
-
 }
 
 export enum tipo_dato {

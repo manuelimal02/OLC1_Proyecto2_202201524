@@ -145,17 +145,12 @@ export default class Arbol {
                     <th>ID</th>
                     <th>Tipo</th>
                     <th>Valor</th>
-                    <th>Fila</th>
-                    <th>Columna</th>
                 </tr>`;
             i.getTabla().forEach((valor, clave) => {
                 html += `
                 <tr>
                     <td>${clave}</td>
                     <td>${valor.getTipo().getNombreTipo()}</td>
-                    <td>${valor.getValor()}</td>
-                    <td>${valor.getFila()}</td>
-                    <td>${valor.getColumna()}</td>
                 </tr>`;
             });
             html += `</table>`;
@@ -163,5 +158,6 @@ export default class Arbol {
         html += `</body></html>`;
         fs.writeFileSync('ReporteTablas.html', html);
     }
+    
 
 }

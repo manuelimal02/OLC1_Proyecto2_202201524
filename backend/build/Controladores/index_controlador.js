@@ -43,6 +43,7 @@ class Controller {
             for (let i of ArbolAst.getInstrucciones()) {
                 var resultado = i.interpretar(ArbolAst, Tabla_Simbolos);
             }
+            console.log(Tabla_Simbolos);
             res.send({ "Respuesta": ArbolAst.getConsola() });
         }
         catch (err) {

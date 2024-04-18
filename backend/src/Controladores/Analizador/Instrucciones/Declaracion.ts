@@ -19,7 +19,7 @@ export default class Declaracion extends Instruccion {
         let valor_variable;
         this.Identificador.forEach((elemento) => {
             if(this.valor === null){
-                valor_variable= this.valor_defecto(this.tipo_dato)
+                valor_variable = this.valor_defecto(this.tipo_dato)
             }else{
                 valor_variable = this.valor.interpretar(arbol, tabla)
                 if (valor_variable instanceof Errores) return valor_variable
@@ -28,7 +28,7 @@ export default class Declaracion extends Instruccion {
                 }else if (this.valor.tipo_dato.getTipo() != this.tipo_dato.getTipo()) {
                     let error = new Errores("Semántico", "Error Al Declarar Variable.", this.fila, this.columna)
                     arbol.agregarError(error);
-                    arbol.setConsola("Semántico: Error Al Declarar Variable.\n")
+                    arbol.setConsola("Semántico: Error Al Declarar Variable Los Tipos no coinciden.\n")
                     return error
                 }
             }

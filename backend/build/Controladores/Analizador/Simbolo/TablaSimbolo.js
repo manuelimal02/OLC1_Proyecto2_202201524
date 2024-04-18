@@ -18,6 +18,41 @@ class TablaSimbolo {
     setTabla(tabla) {
         this.tabla_actual = tabla;
     }
+    //--------------------------------------------------------------------------------------------------------------
+    getMatriz(id) {
+        for (let i = this; i != null; i = i.getAnterior()) {
+            let busqueda = i.getTabla().get(id.toLocaleLowerCase());
+            if (busqueda != null)
+                return busqueda;
+        }
+        return null;
+    }
+    setMatriz(simbolo) {
+        let busqueda = this.getTabla().get(simbolo.getIdentificador().toLocaleLowerCase());
+        if (busqueda == null) {
+            this.tabla_actual.set(simbolo.getIdentificador().toLocaleLowerCase(), simbolo);
+            return true;
+        }
+        return false;
+    }
+    //--------------------------------------------------------------------------------------------------------------
+    getArreglo(id) {
+        for (let i = this; i != null; i = i.getAnterior()) {
+            let busqueda = i.getTabla().get(id.toLocaleLowerCase());
+            if (busqueda != null)
+                return busqueda;
+        }
+        return null;
+    }
+    setArrglo(simbolo) {
+        let busqueda = this.getTabla().get(simbolo.getIdentificador().toLocaleLowerCase());
+        if (busqueda == null) {
+            this.tabla_actual.set(simbolo.getIdentificador().toLocaleLowerCase(), simbolo);
+            return true;
+        }
+        return false;
+    }
+    //--------------------------------------------------------------------------------------------------------------
     getVariable(id) {
         for (let i = this; i != null; i = i.getAnterior()) {
             let busqueda = i.getTabla().get(id.toLocaleLowerCase());
@@ -34,6 +69,7 @@ class TablaSimbolo {
         }
         return false;
     }
+    //--------------------------------------------------------------------------------------------------------------
     getNombre() {
         return this.nombre;
     }
