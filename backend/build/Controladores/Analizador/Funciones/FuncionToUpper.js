@@ -30,7 +30,7 @@ exports.Funcion = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-class FuncionesToLower extends Instruccion_1.Instruccion {
+class FuncionesToUpper extends Instruccion_1.Instruccion {
     constructor(operador, fila, columna, op_izquierda) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.CADENA), fila, columna);
         this.operando_unico = op_izquierda;
@@ -44,32 +44,32 @@ class FuncionesToLower extends Instruccion_1.Instruccion {
                 return valor_unico;
         }
         switch (this.operacion) {
-            case Funcion.LENGTH:
-                return this.length(valor_unico, arbol);
+            case Funcion.TOUPPER:
+                return this.toupper(valor_unico, arbol);
             default:
-                let error = new Errores_1.default("Semántico", "Función Length Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Función ToUpper Inválida", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función Length Inválida.\n");
+                arbol.setConsola("Semántico: Función ToUpper Inválida.\n");
                 return error;
         }
     }
-    length(op_izquierda, arbol) {
+    toupper(op_izquierda, arbol) {
         var _a;
         let op_unico = (_a = this.operando_unico) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         switch (op_unico) {
             case Tipo_1.tipo_dato.CADENA:
-                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
-                return parseInt(op_izquierda.length());
+                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
+                return String(op_izquierda.toUpperCase());
             default:
-                let error = new Errores_1.default("Semántico", "Función Length Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Función ToUpper Inválida", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función Length Inválida.\n");
+                arbol.setConsola("Semántico: Función ToUpper Inválida.\n");
                 return error;
         }
     }
 }
-exports.default = FuncionesToLower;
+exports.default = FuncionesToUpper;
 var Funcion;
 (function (Funcion) {
-    Funcion[Funcion["LENGTH"] = 0] = "LENGTH";
+    Funcion[Funcion["TOUPPER"] = 0] = "TOUPPER";
 })(Funcion || (exports.Funcion = Funcion = {}));

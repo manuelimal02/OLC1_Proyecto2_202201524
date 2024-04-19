@@ -30,16 +30,18 @@ exports.Funcion = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-class FuncionesToLower extends Instruccion_1.Instruccion {
-    constructor(operador, fila, columna, op_izquierda) {
+class FuncionesLenght extends Instruccion_1.Instruccion {
+    constructor(operador, fila, columna, valor) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.CADENA), fila, columna);
-        this.operando_unico = op_izquierda;
+        this.valor = valor;
         this.operacion = operador;
     }
     interpretar(arbol, tabla) {
         let valor_unico = null;
-        if (this.operando_unico != null) {
-            valor_unico = this.operando_unico.interpretar(arbol, tabla);
+        if (this.valor != null) {
+            console.log("ANTES DE INTEPRESTAR EL VALOR");
+            valor_unico = this.valor.interpretar(arbol, tabla);
+            console.log("DESPUES DE INTEPRESTAR EL VALOR");
             if (valor_unico instanceof Errores_1.default)
                 return valor_unico;
         }
@@ -49,26 +51,26 @@ class FuncionesToLower extends Instruccion_1.Instruccion {
             default:
                 let error = new Errores_1.default("Semántico", "Función Length Inválida", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función Length Inválida.\n");
+                arbol.setConsola("Semántico: Función Length Inválida ACA.\n");
                 return error;
         }
     }
-    length(op_izquierda, arbol) {
+    length(valor, arbol) {
         var _a;
-        let op_unico = (_a = this.operando_unico) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
+        let op_unico = (_a = this.valor) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         switch (op_unico) {
             case Tipo_1.tipo_dato.CADENA:
                 this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.ENTERO);
-                return parseInt(op_izquierda.length());
+                return parseInt(valor.length);
             default:
                 let error = new Errores_1.default("Semántico", "Función Length Inválida", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función Length Inválida.\n");
+                arbol.setConsola("Semántico: Función Length Inválida PROANDO.\n");
                 return error;
         }
     }
 }
-exports.default = FuncionesToLower;
+exports.default = FuncionesLenght;
 var Funcion;
 (function (Funcion) {
     Funcion[Funcion["LENGTH"] = 0] = "LENGTH";

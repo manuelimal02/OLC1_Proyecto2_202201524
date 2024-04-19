@@ -21,6 +21,7 @@
     const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
     const FuncionRound           = require('./Expresiones/FuncionRound')
     const FuncionToString        = require('./Expresiones/FuncionToString')
+    const FuncionLength          = require('./Funciones/FuncionLength')
     const DeclaracionMatriz      = require('./Matriz/DeclaracionMatriz')
     const AsignacionMatriz       = require('./Matriz/AsignacionMatriz')
     const AccesoMatriz           = require('./Matriz/AccesoMatriz')
@@ -126,6 +127,7 @@
 %left 'DIVISION' 'MULTICACION' 'MODULO'
 %right 'POW'
 %right 'UMENOS'
+%left 'PUNTO'
 
 %start inicio
 %%
@@ -352,6 +354,10 @@ expresion : ENTERO
             | TOSTRING PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO
 {
     $$ = new FuncionToString.default(FuncionToString.Funcion.TOSTRING, @1.first_line, @1.first_column, $3);
+}
+            | expresion PUNTO LENGTH PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+{
+    $$ = new FuncionLength.default(FuncionLength.Funcion.LENGTH, @1.first_line, @1.first_column, $1);
 }
             | expresion MENOR_QUE expresion 
 {
