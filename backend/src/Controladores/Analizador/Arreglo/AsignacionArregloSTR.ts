@@ -1,4 +1,4 @@
-import { Instruccion } from "../Abstract/Instruccion";
+/*import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
 import Arbol from "../Simbolo/Arbol";
 import tablaSimbolo from "../Simbolo/TablaSimbolo";
@@ -21,19 +21,14 @@ export default class AsignacionMatriz extends Instruccion {
         if (nuevo_valor instanceof Errores) return nuevo_valor
         let valor = tabla.getArreglo(this.identificador.toLocaleLowerCase())
         if (valor == null){
-            let error = new Errores("Semántico", "Variable No Existente.", this.fila, this.columna)
-            arbol.agregarError(error);
-            arbol.setConsola("Semántico: Variable No Existente.\n")
-            return error
-        }
         if (this.expresion.tipo_dato.getTipo() != valor.getTipo().getTipo()){
             let error = new Errores("Semántico", "Asignación Incorrecta En Arreglo.", this.fila, this.columna)
             arbol.agregarError(error);
             arbol.setConsola("Semántico: Asignación Incorrecta En Arreglo.\n")
             return error 
         }
-        let posicion1 = parseInt(this.posicion_1.interpretar(arbol, tabla))
         this.tipo_dato = valor.getTipo()
-        valor.setValores(posicion1, nuevo_valor)
+        valor.setValores(nuevo_valor)
     }
-}
+    }
+}*/

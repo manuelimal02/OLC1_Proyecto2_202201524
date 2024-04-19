@@ -17,15 +17,17 @@
     const Continue               = require('./Transferencia/Continue')
     const Return                 = require('./Transferencia/Return')
     const IncreDecre             = require('./Instrucciones/IncreDecre')
-    const FuncionToLower         = require('./Expresiones/FuncionToLower')
-    const FuncionToUpper         = require('./Expresiones/FuncionToUpper')
-    const FuncionRound           = require('./Expresiones/FuncionRound')
-    const FuncionToString        = require('./Expresiones/FuncionToString')
+    const FuncionToLower         = require('./Funciones/FuncionToLower')
+    const FuncionToUpper         = require('./Funciones/FuncionToUpper')
+    const FuncionRound           = require('./Funciones/FuncionRound')
+    const FuncionToString        = require('./Funciones/FuncionToString')
     const FuncionLength          = require('./Funciones/FuncionLength')
+    const FuncionSTR             = require('./Funciones/FuncionSTR')
     const DeclaracionMatriz      = require('./Matriz/DeclaracionMatriz')
     const AsignacionMatriz       = require('./Matriz/AsignacionMatriz')
     const AccesoMatriz           = require('./Matriz/AccesoMatriz')
     const DeclaracionArreglo     = require('./Arreglo/DeclaracionArreglo')
+    const DeclaracionArregloSTR  = require('./Arreglo/DeclaracionArregloSTR')
     const AccesoArreglo          = require('./Arreglo/AccesoArreglo')
     const AsignacionArreglo      = require('./Arreglo/AsignacionArreglo')
 %}
@@ -66,6 +68,7 @@
 "return"                    return 'RETURN'
 "new"                       return 'NEW'
 "length"                    return 'LENGTH'
+"c_str"                     return 'C_STR'
 
 "["                         return 'CORIZ'
 "]"                         return 'CORDE'
@@ -235,6 +238,11 @@ asignacion : ID IGUAL expresion
 {
     $$ = new AsignacionArreglo.default($1,$3,$6,@1.first_line, @1.first_column);
 }
+        | ID CORIZ CORDE IGUAL expresion
+{
+    //$$ = new AsignacionArreglo.default($1,null,$6,@1.first_line, @1.first_column);
+    // ESTO ME FALTA
+}
 ;
 
 incremento : ID MAS_MAS 
@@ -296,15 +304,10 @@ expresion : ENTERO
 { 
     $$ = new Nativo.default(new Tipo_Variable.default(Tipo_Variable.tipo_dato.BOOLEANO), false, @1.first_line, @1.first_column); 
 }
-            | ID
-{
-    $$ = new AccesoVariable.default($1, @1.first_line, @1.first_column);
-}
             | ID CORIZ expresion CORDE CORIZ expresion CORDE
 {
     $$ = new AccesoMatriz.default($1, @1.first_line, @1.first_column, $3, $6);
 }
-
             | ID CORIZ expresion CORDE
 {
     $$ = new AccesoArreglo.default($1, @1.first_line, @1.first_column, $3);
@@ -361,6 +364,10 @@ expresion : ENTERO
 {
     $$ = new FuncionLength.default(FuncionLength.Funcion.LENGTH, @1.first_line, @1.first_column, $1);
 }
+            | expresion PUNTO C_STR PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+{
+    $$ = new FuncionSTR.default(FuncionSTR.Funcion.C_STR, @1.first_line, @1.first_column, $1)
+}
             | expresion MENOR_QUE expresion 
 {
     $$ = new Relacional.default(Relacional.Operador.MENORQUE, @1.first_line, @1.first_column, $1, $3); 
@@ -397,6 +404,10 @@ expresion : ENTERO
 {
     $$ = new Logico.default(Logico.Operador.NOT, @1.first_line, @1.first_column, $2);
 }         
+            | ID
+{
+    $$ = new AccesoVariable.default($1, @1.first_line, @1.first_column);
+}
 ;
 
 tipo_dato : INT
@@ -439,6 +450,10 @@ arreglo: tipo_dato ID CORIZ CORDE  IGUAL CORIZ contenido1 CORDE
         |tipo_dato ID CORIZ CORDE IGUAL NEW tipo_dato CORIZ expresion CORDE
 {
     $$=new DeclaracionArreglo.default($1, @1.first_line, @1.first_column,$2,null,$9);
+}
+        | tipo_dato ID CORIZ CORDE IGUAL expresion
+{
+    $$=new DeclaracionArregloSTR.default($1, @1.first_line, @1.first_column, $2, $6);
 }
 ;
 

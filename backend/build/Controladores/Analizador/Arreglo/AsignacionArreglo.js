@@ -48,9 +48,9 @@ class AsignacionMatriz extends Instruccion_1.Instruccion {
             return error;
         }
         if (this.expresion.tipo_dato.getTipo() != valor.getTipo().getTipo()) {
-            let error = new Errores_1.default("Semántico", "Asignación Incorrecta.", this.fila, this.columna);
+            let error = new Errores_1.default("Semántico", "Asignación Incorrecta En Arreglo.", this.fila, this.columna);
             arbol.agregarError(error);
-            arbol.setConsola("Semántico: Asignación Incorrecta.\n");
+            arbol.setConsola("Semántico: Asignación Incorrecta En Arreglo.\n");
             return error;
         }
         let posicion1 = parseInt(this.posicion_1.interpretar(arbol, tabla));

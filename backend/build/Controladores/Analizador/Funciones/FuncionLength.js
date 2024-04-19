@@ -39,9 +39,7 @@ class FuncionesLenght extends Instruccion_1.Instruccion {
     interpretar(arbol, tabla) {
         let valor_unico = null;
         if (this.valor != null) {
-            console.log("ANTES DE INTEPRESTAR EL VALOR");
             valor_unico = this.valor.interpretar(arbol, tabla);
-            console.log("DESPUES DE INTEPRESTAR EL VALOR");
             if (valor_unico instanceof Errores_1.default)
                 return valor_unico;
         }

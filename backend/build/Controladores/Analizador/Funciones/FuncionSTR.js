@@ -30,46 +30,52 @@ exports.Funcion = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-class FuncionesToUpper extends Instruccion_1.Instruccion {
-    constructor(operador, fila, columna, op_izquierda) {
+const Nativo_1 = __importDefault(require("../Expresiones/Nativo"));
+class FuncionesSTR extends Instruccion_1.Instruccion {
+    constructor(operador, fila, columna, valor_cadena) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.CADENA), fila, columna);
-        this.operando_unico = op_izquierda;
+        this.valor_cadena = valor_cadena;
         this.operacion = operador;
     }
     interpretar(arbol, tabla) {
         let valor_unico = null;
-        if (this.operando_unico != null) {
-            valor_unico = this.operando_unico.interpretar(arbol, tabla);
+        if (this.valor_cadena != null) {
+            valor_unico = this.valor_cadena.interpretar(arbol, tabla);
             if (valor_unico instanceof Errores_1.default)
                 return valor_unico;
         }
         switch (this.operacion) {
-            case Funcion.TOUPPER:
-                return this.toupper(valor_unico, arbol);
+            case Funcion.C_STR:
+                return this.c_str(valor_unico, arbol);
             default:
-                let error = new Errores_1.default("Semántico", "Función ToUpper Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Función ToLower Inválida", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función ToUpper Inválida.\n");
+                arbol.setConsola("Semántico: Función ToLower Inválida.\n");
                 return error;
         }
     }
-    toupper(op_izquierda, arbol) {
+    c_str(valor_cadena, arbol) {
         var _a;
-        let op_unico = (_a = this.operando_unico) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
+        let op_unico = (_a = this.valor_cadena) === null || _a === void 0 ? void 0 : _a.tipo_dato.getTipo();
         switch (op_unico) {
             case Tipo_1.tipo_dato.CADENA:
-                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CADENA);
-                return String(op_izquierda.toUpperCase());
+                this.tipo_dato = new Tipo_1.default(Tipo_1.tipo_dato.CARACTER);
+                let caracteres = valor_cadena.split("");
+                let arreglo = new Array(caracteres.length);
+                for (let i = 0; i < caracteres.length; i++) {
+                    arreglo[i] = new Nativo_1.default(this.tipo_dato, caracteres[i], 0, 0);
+                }
+                return arreglo;
             default:
-                let error = new Errores_1.default("Semántico", "Función ToUpper Inválida", this.fila, this.columna);
+                let error = new Errores_1.default("Semántico", "Función ToLower Inválida", this.fila, this.columna);
                 arbol.agregarError(error);
-                arbol.setConsola("Semántico: Función ToUpper Inválida.\n");
+                arbol.setConsola("Semántico: Función ToLower Inválida.\n");
                 return error;
         }
     }
 }
-exports.default = FuncionesToUpper;
+exports.default = FuncionesSTR;
 var Funcion;
 (function (Funcion) {
-    Funcion[Funcion["TOUPPER"] = 0] = "TOUPPER";
+    Funcion[Funcion["C_STR"] = 0] = "C_STR";
 })(Funcion || (exports.Funcion = Funcion = {}));

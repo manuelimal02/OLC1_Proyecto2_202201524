@@ -18,9 +18,7 @@ export default class FuncionesLenght extends Instruccion {
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
         let valor_unico = null
         if (this.valor != null) {
-            console.log("ANTES DE INTEPRESTAR EL VALOR")
             valor_unico = this.valor.interpretar(arbol, tabla)
-            console.log("DESPUES DE INTEPRESTAR EL VALOR")
             if (valor_unico instanceof Errores) return valor_unico
         } 
         switch (this.operacion) {
