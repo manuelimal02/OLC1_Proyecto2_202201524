@@ -7,18 +7,22 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = require("../Simbolo/Tipo");
 const SimboloA_1 = __importDefault(require("../Simbolo/SimboloA"));
+const Nativo_1 = __importDefault(require("../Expresiones/Nativo"));
 class DeclaracionArreglo extends Instruccion_1.Instruccion {
-    constructor(tipo, fila, columna, identificador, valor, tamano1) {
+    constructor(tipo, fila, columna, identificador, valor, tamano) {
         super(tipo, fila, columna);
         this.identificador = identificador;
         this.valor = valor;
-        this.tamano1 = tamano1;
+        this.tamano = tamano;
     }
     interpretar(arbol, tabla) {
-        if (this.valor == null && this.tamano1 != undefined) {
+        if (this.valor == null && this.tamano != undefined) {
             switch (this.tipo_dato.getTipo()) {
                 case Tipo_1.tipo_dato.ENTERO:
-                    let arreglo = new Array(this.tamano1).fill(0);
+                    let arreglo = new Array(this.tamano);
+                    for (let i = 0; i < arreglo.length; i++) {
+                        arreglo[i] = new Nativo_1.default(this.tipo_dato, "0", 0, 0);
+                    }
                     if (!tabla.setArreglo(new SimboloA_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, arreglo))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
                         arbol.agregarError(error);
@@ -27,7 +31,10 @@ class DeclaracionArreglo extends Instruccion_1.Instruccion {
                     }
                     break;
                 case Tipo_1.tipo_dato.DECIMAL:
-                    let arreglo2 = new Array(this.tamano1).fill(0.0);
+                    let arreglo2 = new Array(this.tamano);
+                    for (let i = 0; i < arreglo2.length; i++) {
+                        arreglo2[i] = new Nativo_1.default(this.tipo_dato, "0.0", 0, 0);
+                    }
                     if (!tabla.setArreglo(new SimboloA_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, arreglo2))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
                         arbol.agregarError(error);
@@ -36,7 +43,10 @@ class DeclaracionArreglo extends Instruccion_1.Instruccion {
                     }
                     break;
                 case Tipo_1.tipo_dato.BOOLEANO:
-                    let arreglo3 = new Array(this.tamano1).fill(true);
+                    let arreglo3 = new Array(this.tamano);
+                    for (let i = 0; i < arreglo3.length; i++) {
+                        arreglo3[i] = new Nativo_1.default(this.tipo_dato, true, 0, 0);
+                    }
                     if (!tabla.setArreglo(new SimboloA_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, arreglo3))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
                         arbol.agregarError(error);
@@ -45,7 +55,10 @@ class DeclaracionArreglo extends Instruccion_1.Instruccion {
                     }
                     break;
                 case Tipo_1.tipo_dato.CADENA:
-                    let arreglo4 = new Array(this.tamano1).fill("");
+                    let arreglo4 = new Array(this.tamano);
+                    for (let i = 0; i < arreglo4.length; i++) {
+                        arreglo4[i] = new Nativo_1.default(this.tipo_dato, "", 0, 0);
+                    }
                     if (!tabla.setArreglo(new SimboloA_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, arreglo4))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
                         arbol.agregarError(error);
@@ -54,7 +67,10 @@ class DeclaracionArreglo extends Instruccion_1.Instruccion {
                     }
                     break;
                 case Tipo_1.tipo_dato.CARACTER:
-                    let arreglo5 = new Array(this.tamano1).fill('');
+                    let arreglo5 = new Array(this.tamano);
+                    for (let i = 0; i < arreglo5.length; i++) {
+                        arreglo5[i] = new Nativo_1.default(this.tipo_dato, '', 0, 0);
+                    }
                     if (!tabla.setArreglo(new SimboloA_1.default(this.tipo_dato, this.fila, this.columna, this.identificador, arreglo5))) {
                         let error = new Errores_1.default("Semántico", "La Variable Ya Existe.", this.fila, this.columna);
                         arbol.agregarError(error);

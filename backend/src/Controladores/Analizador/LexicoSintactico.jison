@@ -25,7 +25,8 @@
     const AsignacionMatriz       = require('./Matriz/AsignacionMatriz')
     const AccesoMatriz           = require('./Matriz/AccesoMatriz')
     const DeclaracionArreglo     = require('./Arreglo/DeclaracionArreglo')
-    
+    const AccesoArreglo          = require('./Arreglo/AccesoArreglo')
+    const AsignacionArreglo      = require('./Arreglo/AsignacionArreglo')
 %}
 
 
@@ -63,6 +64,7 @@
 "continue"                  return 'CONTINUE'
 "return"                    return 'RETURN'
 "new"                       return 'NEW'
+"length"                    return 'LENGTH'
 
 "["                         return 'CORIZ'
 "]"                         return 'CORDE'
@@ -81,6 +83,7 @@
 "*"                         return 'MULTICACION'
 "/"                         return 'DIVISION'
 "%"                         return 'MODULO'
+"."                         return 'PUNTO'
 
 "=="                        return 'IGUAL_IGUAL'
 "="                         return 'IGUAL'
@@ -224,7 +227,12 @@ asignacion : ID IGUAL expresion
         | ID CORIZ ENTERO CORDE CORIZ ENTERO CORDE IGUAL expresion
 {
     $$ = new AsignacionMatriz.default($1,parseInt($3),parseInt($6),$9,@1.first_line, @1.first_column);
-};
+}
+        | ID CORIZ ENTERO CORDE IGUAL expresion
+{
+    $$ = new AsignacionArreglo.default($1,parseInt($3),$6,@1.first_line, @1.first_column);
+}
+;
 
 incremento : ID MAS_MAS 
 {
@@ -292,7 +300,11 @@ expresion : ENTERO
             | ID CORIZ ENTERO CORDE CORIZ ENTERO CORDE
 {
     $$ = new AccesoMatriz.default($1, @1.first_line, @1.first_column, parseInt($3), parseInt($6));
-}  
+}
+            | ID CORIZ ENTERO CORDE
+{
+    $$ = new AccesoArreglo.default($1, @1.first_line, @1.first_column, parseInt($3));
+}    
             | PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO
 {
     $$ = $2;
