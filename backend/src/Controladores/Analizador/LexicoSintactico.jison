@@ -9,6 +9,8 @@
     const Asignacion             = require('./Instrucciones/Asignacion')
     const Cout                   = require('./Instrucciones/Cout')
     const CoutEndl               = require('./Instrucciones/CoutEndl')
+    const IncreDecre             = require('./Instrucciones/IncreDecre')
+    const Ternario               = require('./Instrucciones/Ternario')
     const ControlIf              = require('./Control/If')
     const ControlWhile           = require('./Ciclos/While')
     const ControlDoWhile         = require('./Ciclos/DoWhile')
@@ -16,7 +18,6 @@
     const Break                  = require('./Transferencia/Break')
     const Continue               = require('./Transferencia/Continue')
     const Return                 = require('./Transferencia/Return')
-    const IncreDecre             = require('./Instrucciones/IncreDecre')
     const FuncionToLower         = require('./Funciones/FuncionToLower')
     const FuncionToUpper         = require('./Funciones/FuncionToUpper')
     const FuncionRound           = require('./Funciones/FuncionRound')
@@ -122,6 +123,7 @@
 /lex
 
 //--------------------------------------------------------------------------------------------------------------------------
+%left 'INTERROGACION'
 %left 'OR'
 %left 'AND'
 %right 'NOT'
@@ -407,6 +409,10 @@ expresion : ENTERO
             | ID
 {
     $$ = new AccesoVariable.default($1, @1.first_line, @1.first_column);
+}
+            | expresion INTERROGACION expresion DOSPUNTOS expresion
+{
+    $$ = new Ternario.default($1,$3,$5,@1.first_line, @1.first_column);
 }
 ;
 
