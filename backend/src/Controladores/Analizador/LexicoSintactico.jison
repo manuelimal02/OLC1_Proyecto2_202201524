@@ -128,6 +128,7 @@
 %right 'POW'
 %right 'UMENOS'
 %left 'PUNTO'
+%left 'CORDE'
 
 %start inicio
 %%
@@ -226,13 +227,13 @@ asignacion : ID IGUAL expresion
 {
     $$=$1
 }       
-        | ID CORIZ ENTERO CORDE CORIZ ENTERO CORDE IGUAL expresion
+        | ID CORIZ expresion CORDE CORIZ expresion CORDE IGUAL expresion
 {
-    $$ = new AsignacionMatriz.default($1,parseInt($3),parseInt($6),$9,@1.first_line, @1.first_column);
+    $$ = new AsignacionMatriz.default($1,$3,$6,$9,@1.first_line, @1.first_column);
 }
-        | ID CORIZ ENTERO CORDE IGUAL expresion
+        | ID CORIZ expresion CORDE IGUAL expresion
 {
-    $$ = new AsignacionArreglo.default($1,parseInt($3),$6,@1.first_line, @1.first_column);
+    $$ = new AsignacionArreglo.default($1,$3,$6,@1.first_line, @1.first_column);
 }
 ;
 
@@ -299,13 +300,14 @@ expresion : ENTERO
 {
     $$ = new AccesoVariable.default($1, @1.first_line, @1.first_column);
 }
-            | ID CORIZ ENTERO CORDE CORIZ ENTERO CORDE
+            | ID CORIZ expresion CORDE CORIZ expresion CORDE
 {
-    $$ = new AccesoMatriz.default($1, @1.first_line, @1.first_column, parseInt($3), parseInt($6));
+    $$ = new AccesoMatriz.default($1, @1.first_line, @1.first_column, $3, $6);
 }
-            | ID CORIZ ENTERO CORDE
+
+            | ID CORIZ expresion CORDE
 {
-    $$ = new AccesoArreglo.default($1, @1.first_line, @1.first_column, parseInt($3));
+    $$ = new AccesoArreglo.default($1, @1.first_line, @1.first_column, $3);
 }    
             | PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO
 {
@@ -424,9 +426,9 @@ matriz: tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL CORIZ contenido2 CORDE
 {
     $$=new DeclaracionMatriz.default($1, @1.first_line, @1.first_column,$2,$9);
 }
-        |tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL NEW tipo_dato CORIZ ENTERO CORDE CORIZ ENTERO CORDE
+        |tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL NEW tipo_dato CORIZ expresion CORDE CORIZ expresion CORDE
 {
-    $$=new DeclaracionMatriz.default($1, @1.first_line, @1.first_column,$2,null,parseInt($11),parseInt($14));
+    $$=new DeclaracionMatriz.default($1, @1.first_line, @1.first_column,$2,null,$11,$14);
 }
 ;
 
@@ -434,9 +436,9 @@ arreglo: tipo_dato ID CORIZ CORDE  IGUAL CORIZ contenido1 CORDE
 {
     $$=new DeclaracionArreglo.default($1, @1.first_line, @1.first_column,$2,$7);
 }
-        |tipo_dato ID CORIZ CORDE IGUAL NEW tipo_dato CORIZ ENTERO CORDE
+        |tipo_dato ID CORIZ CORDE IGUAL NEW tipo_dato CORIZ expresion CORDE
 {
-    $$=new DeclaracionArreglo.default($1, @1.first_line, @1.first_column,$2,null,parseInt($9));
+    $$=new DeclaracionArreglo.default($1, @1.first_line, @1.first_column,$2,null,$9);
 }
 ;
 

@@ -53,8 +53,9 @@ class AsignacionMatriz extends Instruccion_1.Instruccion {
             arbol.setConsola("Semántico: Asignación Incorrecta.\n");
             return error;
         }
+        let posicion1 = parseInt(this.posicion_1.interpretar(arbol, tabla));
         this.tipo_dato = valor.getTipo();
-        valor.setValores(this.posicion_1, nuevo_valor);
+        valor.setValores(posicion1, nuevo_valor);
     }
 }
 exports.default = AsignacionMatriz;

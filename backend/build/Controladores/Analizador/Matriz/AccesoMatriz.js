@@ -44,8 +44,10 @@ class AccesoMatriz extends Instruccion_1.Instruccion {
             arbol.setConsola("Semántico: Acceso Matriz Inválido.\n");
             return error;
         }
+        let posicion1 = parseInt(this.posicion_1.interpretar(arbol, tabla));
+        let posicion2 = parseInt(this.posicion_2.interpretar(arbol, tabla));
         this.tipo_dato = valor_variable.getTipo();
-        return valor_variable.getValores(this.posicion_1, this.posicion_2);
+        return valor_variable.getValores(posicion1, posicion2);
     }
 }
 exports.default = AccesoMatriz;

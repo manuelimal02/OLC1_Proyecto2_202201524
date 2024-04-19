@@ -7,9 +7,9 @@ import Tipo, { tipo_dato } from '../Simbolo/Tipo'
 export default class AsignacionMatriz extends Instruccion {
     private identificador: string
     private expresion: Instruccion
-    private posicion_1: number
+    private posicion_1: Instruccion
 
-    constructor(identificador: string, posicion_1:number, expresion: Instruccion, fila: number, columna: number) {
+    constructor(identificador: string, posicion_1:Instruccion, expresion: Instruccion, fila: number, columna: number) {
         super(new Tipo(tipo_dato.VOID), fila, columna)
         this.identificador = identificador
         this.expresion = expresion
@@ -32,7 +32,8 @@ export default class AsignacionMatriz extends Instruccion {
             arbol.setConsola("Semántico: Asignación Incorrecta.\n")
             return error 
         }
+        let posicion1 = parseInt(this.posicion_1.interpretar(arbol, tabla))
         this.tipo_dato = valor.getTipo()
-        valor.setValores(this.posicion_1, nuevo_valor)
+        valor.setValores(posicion1, nuevo_valor)
     }
 }

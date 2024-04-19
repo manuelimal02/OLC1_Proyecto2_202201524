@@ -40,6 +40,18 @@ export default class FuncionesLenght extends Instruccion {
             case tipo_dato.CADENA:
                 this.tipo_dato = new Tipo(tipo_dato.ENTERO)
                 return parseInt(valor.length)
+            case tipo_dato.ENTERO:
+                this.tipo_dato = new Tipo(tipo_dato.ENTERO)
+                return parseInt(valor.length)
+            case tipo_dato.DECIMAL:
+                this.tipo_dato = new Tipo(tipo_dato.ENTERO)
+                return parseInt(valor.length)
+            case tipo_dato.CARACTER:
+                this.tipo_dato = new Tipo(tipo_dato.ENTERO)
+                return parseInt(valor.length)
+            case tipo_dato.BOOLEANO:
+                this.tipo_dato = new Tipo(tipo_dato.ENTERO)
+                return parseInt(valor.length)
             default:
                 let error = new Errores("Semántico", "Función Length Inválida", this.fila, this.columna)
                 arbol.agregarError(error);

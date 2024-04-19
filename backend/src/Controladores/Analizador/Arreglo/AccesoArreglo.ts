@@ -7,9 +7,9 @@ import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 
 export default class AccesoMatriz extends Instruccion {
     private identificador: string
-    private posicion_1: number
+    private posicion_1: Instruccion
 
-    constructor(identificador: string, fila: number, columna: number, posicion1:number) {
+    constructor(identificador: string, fila: number, columna: number, posicion1:Instruccion) {
         super(new Tipo(tipo_dato.VOID), fila, columna)
         this.identificador = identificador
         this.posicion_1 = posicion1
@@ -23,7 +23,8 @@ export default class AccesoMatriz extends Instruccion {
             arbol.setConsola("Semántico: Acceso Arreglo Inválido.\n")
             return error 
         }
+        let posicion1 = parseInt(this.posicion_1.interpretar(arbol, tabla))
         this.tipo_dato = valor_variable.getTipo()
-        return valor_variable.getValores(this.posicion_1)
+        return valor_variable.getValores(posicion1)
     }
 }

@@ -18,11 +18,13 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
     }
     interpretar(arbol, tabla) {
         if (this.valor == null && this.tamano1 != undefined && this.tamano2 != undefined) {
+            let tamano1Num = parseInt(this.tamano1.interpretar(arbol, tabla));
+            let tamano2Num = parseInt(this.tamano2.interpretar(arbol, tabla));
             switch (this.tipo_dato.getTipo()) {
                 case Tipo_1.tipo_dato.ENTERO:
-                    let matriz = new Array(this.tamano1);
+                    let matriz = new Array(tamano1Num);
                     for (let i = 0; i < matriz.length; i++) {
-                        matriz[i] = new Array(this.tamano2);
+                        matriz[i] = new Array(tamano2Num);
                         for (let j = 0; j < matriz[i].length; j++) {
                             matriz[i][j] = new Nativo_1.default(this.tipo_dato, "0", 0, 0);
                         }
@@ -35,9 +37,9 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                     }
                     break;
                 case Tipo_1.tipo_dato.DECIMAL:
-                    let matriz1 = new Array(this.tamano1);
+                    let matriz1 = new Array(tamano1Num);
                     for (let i = 0; i < matriz1.length; i++) {
-                        matriz1[i] = new Array(this.tamano2);
+                        matriz1[i] = new Array(tamano2Num);
                         for (let j = 0; j < matriz1[i].length; j++) {
                             matriz1[i][j] = new Nativo_1.default(this.tipo_dato, "0.0", 0, 0);
                         }
@@ -50,9 +52,9 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                     }
                     break;
                 case Tipo_1.tipo_dato.BOOLEANO:
-                    let matriz3 = new Array(this.tamano1);
+                    let matriz3 = new Array(tamano1Num);
                     for (let i = 0; i < matriz3.length; i++) {
-                        matriz3[i] = new Array(this.tamano2);
+                        matriz3[i] = new Array(tamano2Num);
                         for (let j = 0; j < matriz3[i].length; j++) {
                             matriz3[i][j] = new Nativo_1.default(this.tipo_dato, true, 0, 0);
                         }
@@ -65,9 +67,9 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                     }
                     break;
                 case Tipo_1.tipo_dato.CADENA:
-                    let matriz4 = new Array(this.tamano1);
+                    let matriz4 = new Array(tamano1Num);
                     for (let i = 0; i < matriz4.length; i++) {
-                        matriz4[i] = new Array(this.tamano2);
+                        matriz4[i] = new Array(tamano2Num);
                         for (let j = 0; j < matriz4[i].length; j++) {
                             matriz4[i][j] = new Nativo_1.default(this.tipo_dato, "", 0, 0);
                         }
@@ -80,9 +82,9 @@ class DeclaracionMatriz extends Instruccion_1.Instruccion {
                     }
                     break;
                 case Tipo_1.tipo_dato.CARACTER:
-                    let matriz5 = new Array(this.tamano1);
+                    let matriz5 = new Array(tamano1Num);
                     for (let i = 0; i < matriz5.length; i++) {
-                        matriz5[i] = new Array(this.tamano2);
+                        matriz5[i] = new Array(tamano2Num);
                         for (let j = 0; j < matriz5[i].length; j++) {
                             matriz5[i][j] = new Nativo_1.default(this.tipo_dato, '', 0, 0);
                         }
