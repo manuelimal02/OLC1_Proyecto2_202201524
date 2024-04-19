@@ -11,6 +11,7 @@
     const CoutEndl               = require('./Instrucciones/CoutEndl')
     const IncreDecre             = require('./Instrucciones/IncreDecre')
     const Ternario               = require('./Instrucciones/Ternario')
+    const Casteo                 = require('./Instrucciones/Casteo')
     const ControlIf              = require('./Control/If')
     const ControlWhile           = require('./Ciclos/While')
     const ControlDoWhile         = require('./Ciclos/DoWhile')
@@ -134,6 +135,8 @@
 %right 'UMENOS'
 %left 'PUNTO'
 %left 'CORDE'
+%left 'PARENTESIS_IZQUIERDO'
+
 
 %start inicio
 %%
@@ -414,6 +417,10 @@ expresion : ENTERO
 {
     $$ = new Ternario.default($1,$3,$5,@1.first_line, @1.first_column);
 }
+            | casteo_tipos
+{
+    $$ = $1;
+}
 ;
 
 tipo_dato : INT
@@ -436,8 +443,7 @@ tipo_dato : INT
 {
     $$ = new Tipo_Variable.default(Tipo_Variable.tipo_dato.CADENA);
     
-}
-;
+};
 
 matriz: tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL CORIZ contenido2 CORDE 
 {
@@ -446,8 +452,7 @@ matriz: tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL CORIZ contenido2 CORDE
         |tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL NEW tipo_dato CORIZ expresion CORDE CORIZ expresion CORDE
 {
     $$=new DeclaracionMatriz.default($1, @1.first_line, @1.first_column,$2,null,$11,$14);
-}
-;
+};
 
 arreglo: tipo_dato ID CORIZ CORDE  IGUAL CORIZ contenido1 CORDE 
 {
@@ -460,8 +465,7 @@ arreglo: tipo_dato ID CORIZ CORDE  IGUAL CORIZ contenido1 CORDE
         | tipo_dato ID CORIZ CORDE IGUAL expresion
 {
     $$=new DeclaracionArregloSTR.default($1, @1.first_line, @1.first_column, $2, $6);
-}
-;
+};
 
 contenido1 : contenido1 COMA expresion
 {
@@ -542,4 +546,9 @@ ts_continue: CONTINUE
 ts_return: RETURN expresion
 {
     $$ = new Return.default($2,@1.first_line, @1.first_column);
+};
+
+casteo_tipos : PARENTESIS_IZQUIERDO tipo_dato PARENTESIS_DERECHO expresion 
+{
+    $$ = new Casteo.default($2, @1.first_line, @1.first_column, $4);
 };

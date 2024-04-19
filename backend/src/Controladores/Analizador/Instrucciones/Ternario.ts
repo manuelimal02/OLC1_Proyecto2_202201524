@@ -5,7 +5,7 @@ import TablaSimbolo from "../Simbolo/TablaSimbolo";
 import Tipo, { tipo_dato } from "../Simbolo/Tipo";
 
 
-export default class OperadorTernario extends Instruccion {
+export default class Ternario extends Instruccion {
     private condicion: Instruccion
     private expresion1: Instruccion
     private expresion2: Instruccion

@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-class OperadorTernario extends Instruccion_1.Instruccion {
+class Ternario extends Instruccion_1.Instruccion {
     constructor(condicion, expresion1, expresion2, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
         this.condicion = condicion;
@@ -62,4 +62,4 @@ class OperadorTernario extends Instruccion_1.Instruccion {
         }
     }
 }
-exports.default = OperadorTernario;
+exports.default = Ternario;
