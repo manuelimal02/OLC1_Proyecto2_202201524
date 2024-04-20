@@ -13,6 +13,9 @@
     const Ternario               = require('./Instrucciones/Ternario')
     const Casteo                 = require('./Instrucciones/Casteo')
     const ControlIf              = require('./Control/If')
+    const Switch                 = require('./Control/Switch')
+    const Case                   = require('./Control/Case')
+    const Default                = require('./Control/Default')
     const ControlWhile           = require('./Ciclos/While')
     const ControlDoWhile         = require('./Ciclos/DoWhile')
     const ControlFor             = require('./Ciclos/For')
@@ -71,6 +74,9 @@
 "new"                       return 'NEW'
 "length"                    return 'LENGTH'
 "c_str"                     return 'C_STR'
+"switch"                    return 'SWITCH'
+"case"                      return 'CASE'
+"default"                   return 'DEFAULT'
 
 "["                         return 'CORIZ'
 "]"                         return 'CORDE'
@@ -183,7 +189,11 @@ instruccion : declaracion PUNTOYCOMA
             | sentencia_dowhile
 {
     $$=$1;
-} 
+}
+            | sentencia_switch
+{
+    $$=$1;
+}  
             | ts_break PUNTOYCOMA
 {
     $$=$1;
@@ -298,7 +308,6 @@ expresion : ENTERO
     text = text.replace(/\\r/g, "\r");
     text = text.replace(/\\t/g, "\t");
     text = text.replace(/\\\'/g, "'");
-
     $$ = new Nativo.default(new Tipo_Variable.default(Tipo_Variable.tipo_dato.CADENA), text, @1.first_line, @1.first_column);
 }
             | TRUE
@@ -551,4 +560,37 @@ ts_return: RETURN expresion
 casteo_tipos : PARENTESIS_IZQUIERDO tipo_dato PARENTESIS_DERECHO expresion 
 {
     $$ = new Casteo.default($2, @1.first_line, @1.first_column, $4);
+};
+
+sentencia_switch: SWITCH PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA sentencia_case sentencia_default LLAVE_IZQUIERDA    
+{
+    $$ = new Switch.default($3, @1.first_line, @1.first_column, $6, $7)
+}
+        | SWITCH PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA sentencia_case LLAVE_IZQUIERDA                      
+{
+    $$ = new Switch.default($3, @1.first_line, @1.first_column, $6, undefined) 
+}
+        | SWITCH PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO LLAVE_DERECHA sentencia_default LLAVE_IZQUIERDA 
+{
+    $$ = new Switch.default($3, @1.first_line, @1.first_column, undefined, $6)
+};
+
+sentencia_case : sentencia_case estructura_case
+{
+    if($2 != false) $1.push($2); 
+    $$ = $1 
+}
+        | estructura_case
+{
+    $$ = ($1 != false) ? [$1] : [] 
+};
+
+estructura_case : CASE expresion DOSPUNTOS instrucciones 
+{
+    $$ = new Case.default($2, $4, @1.first_line, @1.first_column)
+};
+
+sentencia_default : DEFAULT DOSPUNTOS instrucciones 
+{
+    $$ = new Default.default($3, @1.first_line, @1.first_column)
 };
