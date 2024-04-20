@@ -131,8 +131,8 @@
 . { 
     var mensajeError = "Error léxico: carácter inesperado: " + yytext;
     console.log(mensajeError);
-    throw new Error(mensajeError); 
 }
+
 
 /lex
 
@@ -225,6 +225,10 @@ instruccion : declaracion PUNTOYCOMA
 { 
     $$=$1; 
 }
+/*           | error
+{
+    console.log("ERROR")
+}*/
 ;
 
 declaracion : tipo_dato identificador IGUAL expresion 
@@ -243,7 +247,10 @@ declaracion : tipo_dato identificador IGUAL expresion
 {
     $$=$1;
 }
-
+        | error
+        {
+            console.log("error sisis")
+        }
 ;
 
 identificador : identificador COMA ID
@@ -453,6 +460,10 @@ expresion : ENTERO
 {
     $$ = $1;
 }
+            | sb_llamada
+{
+    $$ = $1;
+}
 ;
 
 tipo_dato : INT
@@ -640,11 +651,12 @@ sb_metodo : tipo_dato ID PARENTESIS_IZQUIERDO parametro PARENTESIS_DERECHO LLAVE
 
 parametro : parametro COMA tipo_dato ID 
 {
-    $1.push({tipo:$3, id:$4}); $$ = $1; 
+    $1.push({tipo:$3, identificador:$4}); 
+    $$ = [$1]; 
 }
         | tipo_dato ID 
 { 
-    $$ = [{tipo:$1, id:$2}] 
+    $$ = [{tipo:$1, identificador:[$2]}] 
 };
 
 sb_execute : EXECUTE ID PARENTESIS_IZQUIERDO llamada_parametro PARENTESIS_DERECHO
@@ -667,7 +679,8 @@ sb_llamada : ID PARENTESIS_IZQUIERDO llamada_parametro PARENTESIS_DERECHO
 
 llamada_parametro: llamada_parametro COMA expresion 
 { 
-    $$ = $1.push($3); $$ = $1; 
+    $$ = $1.push($3); 
+    $$ = $1; 
 }
         | expresion 
 { 

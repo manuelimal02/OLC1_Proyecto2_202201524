@@ -11,12 +11,12 @@ export default class Return extends Instruccion {
         super(new Tipo(tipo_dato.ENTERO), linea, columna)
         this.expresion = expresion
     }
-
+    
     interpretar(arbol: Arbol, tabla: tablaSimbolo) {
         if(this.expresion){
         this.retorno = this.expresion.interpretar(arbol, tabla)
         this.tipo_dato = this.expresion.tipo_dato
     }
     return this
-    }
+}
 }
