@@ -1,7 +1,7 @@
 import { Instruccion } from "../Abstract/Instruccion";
-import Arbol from "../Simbolo/Arbol";
-import tablaSimbolo from "../Simbolo/TablaSimbolo";
-import Tipo, { tipo_dato } from "../Simbolo/Tipo";
+import Arbol from "../ArbolAst/Arbol";
+import tablaSimbolo from "../ArbolAst/TablaSimbolo";
+import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 
 export default class Continue extends Instruccion {
     constructor(linea: number, col: number) {

@@ -1,13 +1,15 @@
 import * as fs from 'fs';
-import TablaSimbolo from "../Simbolo/TablaSimbolo";
+import TablaSimbolo from "./TablaSimbolo";
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
+import Metodo from "../Subrutina/Metodo";
 
 export default class Arbol {
     private instrucciones: Array<Instruccion>
     private consola: string
     private tabla_global: TablaSimbolo
     private errores: Array<Errores>
+    private funciones : Array<Instruccion>
     private lista_tablas: Array<TablaSimbolo>
 
     constructor(instrucciones: Array<Instruccion>) {
@@ -15,6 +17,7 @@ export default class Arbol {
         this.consola = ""
         this.tabla_global = new TablaSimbolo()
         this.errores = new Array<Errores>
+        this.funciones = new Array<Instruccion>()
         this.lista_tablas = []
     }
 
@@ -60,6 +63,27 @@ export default class Arbol {
 
     public agregarError(error: Errores): void {
         this.errores.push(error);
+    }
+
+    public getFunciones(): any {
+        return this.funciones;
+    }
+
+    public setFunciones(funciones: Array<Instruccion>) {
+        this.funciones = funciones;
+    }
+
+    public addFunciones(funcion: Instruccion) {
+        this.funciones.push(funcion);
+    }
+
+    public getFuncion(id: string) {
+        for (let ins of this.getFunciones()) {
+            if (ins instanceof Metodo) {
+                if (ins.identificador.toLocaleLowerCase() == id.toLocaleLowerCase()) return ins
+            }
+        }
+        return null
     }
     
     public generarReporteErrores(): void {
@@ -138,8 +162,8 @@ export default class Arbol {
         <body>
             <h1>Reporte de Tablas de Símbolos</h1>`;
             
-        for (let i of this.lista_tablas) {
-            html += `<h2>Tabla: ${i.getNombre()}</h2>
+        for (let ins of this.lista_tablas) {
+            html += `<h2>Tabla: ${ins.getNombre()}</h2>
             <table>
                 <tr>
                     <th>ID</th>
@@ -148,7 +172,7 @@ export default class Arbol {
                     <th>Fila</th>
                     <th>Columna</th>
                 </tr>`;
-            i.getTabla().forEach((valor, clave) => {
+            ins.getTabla().forEach((valor, clave) => {
                 html += `
                 <tr>
                     <td>${clave}</td>

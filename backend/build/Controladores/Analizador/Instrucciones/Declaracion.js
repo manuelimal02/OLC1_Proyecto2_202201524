@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
-const Simbolo_1 = __importDefault(require("../Simbolo/Simbolo"));
-const Tipo_1 = require("../Simbolo/Tipo");
+const Simbolo_1 = __importDefault(require("../ArbolAst/Simbolo"));
+const Tipo_1 = require("../ArbolAst/Tipo");
 class Declaracion extends Instruccion_1.Instruccion {
     constructor(tipo, fila, columna, Identificador, valor) {
         super(tipo, fila, columna);

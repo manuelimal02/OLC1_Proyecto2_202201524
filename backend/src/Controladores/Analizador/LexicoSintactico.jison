@@ -36,6 +36,9 @@
     const DeclaracionArregloSTR  = require('./Arreglo/DeclaracionArregloSTR')
     const AccesoArreglo          = require('./Arreglo/AccesoArreglo')
     const AsignacionArreglo      = require('./Arreglo/AsignacionArreglo')
+    const Metodo                 = require('./Subrutina/Metodo')
+    const Execute                = require('./Subrutina/Execute')
+    const Llamada                = require('./Subrutina/Llamada')
 %}
 
 
@@ -79,6 +82,8 @@
 "case"                      return 'CASE'
 "default"                   return 'DEFAULT'
 "typeof"                    return 'TYPEOF'
+"void"                      return 'VOID'
+"execute"                   return 'EXECUTE'
 
 "["                         return 'CORIZ'
 "]"                         return 'CORDE'
@@ -207,6 +212,18 @@ instruccion : declaracion PUNTOYCOMA
             | ts_return PUNTOYCOMA
 {
     $$=$1;
+}
+            | sb_metodo             
+{ 
+    $$=$1;
+}
+            | sb_execute PUNTOYCOMA
+{ 
+    $$=$1; 
+}
+            | sb_llamada  PUNTOYCOMA         
+{ 
+    $$=$1; 
 }
 ;
 
@@ -458,7 +475,13 @@ tipo_dato : INT
 {
     $$ = new Tipo_Variable.default(Tipo_Variable.tipo_dato.CADENA);
     
-};
+}
+        | VOID
+{
+    $$ = new Tipo_Variable.default(Tipo_Variable.tipo_dato.VOID);
+    
+}
+;
 
 matriz: tipo_dato ID CORIZ CORDE CORIZ CORDE IGUAL CORIZ contenido2 CORDE 
 {
@@ -558,9 +581,14 @@ ts_continue: CONTINUE
     $$ = new Continue.default(@1.first_line, @1.first_column);
 };
 
-ts_return: RETURN expresion
-{
-    $$ = new Return.default($2,@1.first_line, @1.first_column);
+
+ts_return : RETURN 
+{ 
+    $$ = new Break.default(@1.first_line, @1.first_column);
+}
+        | RETURN expresion 
+{ 
+    $$ = new Return.default(@1.first_line, @1.first_column, $2); 
 };
 
 casteo_tipos : PARENTESIS_IZQUIERDO tipo_dato PARENTESIS_DERECHO expresion 
@@ -599,4 +627,49 @@ estructura_case : CASE expresion DOSPUNTOS instrucciones
 sentencia_default : DEFAULT DOSPUNTOS instrucciones 
 {
     $$ = new Default.default($3, @1.first_line, @1.first_column)
+};
+
+sb_metodo : tipo_dato ID PARENTESIS_IZQUIERDO parametro PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA 
+{ 
+    $$ = new Metodo.default($2, $1, $7, @1.first_line, @1.first_column, $4); 
+}
+        | tipo_dato ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA 
+{ 
+    $$ = new Metodo.default($2, $1, $6, @1.first_line, @1.first_column); 
+};
+
+parametro : parametro COMA tipo_dato ID 
+{
+    $1.push({tipo:$3, id:$4}); $$ = $1; 
+}
+        | tipo_dato ID 
+{ 
+    $$ = [{tipo:$1, id:$2}] 
+};
+
+sb_execute : EXECUTE ID PARENTESIS_IZQUIERDO llamada_parametro PARENTESIS_DERECHO
+{ 
+    $$ = new Execute.default($2, @1.first_line, @1.first_column, $4); 
+}
+        | EXECUTE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+{ 
+    $$ = new Execute.default($2, @1.first_line, @1.first_column, []); 
+}; 
+
+sb_llamada : ID PARENTESIS_IZQUIERDO llamada_parametro PARENTESIS_DERECHO
+{ 
+    $$ = new Llamada.default($1, @1.first_line, @1.first_column, $3); 
+}
+        | ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO 
+{ 
+    $$ = new Llamada.default($1, @1.first_line, @1.first_column, []); 
+};
+
+llamada_parametro: llamada_parametro COMA expresion 
+{ 
+    $$ = $1.push($3); $$ = $1; 
+}
+        | expresion 
+{ 
+    $$ = [$1]; 
 };

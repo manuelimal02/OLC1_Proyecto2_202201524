@@ -28,7 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
-const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
+const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
 const Continue_1 = __importDefault(require("../Transferencia/Continue"));
 class Switch extends Instruccion_1.Instruccion {

@@ -1,7 +1,7 @@
 import { Instruccion } from "../Abstract/Instruccion";
-import Arbol from "../Simbolo/Arbol";
-import TablaSimbolo from "../Simbolo/TablaSimbolo";
-import Tipo, { tipo_dato } from "../Simbolo/Tipo";
+import Arbol from "../ArbolAst/Arbol";
+import TablaSimbolo from "../ArbolAst/TablaSimbolo";
+import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 import Errores from "../Errores/Errores";
 
 export default class Cout extends Instruccion {

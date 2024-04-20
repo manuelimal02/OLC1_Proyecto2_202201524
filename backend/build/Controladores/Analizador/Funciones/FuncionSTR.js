@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
-const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
+const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Nativo_1 = __importDefault(require("../Expresiones/Nativo"));
 class FuncionesSTR extends Instruccion_1.Instruccion {
     constructor(operador, fila, columna, valor_cadena) {

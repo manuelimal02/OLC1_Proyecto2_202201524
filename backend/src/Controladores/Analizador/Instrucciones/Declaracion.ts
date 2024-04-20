@@ -1,9 +1,9 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
-import Arbol from "../Simbolo/Arbol";
-import Simbolo from "../Simbolo/Simbolo";
-import TablaSimbolo from "../Simbolo/TablaSimbolo";
-import Tipo, { tipo_dato } from '../Simbolo/Tipo'
+import Arbol from "../ArbolAst/Arbol";
+import Simbolo from "../ArbolAst/Simbolo";
+import TablaSimbolo from "../ArbolAst/TablaSimbolo";
+import Tipo, { tipo_dato } from '../ArbolAst/Tipo'
 
 export default class Declaracion extends Instruccion {
     private Identificador: string[]

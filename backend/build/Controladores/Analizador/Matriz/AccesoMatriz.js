@@ -28,7 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
-const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
+const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 class AccesoMatriz extends Instruccion_1.Instruccion {
     constructor(identificador, fila, columna, posicion1, posicion2) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);

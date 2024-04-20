@@ -1,8 +1,8 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
-import Arbol from "../Simbolo/Arbol";
-import TablaSimbolo from "../Simbolo/TablaSimbolo";
-import Tipo, { tipo_dato } from "../Simbolo/Tipo";
+import Arbol from "../ArbolAst/Arbol";
+import TablaSimbolo from "../ArbolAst/TablaSimbolo";
+import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 
 export default class IncrementoDeremento extends Instruccion {
     constructor(private operando: string, fila: number, columna: number, private operando_unico: string) {

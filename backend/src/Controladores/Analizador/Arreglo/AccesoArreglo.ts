@@ -1,9 +1,9 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
-import Arbol from "../Simbolo/Arbol";
-import Arreglo from "../Simbolo/SimboloA";
-import tablaSimbolo from "../Simbolo/TablaSimbolo";
-import Tipo, { tipo_dato } from "../Simbolo/Tipo";
+import Arbol from "../ArbolAst/Arbol";
+import Arreglo from "../ArbolAst/SimboloA";
+import tablaSimbolo from "../ArbolAst/TablaSimbolo";
+import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 
 export default class AccesoMatriz extends Instruccion {
     private identificador: string

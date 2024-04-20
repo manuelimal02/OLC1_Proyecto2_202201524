@@ -1,8 +1,8 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
-import Arbol from "../Simbolo/Arbol";
-import Tipo, { tipo_dato } from "../Simbolo/Tipo";
-import TablaSimbolo from "../Simbolo/TablaSimbolo";
+import Arbol from "../ArbolAst/Arbol";
+import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
+import TablaSimbolo from "../ArbolAst/TablaSimbolo";
 import Break from "../Transferencia/Break";
 import Continue from "../Transferencia/Continue";
 

@@ -1,6 +1,6 @@
-import Arbol from "../Simbolo/Arbol";
-import TablaSimbolos from "../Simbolo/TablaSimbolo";
-import Tipo from "../Simbolo/Tipo";
+import Arbol from "../ArbolAst/Arbol";
+import TablaSimbolos from "../ArbolAst/TablaSimbolo";
+import Tipo from "../ArbolAst/Tipo";
 
 export abstract class Instruccion {
     public tipo_dato: Tipo

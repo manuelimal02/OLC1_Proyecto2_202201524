@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Operadores = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
-const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
+const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 class Aritmeticas extends Instruccion_1.Instruccion {
     constructor(operador, fila, columna, op_izquierda, op_derecha) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.ENTERO), fila, columna);

@@ -17,19 +17,19 @@ export default class Tipo {
     public getNombreTipo(): string {
         switch (this.tipo) {
             case tipo_dato.ENTERO:
-                return "ENTERO";
+                return "ENTERO"
             case tipo_dato.DECIMAL:
-                return "DECIMAL";
+                return "DECIMAL"
             case tipo_dato.BOOLEANO:
-                return "BOOLEANO";
+                return "BOOLEANO"
             case tipo_dato.CARACTER:
-                return "CARACTER";
+                return "CARACTER"
             case tipo_dato.CADENA:
-                return "CADENA";
+                return "CADENA"
             case tipo_dato.VOID:
-                return "VOID";
+                return "VOID"
             default:
-                return "Tipo desconocido";
+                return "Tipo No Valido"
         }
     }
 }

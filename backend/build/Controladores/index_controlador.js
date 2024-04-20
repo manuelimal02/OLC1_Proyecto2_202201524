@@ -27,28 +27,63 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.indexController = void 0;
-const Arbol_1 = __importDefault(require("./Analizador/Simbolo/Arbol"));
-const TablaSimbolo_1 = __importDefault(require("./Analizador/Simbolo/TablaSimbolo"));
+const Arbol_1 = __importDefault(require("./Analizador/ArbolAst/Arbol"));
+const TablaSimbolo_1 = __importDefault(require("./Analizador/ArbolAst/TablaSimbolo"));
+const Metodo_1 = __importDefault(require("./Analizador/Subrutina/Metodo"));
+const Declaracion_1 = __importDefault(require("./Analizador/Instrucciones/Declaracion"));
+const Execute_1 = __importDefault(require("./Analizador/Subrutina/Execute"));
 const path = __importStar(require("path"));
 class Controller {
+    /*public interpretar_entrada(req: Request, res: Response) {
+        try {
+            let parser = require('./Analizador/LexicoSintactico')
+            let ArbolAst = new Arbol(parser.parse(req.body.entrada))
+            let Tabla_Simbolos = new TablaSimbolo()
+            Tabla_Simbolos.setNombre("Tabla Global")
+            ArbolAst.setTablaGlobal(Tabla_Simbolos)
+            ArbolAst.agregarTabla(Tabla_Simbolos)
+            ArbolAst.setConsola("")
+            for (let i of ArbolAst.getInstrucciones()) {
+                var resultado = i.interpretar(ArbolAst, Tabla_Simbolos)
+            }
+            console.log(Tabla_Simbolos)
+            res.send({"Respuesta": ArbolAst.getConsola()})
+        } catch (err: any) {
+            console.log(err)
+            res.send({"Error": "Error Al Interpretar." })
+        }
+    }*/
     interpretar_entrada(req, res) {
         try {
             let parser = require('./Analizador/LexicoSintactico');
-            let ArbolAst = new Arbol_1.default(parser.parse(req.body.entrada));
-            let Tabla_Simbolos = new TablaSimbolo_1.default();
-            Tabla_Simbolos.setNombre("Tabla Global");
-            ArbolAst.setTablaGlobal(Tabla_Simbolos);
-            ArbolAst.agregarTabla(Tabla_Simbolos);
-            ArbolAst.setConsola("");
-            for (let i of ArbolAst.getInstrucciones()) {
-                var resultado = i.interpretar(ArbolAst, Tabla_Simbolos);
+            let ast = new Arbol_1.default(parser.parse(req.body.entrada));
+            let tabla = new TablaSimbolo_1.default();
+            tabla.setNombre("Ejemplo1");
+            ast.setTablaGlobal(tabla);
+            ast.setConsola("");
+            let execute = null;
+            for (let i of ast.getInstrucciones()) {
+                if (i instanceof Metodo_1.default) {
+                    i.identificador = i.identificador.toLocaleLowerCase();
+                    ast.addFunciones(i);
+                }
+                if (i instanceof Declaracion_1.default) {
+                    i.interpretar(ast, tabla);
+                }
+                if (i instanceof Execute_1.default) {
+                    execute = i;
+                }
             }
-            console.log(Tabla_Simbolos);
-            res.send({ "Respuesta": ArbolAst.getConsola() });
+            if (execute != null) {
+                execute.interpretar(ast, tabla);
+                //manejo de errores
+            }
+            console.log(tabla);
+            res.send({ "Respuesta": ast.getConsola() });
         }
         catch (err) {
             console.log(err);
-            res.send({ "Error": "Error Al Interpretar." });
+            res.send({ "Error": "REVISAR LA ENTRADA" });
         }
     }
     generar_reporte_errores(req, res) {

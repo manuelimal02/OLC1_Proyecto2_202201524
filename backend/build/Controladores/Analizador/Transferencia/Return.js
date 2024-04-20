@@ -24,14 +24,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
-const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
-class Continue extends Instruccion_1.Instruccion {
-    constructor(expresion, linea, col) {
-        super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), linea, col);
+const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
+class Return extends Instruccion_1.Instruccion {
+    constructor(linea, columna, expresion) {
+        super(new Tipo_1.default(Tipo_1.tipo_dato.ENTERO), linea, columna);
+        this.retorno = null;
         this.expresion = expresion;
     }
     interpretar(arbol, tabla) {
-        return;
+        if (this.expresion) {
+            this.retorno = this.expresion.interpretar(arbol, tabla);
+            this.tipo_dato = this.expresion.tipo_dato;
+        }
+        return this;
     }
 }
-exports.default = Continue;
+exports.default = Return;

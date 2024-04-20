@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
-const Tipo_1 = __importStar(require("../Simbolo/Tipo"));
+const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 class CoutEndl extends Instruccion_1.Instruccion {
     constructor(expresion, fila, columna) {

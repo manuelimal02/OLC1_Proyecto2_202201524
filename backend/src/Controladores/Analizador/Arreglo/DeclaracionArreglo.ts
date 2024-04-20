@@ -1,9 +1,9 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
-import Arbol from "../Simbolo/Arbol";
-import tablaSimbolo from "../Simbolo/TablaSimbolo";    
-import Tipo, { tipo_dato } from '../Simbolo/Tipo'
-import Arreglo from '../Simbolo/SimboloA';
+import Arbol from "../ArbolAst/Arbol";
+import tablaSimbolo from "../ArbolAst/TablaSimbolo";    
+import Tipo, { tipo_dato } from '../ArbolAst/Tipo'
+import Arreglo from '../ArbolAst/SimboloA';
 import Nativo from "../Expresiones/Nativo";
 
 export default class DeclaracionArreglo extends Instruccion {
