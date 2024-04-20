@@ -28,6 +28,7 @@
     const FuncionToString        = require('./Funciones/FuncionToString')
     const FuncionLength          = require('./Funciones/FuncionLength')
     const FuncionSTR             = require('./Funciones/FuncionSTR')
+    const FuncionTypeOf          = require('./Funciones/FuncionTypeOf')
     const DeclaracionMatriz      = require('./Matriz/DeclaracionMatriz')
     const AsignacionMatriz       = require('./Matriz/AsignacionMatriz')
     const AccesoMatriz           = require('./Matriz/AccesoMatriz')
@@ -77,6 +78,7 @@
 "switch"                    return 'SWITCH'
 "case"                      return 'CASE'
 "default"                   return 'DEFAULT'
+"typeof"                    return 'TYPEOF'
 
 "["                         return 'CORIZ'
 "]"                         return 'CORDE'
@@ -377,6 +379,10 @@ expresion : ENTERO
             | expresion PUNTO LENGTH PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
 {
     $$ = new FuncionLength.default(FuncionLength.Funcion.LENGTH, @1.first_line, @1.first_column, $1);
+}
+            | TYPEOF PARENTESIS_IZQUIERDO expresion PARENTESIS_DERECHO
+{   
+    $$ = new FuncionTypeOf.default(FuncionTypeOf.Funcion.TYPEOF, @1.first_line, @1.first_column, $3);
 }
             | expresion PUNTO C_STR PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
 {
