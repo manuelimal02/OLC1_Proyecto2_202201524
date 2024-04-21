@@ -16,7 +16,6 @@ export default class Casteo extends Instruccion {
 
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
         let expresion = this.valor?.interpretar(arbol, tabla)
-        //falta comprobar error
         switch (this.nuevo_tipo.getTipo()) {
             case tipo_dato.ENTERO:
                 return this.casteo_entero(expresion, arbol);
@@ -32,9 +31,8 @@ export default class Casteo extends Instruccion {
                 arbol.setConsola("Semántico: Tipo De Casteo Inválido.\n")
                 return error
         }       
-        
     }
-
+    
     casteo_entero(operando: any, arbol:Arbol) {
         let tipo_actual = this.valor?.tipo_dato.getTipo();
         switch (tipo_actual) {

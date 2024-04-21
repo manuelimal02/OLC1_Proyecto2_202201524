@@ -22,19 +22,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
+const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 class Return extends Instruccion_1.Instruccion {
     constructor(linea, columna, expresion) {
-        super(new Tipo_1.default(Tipo_1.tipo_dato.ENTERO), linea, columna);
-        this.retorno = null;
+        super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), linea, columna);
         this.expresion = expresion;
     }
     interpretar(arbol, tabla) {
-        if (this.expresion) {
-            this.retorno = this.expresion.interpretar(arbol, tabla);
-            this.tipo_dato = this.expresion.tipo_dato;
+        if (this.expresion != undefined) {
+            let result = this.expresion.interpretar(arbol, tabla);
+            if (result instanceof Errores_1.default)
+                return result;
         }
         return this;
     }

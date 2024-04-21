@@ -6,18 +6,18 @@ import TablaSimbolo from "../ArbolAst/TablaSimbolo";
 import Tipo, { tipo_dato } from '../ArbolAst/Tipo'
 
 export default class Declaracion extends Instruccion {
-    private Identificador: string[]
+    private identificador: string[]
     private valor: Instruccion
 
-    constructor(tipo: Tipo, fila: number, columna: number, Identificador: string[], valor: Instruccion) {
+    constructor(tipo: Tipo, fila: number, columna: number, id: string[], valor: Instruccion) {
         super(tipo, fila, columna)
-        this.Identificador = Identificador
+        this.identificador = id
         this.valor = valor
     }
 
     interpretar(arbol: Arbol, tabla: TablaSimbolo) {
         let valor_variable;
-        this.Identificador.forEach((elemento) => {
+        this.identificador.forEach((elemento) => {
             if(this.valor === null){
                 valor_variable = this.valor_defecto(this.tipo_dato)
             }else{

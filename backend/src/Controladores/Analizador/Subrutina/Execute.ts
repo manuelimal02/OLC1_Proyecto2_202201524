@@ -1,49 +1,54 @@
 import { Instruccion } from "../Abstract/Instruccion";
 import Errores from "../Errores/Errores";
 import Arbol from "../ArbolAst/Arbol";
-import tablaSimbolo from "../ArbolAst/TablaSimbolo";
+import TablaSimbolo from "../ArbolAst/TablaSimbolo";
 import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 import Declaracion from "../Instrucciones/Declaracion";
 import Metodo from "./Metodo";
 
-export default class Run extends Instruccion {
-    private identificador: string
-    private parametro: Instruccion[]
+export default class Execute extends Instruccion {
 
-    constructor(identificador: string, fila: number, columna: number, parametro: Instruccion[]) {
+    private id: string;
+    private parametros: Instruccion[];
+
+    constructor(id: string, parametros: Instruccion[], fila: number, columna: number) {
         super(new Tipo(tipo_dato.VOID), fila, columna)
-        this.identificador = identificador
-        this.parametro = parametro
+        this.id = id
+        this.parametros = parametros
     }
 
-    interpretar(arbol: Arbol, tabla: tablaSimbolo) {
-        let busqueda_funcion = arbol.getFuncion(this.identificador)
-        if (busqueda_funcion == null) return new Errores("SEMANTICO", "Funcion no existente", this.fila, this.columna)
+    interpretar(arbol: Arbol, tabla: TablaSimbolo) {
+        let busqueda_variable = arbol.getFuncion(this.id);
+        if (busqueda_variable == null) {
+            let error = new Errores("Semántico", "No Existe La Función: "+ this.id, this.fila, this.columna)
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: No Existe La Función: "+ this.id+".\n")
+            return error 
+        }
+        if (busqueda_variable instanceof Metodo) {
+            let nueva_tabla = new TablaSimbolo(arbol.getTablaGlobal());
+            nueva_tabla.setNombre("Execute");
+            arbol.agregarTabla(nueva_tabla)
 
-        if (busqueda_funcion instanceof Metodo) {
-            let nueva_tabla = new tablaSimbolo(arbol.getTablaGlobal())
-            nueva_tabla.setNombre("RUN")
-            console.log(busqueda_funcion.parametro, this.parametro)
-            //para ver si busqueda_funcion.parametro tiene parametro
-            if (busqueda_funcion.parametro.length != this.parametro.length) {
-                return new Errores("SEMANTICO", "Parametros invalidos", this.fila, this.columna)
+            if (busqueda_variable.parametros.length != this.parametros.length) {
+                let error = new Errores("Semántico", "Cantidad De Parámetros Inválida: "+ this.id, this.fila, this.columna)
+                arbol.agregarError(error)
+                arbol.setConsola("Semántico: Cantidad De Parámetros Inválida: "+ this.id+".\n")
+                return error 
             }
-            // declaramos los parametro
-            for (let i = 0; i < busqueda_funcion.parametro.length; i++) {
-                let declaracion_parametro = new Declaracion(
-                    busqueda_funcion.parametro[i].tipo, this.fila, this.columna,
-                    busqueda_funcion.parametro[i].identificador, this.parametro[i])
-
-                // declarando parametro de metodo
-                let resultado:any = declaracion_parametro.interpretar(arbol, nueva_tabla)
-                if (resultado instanceof Errores) return resultado
+            for (let i = 0; i < busqueda_variable.parametros.length; i++) {
+                let declaracion_parametros = new Declaracion(
+                    busqueda_variable.parametros[i].tipo, 
+                    this.fila, 
+                    this.columna, 
+                    busqueda_variable.parametros[i].id, 
+                    this.parametros[i]
+                );
+                let resultado:any = declaracion_parametros.interpretar(arbol, nueva_tabla);
+                if (resultado instanceof Errores)  return resultado
             }
-            
-
-            // una vez declarados los parametro, interpretamos la funcion
-            let resultado_funcion: any = busqueda_funcion.interpretar(arbol, nueva_tabla)
+            let resultado_funcion: any = busqueda_variable.interpretar(arbol, nueva_tabla);
             if (resultado_funcion instanceof Errores) return resultado_funcion
-
         }
     }
 }

@@ -32,6 +32,7 @@ const TablaSimbolo_1 = __importDefault(require("../ArbolAst/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
 const Continue_1 = __importDefault(require("../Transferencia/Continue"));
+const Return_1 = __importDefault(require("../Transferencia/Return"));
 class Else extends Instruccion_1.Instruccion {
     constructor(condicion, bloque_if, bloque_else, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -53,29 +54,45 @@ class Else extends Instruccion_1.Instruccion {
         nueva_tabla.setNombre("IF");
         arbol.agregarTabla(nueva_tabla);
         if (condicion) {
-            for (let ins of this.bloque_1) {
-                if (ins instanceof Break_1.default)
-                    return ins;
-                if (ins instanceof Continue_1.default)
-                    return ins;
-                let resultado = ins.interpretar(arbol, nueva_tabla);
+            for (let i of this.bloque_1) {
+                if (i instanceof Break_1.default)
+                    return i;
+                if (i instanceof Continue_1.default)
+                    return i;
+                if (i instanceof Return_1.default)
+                    return i;
+                if (i instanceof Errores_1.default)
+                    return i;
+                let resultado = i.interpretar(arbol, nueva_tabla);
                 if (resultado instanceof Break_1.default)
                     return resultado;
                 if (resultado instanceof Continue_1.default)
+                    return resultado;
+                if (resultado instanceof Return_1.default)
+                    return resultado;
+                if (resultado instanceof Errores_1.default)
                     return resultado;
             }
         }
         else {
             if (this.bloque_2) {
-                for (let ins of this.bloque_2) {
-                    if (ins instanceof Break_1.default)
-                        return ins;
-                    if (ins instanceof Continue_1.default)
-                        return ins;
-                    let resultado = ins.interpretar(arbol, nueva_tabla);
+                for (let i of this.bloque_2) {
+                    if (i instanceof Break_1.default)
+                        return i;
+                    if (i instanceof Continue_1.default)
+                        return i;
+                    if (i instanceof Return_1.default)
+                        return i;
+                    if (i instanceof Errores_1.default)
+                        return i;
+                    let resultado = i.interpretar(arbol, nueva_tabla);
                     if (resultado instanceof Break_1.default)
                         return resultado;
                     if (resultado instanceof Continue_1.default)
+                        return resultado;
+                    if (resultado instanceof Return_1.default)
+                        return resultado;
+                    if (resultado instanceof Errores_1.default)
                         return resultado;
                 }
             }

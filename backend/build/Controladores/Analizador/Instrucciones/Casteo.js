@@ -38,7 +38,6 @@ class Casteo extends Instruccion_1.Instruccion {
     interpretar(arbol, tabla) {
         var _a;
         let expresion = (_a = this.valor) === null || _a === void 0 ? void 0 : _a.interpretar(arbol, tabla);
-        //falta comprobar error
         switch (this.nuevo_tipo.getTipo()) {
             case Tipo_1.tipo_dato.ENTERO:
                 return this.casteo_entero(expresion, arbol);

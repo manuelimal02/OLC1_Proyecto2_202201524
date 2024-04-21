@@ -35,7 +35,7 @@ class Arbol {
         this.consola = "";
         this.tabla_global = new TablaSimbolo_1.default();
         this.errores = new Array;
-        this.funciones = new Array();
+        this.funciones = new Array;
         this.lista_tablas = [];
     }
     agregarTabla(tabla) {
@@ -83,7 +83,7 @@ class Arbol {
     getFuncion(id) {
         for (let ins of this.getFunciones()) {
             if (ins instanceof Metodo_1.default) {
-                if (ins.identificador.toLocaleLowerCase() == id.toLocaleLowerCase())
+                if (ins.id.toLocaleLowerCase() == id.toLocaleLowerCase())
                     return ins;
             }
         }
@@ -95,7 +95,7 @@ class Arbol {
             <title>Reporte de Errores</title>
             <style>
                 body {
-                    font-family: Arial, sans-serif;
+                    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                     background-color: #f0f0f0;
                     text-align: center;
                 }
@@ -142,7 +142,7 @@ class Arbol {
             <title>Reporte de Tablas de Símbolos</title>
             <style>
                 body {
-                    font-family: Arial, sans-serif;
+                    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                     background-color: #f0f0f0;
                     text-align: center;
                 }

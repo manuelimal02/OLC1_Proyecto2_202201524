@@ -17,7 +17,7 @@ export default class Arbol {
         this.consola = ""
         this.tabla_global = new TablaSimbolo()
         this.errores = new Array<Errores>
-        this.funciones = new Array<Instruccion>()
+        this.funciones = new Array<Instruccion>
         this.lista_tablas = []
     }
 
@@ -80,7 +80,7 @@ export default class Arbol {
     public getFuncion(id: string) {
         for (let ins of this.getFunciones()) {
             if (ins instanceof Metodo) {
-                if (ins.identificador.toLocaleLowerCase() == id.toLocaleLowerCase()) return ins
+                if (ins.id.toLocaleLowerCase() == id.toLocaleLowerCase()) return ins
             }
         }
         return null
@@ -93,7 +93,7 @@ export default class Arbol {
             <title>Reporte de Errores</title>
             <style>
                 body {
-                    font-family: Arial, sans-serif;
+                    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                     background-color: #f0f0f0;
                     text-align: center;
                 }
@@ -142,7 +142,7 @@ export default class Arbol {
             <title>Reporte de Tablas de Símbolos</title>
             <style>
                 body {
-                    font-family: Arial, sans-serif;
+                    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                     background-color: #f0f0f0;
                     text-align: center;
                 }

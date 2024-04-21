@@ -247,10 +247,6 @@ declaracion : tipo_dato identificador IGUAL expresion
 {
     $$=$1;
 }
-        | error
-        {
-            console.log("error sisis")
-        }
 ;
 
 identificador : identificador COMA ID
@@ -642,39 +638,39 @@ sentencia_default : DEFAULT DOSPUNTOS instrucciones
 
 sb_metodo : tipo_dato ID PARENTESIS_IZQUIERDO parametro PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA 
 { 
-    $$ = new Metodo.default($2, $1, $7, @1.first_line, @1.first_column, $4); 
+    $$ = new Metodo.default($2, $1, $4, $7, @1.first_line, @1.first_column); 
 }
         | tipo_dato ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO LLAVE_DERECHA instrucciones LLAVE_IZQUIERDA 
 { 
-    $$ = new Metodo.default($2, $1, $6, @1.first_line, @1.first_column); 
+    $$ = new Metodo.default($2, $1, [], $6, @1.first_line, @1.first_column); 
 };
 
 parametro : parametro COMA tipo_dato ID 
 {
-    $1.push({tipo:$3, identificador:$4}); 
-    $$ = [$1]; 
+    $1.push({tipo:$3, id:[$4]}); 
+    $$ = $1; 
 }
         | tipo_dato ID 
 { 
-    $$ = [{tipo:$1, identificador:[$2]}] 
+    $$ = [{tipo:$1, id:[$2]}] 
 };
 
 sb_execute : EXECUTE ID PARENTESIS_IZQUIERDO llamada_parametro PARENTESIS_DERECHO
 { 
-    $$ = new Execute.default($2, @1.first_line, @1.first_column, $4); 
+    $$ = new Execute.default($2, $4, @1.first_line, @1.first_column); 
 }
         | EXECUTE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
 { 
-    $$ = new Execute.default($2, @1.first_line, @1.first_column, []); 
+    $$ = new Execute.default($2, [], @1.first_line, @1.first_column); 
 }; 
 
 sb_llamada : ID PARENTESIS_IZQUIERDO llamada_parametro PARENTESIS_DERECHO
 { 
-    $$ = new Llamada.default($1, @1.first_line, @1.first_column, $3); 
+    $$ = new Llamada.default($1, $3, @1.first_line, @1.first_column); 
 }
         | ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO 
 { 
-    $$ = new Llamada.default($1, @1.first_line, @1.first_column, []); 
+    $$ = new Llamada.default($1, [], @1.first_line, @1.first_column); 
 };
 
 llamada_parametro: llamada_parametro COMA expresion 

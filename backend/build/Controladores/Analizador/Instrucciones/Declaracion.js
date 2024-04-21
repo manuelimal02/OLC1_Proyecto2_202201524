@@ -8,14 +8,14 @@ const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Simbolo_1 = __importDefault(require("../ArbolAst/Simbolo"));
 const Tipo_1 = require("../ArbolAst/Tipo");
 class Declaracion extends Instruccion_1.Instruccion {
-    constructor(tipo, fila, columna, Identificador, valor) {
+    constructor(tipo, fila, columna, id, valor) {
         super(tipo, fila, columna);
-        this.Identificador = Identificador;
+        this.identificador = id;
         this.valor = valor;
     }
     interpretar(arbol, tabla) {
         let valor_variable;
-        this.Identificador.forEach((elemento) => {
+        this.identificador.forEach((elemento) => {
             if (this.valor === null) {
                 valor_variable = this.valor_defecto(this.tipo_dato);
             }

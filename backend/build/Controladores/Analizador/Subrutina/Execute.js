@@ -32,37 +32,40 @@ const TablaSimbolo_1 = __importDefault(require("../ArbolAst/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Declaracion_1 = __importDefault(require("../Instrucciones/Declaracion"));
 const Metodo_1 = __importDefault(require("./Metodo"));
-class Run extends Instruccion_1.Instruccion {
-    constructor(identificador, fila, columna, parametro) {
+class Execute extends Instruccion_1.Instruccion {
+    constructor(id, parametros, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
-        this.identificador = identificador;
-        this.parametro = parametro;
+        this.id = id;
+        this.parametros = parametros;
     }
     interpretar(arbol, tabla) {
-        let busqueda_funcion = arbol.getFuncion(this.identificador);
-        if (busqueda_funcion == null)
-            return new Errores_1.default("SEMANTICO", "Funcion no existente", this.fila, this.columna);
-        if (busqueda_funcion instanceof Metodo_1.default) {
+        let busqueda_variable = arbol.getFuncion(this.id);
+        if (busqueda_variable == null) {
+            let error = new Errores_1.default("Semántico", "No Existe La Función: " + this.id, this.fila, this.columna);
+            arbol.agregarError(error);
+            arbol.setConsola("Semántico: No Existe La Función: " + this.id + ".\n");
+            return error;
+        }
+        if (busqueda_variable instanceof Metodo_1.default) {
             let nueva_tabla = new TablaSimbolo_1.default(arbol.getTablaGlobal());
-            nueva_tabla.setNombre("RUN");
-            console.log(busqueda_funcion.parametro, this.parametro);
-            //para ver si busqueda_funcion.parametro tiene parametro
-            if (busqueda_funcion.parametro.length != this.parametro.length) {
-                return new Errores_1.default("SEMANTICO", "Parametros invalidos", this.fila, this.columna);
+            nueva_tabla.setNombre("Execute");
+            arbol.agregarTabla(nueva_tabla);
+            if (busqueda_variable.parametros.length != this.parametros.length) {
+                let error = new Errores_1.default("Semántico", "Cantidad De Parámetros Inválida: " + this.id, this.fila, this.columna);
+                arbol.agregarError(error);
+                arbol.setConsola("Semántico: Cantidad De Parámetros Inválida: " + this.id + ".\n");
+                return error;
             }
-            // declaramos los parametro
-            for (let i = 0; i < busqueda_funcion.parametro.length; i++) {
-                let declaracion_parametro = new Declaracion_1.default(busqueda_funcion.parametro[i].tipo, this.fila, this.columna, busqueda_funcion.parametro[i].identificador, this.parametro[i]);
-                // declarando parametro de metodo
-                let resultado = declaracion_parametro.interpretar(arbol, nueva_tabla);
+            for (let i = 0; i < busqueda_variable.parametros.length; i++) {
+                let declaracion_parametros = new Declaracion_1.default(busqueda_variable.parametros[i].tipo, this.fila, this.columna, busqueda_variable.parametros[i].id, this.parametros[i]);
+                let resultado = declaracion_parametros.interpretar(arbol, nueva_tabla);
                 if (resultado instanceof Errores_1.default)
                     return resultado;
             }
-            // una vez declarados los parametro, interpretamos la funcion
-            let resultado_funcion = busqueda_funcion.interpretar(arbol, nueva_tabla);
+            let resultado_funcion = busqueda_variable.interpretar(arbol, nueva_tabla);
             if (resultado_funcion instanceof Errores_1.default)
                 return resultado_funcion;
         }
     }
 }
-exports.default = Run;
+exports.default = Execute;
