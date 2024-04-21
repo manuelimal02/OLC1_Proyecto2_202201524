@@ -64,5 +64,8 @@ class Default extends Instruccion_1.Instruccion {
                 return resultado;
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Default;

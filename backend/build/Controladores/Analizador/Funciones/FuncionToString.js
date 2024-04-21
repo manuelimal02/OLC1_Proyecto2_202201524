@@ -79,6 +79,9 @@ class FuncionesToString extends Instruccion_1.Instruccion {
                 return error;
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = FuncionesToString;
 var Funcion;

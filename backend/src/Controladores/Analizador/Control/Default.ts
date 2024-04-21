@@ -35,4 +35,7 @@ export default class Default extends Instruccion {
             if(resultado instanceof Errores) return resultado
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

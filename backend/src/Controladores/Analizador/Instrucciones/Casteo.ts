@@ -101,4 +101,7 @@ export default class Casteo extends Instruccion {
         }
     }
 
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

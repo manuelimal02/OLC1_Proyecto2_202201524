@@ -33,4 +33,7 @@ export default class Asignacion extends Instruccion {
         this.tipo_dato = valor.getTipo()
         valor.setValor(nuevo_valor)
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

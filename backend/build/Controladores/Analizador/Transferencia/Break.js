@@ -32,5 +32,8 @@ class Break extends Instruccion_1.Instruccion {
     interpretar(arbol, tabla) {
         return;
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Break;

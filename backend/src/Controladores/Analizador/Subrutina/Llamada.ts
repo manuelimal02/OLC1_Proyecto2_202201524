@@ -97,4 +97,7 @@ export default class Llamada extends Instruccion {
             }
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

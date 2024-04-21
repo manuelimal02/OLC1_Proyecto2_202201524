@@ -57,4 +57,7 @@ export default class Case extends Instruccion {
         if( this.condicion instanceof Errores) return this.condicion
         return this.condicion
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

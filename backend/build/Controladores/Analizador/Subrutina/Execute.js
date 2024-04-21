@@ -67,5 +67,8 @@ class Execute extends Instruccion_1.Instruccion {
                 return resultado_funcion;
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Execute;

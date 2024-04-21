@@ -65,5 +65,8 @@ class Declaracion extends Instruccion_1.Instruccion {
                 return null;
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Declaracion;

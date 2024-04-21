@@ -48,4 +48,8 @@ export default class DoWhile extends Instruccion {
             }
         } while (this.condicion.interpretar(arbol, tabla));
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
+    
 }

@@ -42,5 +42,8 @@ class Return extends Instruccion_1.Instruccion {
         }
         return this;
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Return;

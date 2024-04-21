@@ -51,4 +51,7 @@ export default class Execute extends Instruccion {
             if (resultado_funcion instanceof Errores) return resultado_funcion
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

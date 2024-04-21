@@ -74,5 +74,8 @@ class While extends Instruccion_1.Instruccion {
             }
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = While;

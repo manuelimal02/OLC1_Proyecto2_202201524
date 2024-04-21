@@ -45,5 +45,8 @@ class AccesoVariable extends Instruccion_1.Instruccion {
         this.tipo_dato = valor_variable.getTipo();
         return valor_variable.getValor();
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = AccesoVariable;

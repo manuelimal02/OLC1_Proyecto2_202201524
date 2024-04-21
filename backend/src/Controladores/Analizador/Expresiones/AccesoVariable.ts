@@ -24,4 +24,7 @@ export default class AccesoVariable extends Instruccion {
         this.tipo_dato = valor_variable.getTipo()
         return valor_variable.getValor()
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

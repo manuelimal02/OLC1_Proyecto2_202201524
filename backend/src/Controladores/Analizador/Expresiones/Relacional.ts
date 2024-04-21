@@ -785,6 +785,9 @@ export default class OperadorRelacional extends Instruccion {
                 return error
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }
 
 export enum Operador {

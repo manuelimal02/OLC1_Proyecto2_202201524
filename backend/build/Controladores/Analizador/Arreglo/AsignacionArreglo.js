@@ -59,5 +59,8 @@ class AsignacionMatriz extends Instruccion_1.Instruccion {
         this.tipo_dato = valor.getTipo();
         valor.setValores(parseInt(posicion1), nuevo_valor);
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = AsignacionMatriz;

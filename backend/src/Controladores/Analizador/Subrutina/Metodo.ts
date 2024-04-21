@@ -71,4 +71,7 @@ export default class Metodo extends Instruccion {
             }
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

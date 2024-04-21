@@ -40,5 +40,8 @@ class Cout extends Instruccion_1.Instruccion {
             return valor;
         arbol.Cout(valor);
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Cout;

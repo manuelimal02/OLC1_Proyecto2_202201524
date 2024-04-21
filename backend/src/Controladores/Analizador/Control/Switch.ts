@@ -51,4 +51,7 @@ export default class Switch extends Instruccion {
             if( condicion_default instanceof Errores) return condicion_default
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

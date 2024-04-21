@@ -77,6 +77,28 @@ function App() {
       });
   }
 
+  function reporte_arbol() {
+    fetch('http://localhost:4000/generar_reporte_arbol', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ entrada: editorRef.current.getValue() }),
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ReporteArbol.pdf';
+        a.click();
+      })
+      .catch((error) => {
+        alert("ERROR")
+        console.error('Error:', error);
+      });
+  }
+
   const CargarArchivo = (event) => {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -107,7 +129,7 @@ function App() {
             <div class="dropdown-content">
               <a href="#" onClick={reporte_errores}>Errores</a>
               <a href="#" onClick={reporte_tabla}>Tabla Simbolos</a>
-              <a href="#">Arbol AST</a>
+              <a href="#" onClick={reporte_arbol}>Arbol AST</a>
               </div>
             </div>
           </div>

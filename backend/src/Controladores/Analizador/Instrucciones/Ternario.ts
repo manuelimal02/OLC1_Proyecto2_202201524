@@ -45,4 +45,7 @@ export default class Ternario extends Instruccion {
             return expresion_2;
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

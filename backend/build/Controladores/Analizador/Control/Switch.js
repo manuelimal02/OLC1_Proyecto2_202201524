@@ -77,5 +77,8 @@ class Switch extends Instruccion_1.Instruccion {
                 return condicion_default;
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Switch;

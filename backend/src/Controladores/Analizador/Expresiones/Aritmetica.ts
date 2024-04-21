@@ -533,6 +533,9 @@ export default class Aritmeticas extends Instruccion {
                 return error
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 
 }
 

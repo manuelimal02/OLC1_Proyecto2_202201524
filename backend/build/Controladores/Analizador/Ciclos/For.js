@@ -85,5 +85,8 @@ class For extends Instruccion_1.Instruccion {
                 return resultado_actualizacion;
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = For;

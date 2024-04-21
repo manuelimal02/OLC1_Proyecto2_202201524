@@ -17,4 +17,7 @@ export default class CoutEndl extends Instruccion {
         if (valor instanceof Errores) return valor
         arbol.CoutEndl(valor)
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

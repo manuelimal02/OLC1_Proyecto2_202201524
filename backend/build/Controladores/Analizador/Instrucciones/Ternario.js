@@ -61,5 +61,8 @@ class Ternario extends Instruccion_1.Instruccion {
             return expresion_2;
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Ternario;

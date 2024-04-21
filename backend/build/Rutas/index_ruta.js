@@ -12,6 +12,7 @@ class router {
         this.router.post('/interpretar_entrada', index_controlador_1.indexController.interpretar_entrada);
         this.router.post('/generar_reporte_errores', index_controlador_1.indexController.generar_reporte_errores);
         this.router.post('/generar_reporte_tablas', index_controlador_1.indexController.generar_reporte_tablas);
+        this.router.post('/generar_reporte_arbol', index_controlador_1.indexController.generar_reporte_arbol);
     }
 }
 const indexRouter = new router();

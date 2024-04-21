@@ -85,5 +85,8 @@ class Case extends Instruccion_1.Instruccion {
             return this.condicion;
         return this.condicion;
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Case;

@@ -1,0 +1,208 @@
+terminal INT
+terminal DOUBLE
+terminal CHAR
+terminal BOOL
+terminal TRUE
+terminal FALSE
+terminal STRING
+terminal COUT
+terminal ENDL
+terminal POW
+terminal TO_LOWER
+terminal TO_UPPER
+terminal ROUND
+terminal TOSTRING
+terminal IF
+terminal ELSE
+terminal WHILE
+terminal DO
+terminal FOR
+terminal BREAK
+terminal CONTINUE
+terminal RETURN
+terminal NEW
+terminal LENGTH
+terminal C_STR
+terminal SWITCH
+terminal CASE
+terminal DEFAULT
+terminal TYPEOF
+terminal VOID
+terminal EXECUTE
+terminal CORIZ
+terminal CORDE
+terminal PARENTESIS_IZQUIERDO
+terminal PARENTESIS_DERECHO
+terminal LLAVE_DERECHA
+terminal LLAVE_IZQUIERDA
+terminal PUNTOYCOMA
+terminal INTERROGACION
+terminal DOSPUNTOS
+terminal COMA
+terminal MAS_MAS
+terminal MAS
+terminal MENOS_MENOS
+terminal MENOS
+terminal MULTICACION
+terminal DIVISION
+terminal MODULO
+terminal PUNTO
+terminal IGUAL_IGUAL
+terminal IGUAL
+terminal DISTINTO
+terminal MENOR_IGUAL
+terminal MAYOR_IGUAL
+terminal MENOR_QUE
+terminal MAYOR_QUE
+terminal NOT
+terminal OR
+terminal AND
+    
+non terminal <inicio>, <instrucciones>, <instruccion>, <declaracion>, <asignacion>, <counts>, <sentencia_if>, <sentencia_for> , <sentencia_while>, <sentencia_dowhile>, <sentencia_switch> 
+non terminal <ts_break>, <ts_continue>, <ts_return>, <sb_metodo>, <sb_execute>, <sb_llamada>, <tipo_dato>, <identificador>, <matriz>, <arreglo>, <expresion>, <incremento> 
+non terminal <casteo_tipos>, <sb_llamada>, <contenido1>, <contenido2>, <parametro>, <llamada_parametro>, <sentencia_else>
+
+<inicio> :: = <instrucciones>  
+
+<instrucciones> :: = <instrucciones> <instruccion>   
+            | <instruccion>
+
+<instruccion> :: = <declaracion> PUNTOYCOMA
+            | <asignacion> PUNTOYCOMA
+            | <counts> PUNTOYCOMA
+            | <sentencia_if>
+            | <sentencia_for> 
+            | <sentencia_while>
+            | <sentencia_dowhile>
+            | <sentencia_switch>
+            | <ts_break> PUNTOYCOMA
+            | <ts_continue> PUNTOYCOMA
+            | <ts_return> PUNTOYCOMA
+            | <sb_metodo>             
+            | <sb_execute> PUNTOYCOMA
+            | <sb_llamada>  PUNTOYCOMA         
+
+<declaracion> :: = <tipo_dato> <identificador> IGUAL <expresion> 
+            | <tipo_dato> <identificador>                    
+            | <matriz>
+            | <arreglo>
+
+<identificador> :: = <identificador> COMA ID
+            | ID
+<asignacion> :: = ID IGUAL <expresion> 
+        | <incremento>
+        | ID CORIZ <expresion> CORDE CORIZ <expresion> CORDE IGUAL <expresion>
+        | ID CORIZ <expresion> CORDE IGUAL <expresion>
+
+
+<incremento> :: = ID MAS_MAS 
+        | ID MENOS_MENOS  
+        | COUT MENOR_QUE MENOR_QUE <expresion> MENOR_QUE MENOR_QUE ENDL 
+
+<expresion> :: = ENTERO 
+            | DECIMAL
+            | CARACTER
+            | CADENA                           
+            | TRUE
+            | FALSE
+            | ID CORIZ <expresion> CORDE CORIZ <expresion> CORDE
+            | ID CORIZ <expresion> CORDE
+            | PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO
+            | <expresion> MAS <expresion>
+            | <expresion> MENOS <expresion> 
+            | <expresion> MULTICACION <expresion> 
+            | <expresion> DIVISION <expresion> 
+            | <expresion> MODULO <expresion> 
+            | POW PARENTESIS_IZQUIERDO <expresion> COMA <expresion> PARENTESIS_DERECHO 
+            | MENOS <expresion> 
+            | TO_LOWER PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO
+            | TO_UPPER PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO
+            | ROUND PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO
+            | TOSTRING PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO
+            | <expresion> PUNTO LENGTH PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+            | TYPEOF PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO
+            | <expresion> PUNTO C_STR PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+            | <expresion> MENOR_QUE <expresion> 
+            | <expresion> MAYOR_QUE <expresion>
+            | <expresion> MENOR_IGUAL <expresion> 
+            | <expresion> IGUAL_IGUAL <expresion> 
+            | <expresion> DISTINTO <expresion> 
+            | <expresion> MAYOR_IGUAL <expresion> 
+            | <expresion> OR <expresion>                          
+            | <expresion> AND <expresion>                        
+            |NOT <expresion>
+            | ID
+            | <expresion> INTERROGACION <expresion> DOSPUNTOS <expresion>
+            | <casteo_tipos>
+            | <sb_llamada>
+
+<tipo_dato> :: = INT
+        | DOUBLE
+        | CHAR
+        | BOOL
+        | STRING
+        | VOID
+
+<matriz>:: = <tipo_dato> ID CORIZ CORDE CORIZ CORDE IGUAL CORIZ <contenido2> CORDE 
+        |<tipo_dato> ID CORIZ CORDE CORIZ CORDE IGUAL NEW <tipo_dato> CORIZ <expresion> CORDE CORIZ <expresion> CORDE
+
+<arreglo>:: = <tipo_dato> ID CORIZ CORDE  IGUAL CORIZ <contenido1> CORDE 
+        |<tipo_dato> ID CORIZ CORDE IGUAL NEW <tipo_dato> CORIZ <expresion> CORDE
+        | <tipo_dato> ID CORIZ CORDE IGUAL <expresion>
+
+<contenido1> :: = <contenido1> COMA <expresion>
+        | <expresion>
+
+<contenido2> :: = <contenido2> COMA CORIZ <contenido1> CORDE
+        | CORIZ <contenido1> CORDE
+
+
+
+<sentencia_if> :: = IF PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO LLAVE_DERECHA <instrucciones> LLAVE_IZQUIERDA
+        | IF PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO LLAVE_DERECHA <instrucciones> LLAVE_IZQUIERDA <sentencia_else>
+
+<sentencia_else> :: = ELSE <sentencia_if>
+        | ELSE LLAVE_DERECHA <instrucciones> LLAVE_IZQUIERDA
+
+<sentencia_while> :: = WHILE PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO LLAVE_DERECHA <instrucciones> LLAVE_IZQUIERDA
+
+<sentencia_dowhile> :: = DO LLAVE_DERECHA <instrucciones> LLAVE_IZQUIERDA WHILE PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO PUNTOYCOMA
+
+<verificacion_for> :: = <declaracion> 
+        | <asignacion>
+
+<sentencia_for> :: = FOR PARENTESIS_IZQUIERDO <verificacion_for> PUNTOYCOMA <expresion> PUNTOYCOMA <asignacion> PARENTESIS_DERECHO LLAVE_DERECHA <instrucciones> LLAVE_IZQUIERDA
+<ts_break>:: = BREAK 
+<ts_continue>:: = CONTINUE 
+<ts_return> :: = RETURN 
+        | RETURN <expresion> 
+
+<casteo_tipos> :: = PARENTESIS_IZQUIERDO <tipo_dato> PARENTESIS_DERECHO <expresion> 
+<sentencia_switch>:: = SWITCH PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO LLAVE_DERECHA <sentencia_case> <sentencia_default> LLAVE_IZQUIERDA    
+        | SWITCH PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO LLAVE_DERECHA <sentencia_case> LLAVE_IZQUIERDA                      
+        | SWITCH PARENTESIS_IZQUIERDO <expresion> PARENTESIS_DERECHO LLAVE_DERECHA <sentencia_default> LLAVE_IZQUIERDA 
+
+
+
+
+<sentencia_case> :: = <sentencia_case> <estructura_case>
+        | <estructura_case>
+
+<estructura_case> :: = CASE <expresion> DOSPUNTOS <instrucciones> 
+
+<sentencia_default> :: = DEFAULT DOSPUNTOS <instrucciones> 
+
+<sb_metodo> :: = <tipo_dato> ID PARENTESIS_IZQUIERDO <parametro> PARENTESIS_DERECHO LLAVE_DERECHA <instrucciones> LLAVE_IZQUIERDA 
+        | <tipo_dato> ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO LLAVE_DERECHA <instrucciones> LLAVE_IZQUIERDA 
+
+<parametro> :: = <parametro> COMA <tipo_dato> ID 
+        | <tipo_dato> ID 
+
+<sb_execute> :: = EXECUTE ID PARENTESIS_IZQUIERDO <llamada_parametro> PARENTESIS_DERECHO
+        | EXECUTE ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO
+
+<sb_llamada> :: = ID PARENTESIS_IZQUIERDO <llamada_parametro> PARENTESIS_DERECHO
+        | ID PARENTESIS_IZQUIERDO PARENTESIS_DERECHO 
+
+<llamada_parametro>:: = <llamada_parametro> COMA <expresion> 
+        | <expresion> 

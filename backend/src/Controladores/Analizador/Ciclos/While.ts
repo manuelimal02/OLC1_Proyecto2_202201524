@@ -47,4 +47,7 @@ export default class While extends Instruccion {
             }
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

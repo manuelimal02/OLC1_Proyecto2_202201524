@@ -17,4 +17,7 @@ export default class Cout extends Instruccion {
         if (valor instanceof Errores) return valor
         arbol.Cout(valor)
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

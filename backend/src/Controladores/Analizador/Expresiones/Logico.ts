@@ -106,6 +106,9 @@ export default class OperadorLogico extends Instruccion {
                 return error
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }
 
 export enum Operador {

@@ -68,6 +68,9 @@ class FuncionesRound extends Instruccion_1.Instruccion {
                 return error;
         }
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = FuncionesRound;
 var Funcion;

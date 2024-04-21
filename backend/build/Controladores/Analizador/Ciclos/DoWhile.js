@@ -74,5 +74,8 @@ class DoWhile extends Instruccion_1.Instruccion {
             }
         } while (this.condicion.interpretar(arbol, tabla));
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = DoWhile;

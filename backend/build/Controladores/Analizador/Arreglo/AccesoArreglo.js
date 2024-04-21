@@ -49,5 +49,8 @@ class AccesoMatriz extends Instruccion_1.Instruccion {
         this.tipo_dato = valor_variable.getTipo();
         return valor_variable.getValores(parseInt(posicion1));
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = AccesoMatriz;

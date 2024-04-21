@@ -20,4 +20,7 @@ export default class Return extends Instruccion{
         }
         return this;
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

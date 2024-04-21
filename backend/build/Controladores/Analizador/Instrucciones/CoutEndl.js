@@ -40,5 +40,8 @@ class CoutEndl extends Instruccion_1.Instruccion {
             return valor;
         arbol.CoutEndl(valor);
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = CoutEndl;

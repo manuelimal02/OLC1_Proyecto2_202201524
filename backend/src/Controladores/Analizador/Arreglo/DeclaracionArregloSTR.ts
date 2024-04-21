@@ -25,4 +25,7 @@ export default class DeclaracionArreglo extends Instruccion {
             return error
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }

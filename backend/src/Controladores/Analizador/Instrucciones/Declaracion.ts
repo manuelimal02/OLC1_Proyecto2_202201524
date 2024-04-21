@@ -65,5 +65,8 @@ export default class Declaracion extends Instruccion {
                 return null
         }
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 
 }

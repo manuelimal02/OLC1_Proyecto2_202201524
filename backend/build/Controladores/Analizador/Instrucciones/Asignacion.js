@@ -55,5 +55,8 @@ class Asignacion extends Instruccion_1.Instruccion {
         this.tipo_dato = valor.getTipo();
         valor.setValor(nuevo_valor);
     }
+    obtener_ast(anterior) {
+        return "";
+    }
 }
 exports.default = Asignacion;

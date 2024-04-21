@@ -39,4 +39,7 @@ export default class AsignacionMatriz extends Instruccion {
         this.tipo_dato = valor.getTipo()
         valor.setValores(posicion1, posicion2, nuevo_valor)
     }
+    obtener_ast(anterior: string): string {
+        return ""
+    }
 }
