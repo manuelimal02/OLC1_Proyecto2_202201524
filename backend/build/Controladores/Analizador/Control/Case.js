@@ -32,6 +32,7 @@ const TablaSimbolo_1 = __importDefault(require("../ArbolAst/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
 const Continue_1 = __importDefault(require("../Transferencia/Continue"));
+const Return_1 = __importDefault(require("../Transferencia/Return"));
 class Case extends Instruccion_1.Instruccion {
     constructor(condicion, instrucciones, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -61,12 +62,20 @@ class Case extends Instruccion_1.Instruccion {
                     return ins;
                 if (ins instanceof Continue_1.default)
                     return ins;
+                if (ins instanceof Return_1.default)
+                    return ins;
+                if (ins instanceof Errores_1.default)
+                    return ins;
                 let resultado = ins.interpretar(arbol, nueva_tabla);
                 if (resultado instanceof Errores_1.default)
                     return resultado;
                 if (resultado instanceof Break_1.default)
                     return resultado;
                 if (resultado instanceof Continue_1.default)
+                    return resultado;
+                if (resultado instanceof Return_1.default)
+                    return resultado;
+                if (resultado instanceof Errores_1.default)
                     return resultado;
             }
         }

@@ -39,10 +39,10 @@ export default class Else extends Instruccion {
 
                 let resultado = i.interpretar(arbol, nueva_tabla)
 
-                if(resultado instanceof Break) return resultado;
-                if(resultado instanceof Continue) return resultado;
-                if(resultado instanceof Return) return resultado;
-                if(resultado instanceof Errores) return resultado;
+                if(resultado instanceof Break) return resultado
+                if(resultado instanceof Continue) return resultado
+                if(resultado instanceof Return) return resultado
+                if(resultado instanceof Errores) return resultado
             }
         }else{
             if(this.bloque_2){
@@ -54,10 +54,10 @@ export default class Else extends Instruccion {
 
                     let resultado = i.interpretar(arbol, nueva_tabla)
 
-                    if(resultado instanceof Break) return resultado;
-                    if(resultado instanceof Continue) return resultado;
-                    if(resultado instanceof Return) return resultado;
-                    if(resultado instanceof Errores) return resultado;
+                    if(resultado instanceof Break) return resultado
+                    if(resultado instanceof Continue) return resultado
+                    if(resultado instanceof Return) return resultado
+                    if(resultado instanceof Errores) return resultado
                 }
             }
             

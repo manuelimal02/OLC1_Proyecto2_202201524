@@ -31,6 +31,7 @@ const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
 const Continue_1 = __importDefault(require("../Transferencia/Continue"));
+const Return_1 = __importDefault(require("../Transferencia/Return"));
 class Switch extends Instruccion_1.Instruccion {
     constructor(condicion_switch, fila, columna, opcion_case, opcion_default) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -50,6 +51,8 @@ class Switch extends Instruccion_1.Instruccion {
                     return resultado;
                 if (resultado instanceof Break_1.default)
                     return;
+                if (resultado instanceof Return_1.default)
+                    return resultado;
                 if (resultado instanceof Continue_1.default) {
                     let error = new Errores_1.default("Semántico", "La función continue no es parte del switch.", this.fila, this.columna);
                     arbol.agregarError(error);
@@ -62,6 +65,8 @@ class Switch extends Instruccion_1.Instruccion {
             let condicion_default = this.opcion_default.interpretar(arbol, tabla);
             if (condicion_default instanceof Break_1.default)
                 return;
+            if (condicion_default instanceof Return_1.default)
+                return condicion_default;
             if (condicion_default instanceof Continue_1.default) {
                 let error = new Errores_1.default("Semántico", "La función continue no es parte del switch.", this.fila, this.columna);
                 arbol.agregarError(error);

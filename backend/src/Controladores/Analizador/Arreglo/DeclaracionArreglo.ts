@@ -20,10 +20,11 @@ export default class DeclaracionArreglo extends Instruccion {
     
     interpretar(arbol: Arbol, tabla: tablaSimbolo) {
         if (this.valor == null && this.tamano!= undefined) {
-            let tamano1Num = parseInt(this.tamano.interpretar(arbol, tabla))
+            let tamano1Num = this.tamano.interpretar(arbol, tabla)
+            if (tamano1Num instanceof Errores) return tamano1Num
             switch (this.tipo_dato.getTipo()) {
                 case tipo_dato.ENTERO:
-                    let arreglo: Nativo[] = new Array<Nativo>(tamano1Num);
+                    let arreglo: Nativo[] = new Array<Nativo>(parseInt(tamano1Num));
                     for (let i = 0; i < arreglo.length; i++) {
                         arreglo[i] = new Nativo(this.tipo_dato, "0", 0, 0);
                     }
@@ -35,7 +36,7 @@ export default class DeclaracionArreglo extends Instruccion {
                     }
                     break
                 case tipo_dato.DECIMAL:
-                    let arreglo2: Nativo[] = new Array<Nativo>(tamano1Num);
+                    let arreglo2: Nativo[] = new Array<Nativo>(parseInt(tamano1Num));
                     for (let i = 0; i < arreglo2.length; i++) {
                         arreglo2[i] = new Nativo(this.tipo_dato, "0.0", 0, 0);
                     }
@@ -47,7 +48,7 @@ export default class DeclaracionArreglo extends Instruccion {
                     }
                     break
                 case tipo_dato.BOOLEANO:
-                    let arreglo3: Nativo[] = new Array<Nativo>(tamano1Num);
+                    let arreglo3: Nativo[] = new Array<Nativo>(parseInt(tamano1Num));
                     for (let i = 0; i < arreglo3.length; i++) {
                         arreglo3[i] = new Nativo(this.tipo_dato, true, 0, 0);
                     }
@@ -59,7 +60,7 @@ export default class DeclaracionArreglo extends Instruccion {
                     }
                     break
                 case tipo_dato.CADENA:
-                    let arreglo4: Nativo[] = new Array<Nativo>(tamano1Num);
+                    let arreglo4: Nativo[] = new Array<Nativo>(parseInt(tamano1Num));
                     for (let i = 0; i < arreglo4.length; i++) {
                         arreglo4[i] = new Nativo(this.tipo_dato, "", 0, 0);
                     }
@@ -71,7 +72,7 @@ export default class DeclaracionArreglo extends Instruccion {
                     }
                     break
                 case tipo_dato.CARACTER:
-                    let arreglo5: Nativo[] = new Array<Nativo>(tamano1Num);
+                    let arreglo5: Nativo[] = new Array<Nativo>(parseInt(tamano1Num));
                     for (let i = 0; i < arreglo5.length; i++) {
                         arreglo5[i] = new Nativo(this.tipo_dato, '', 0, 0);
                     }

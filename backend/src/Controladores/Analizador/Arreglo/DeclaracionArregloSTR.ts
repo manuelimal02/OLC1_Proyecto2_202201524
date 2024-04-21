@@ -17,6 +17,7 @@ export default class DeclaracionArreglo extends Instruccion {
     
     interpretar(arbol: Arbol, tabla: tablaSimbolo) {
         let arreglo = this.valor.interpretar(arbol, tabla)
+        if (arreglo instanceof Errores) return arreglo
         if (!tabla.setArreglo(new Arreglo(this.tipo_dato, this.fila, this.columna, this.identificador, arreglo))){
             let error = new Errores("Semántico", "Error Al Declarar Arreglo.", this.fila, this.columna);
             arbol.agregarError(error);

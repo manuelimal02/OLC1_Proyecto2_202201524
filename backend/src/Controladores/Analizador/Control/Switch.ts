@@ -6,6 +6,7 @@ import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 import Break from "../Transferencia/Break";
 import Continue from "../Transferencia/Continue";
 import Case from "./Case";
+import Return from "../Transferencia/Return";
 
 export default class Switch extends Instruccion {
     private condicion_switch: Instruccion
@@ -28,6 +29,7 @@ export default class Switch extends Instruccion {
                 let resultado = caso.interpretar(arbol, tabla)
                     if( resultado instanceof Errores) return resultado
                     if(resultado instanceof Break) return
+                    if(resultado instanceof Return) return resultado
                     if(resultado instanceof Continue){
                         let error = new Errores("Semántico", "La función continue no es parte del switch.", this.fila, this.columna)
                         arbol.agregarError(error);
@@ -39,6 +41,7 @@ export default class Switch extends Instruccion {
         if(this.opcion_default != undefined) {
             let condicion_default = this.opcion_default.interpretar(arbol, tabla)
             if(condicion_default instanceof Break) return
+            if(condicion_default instanceof Return) return condicion_default
             if(condicion_default instanceof Continue){
                 let error = new Errores("Semántico", "La función continue no es parte del switch.", this.fila, this.columna)
                 arbol.agregarError(error);

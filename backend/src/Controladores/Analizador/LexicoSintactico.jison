@@ -275,11 +275,6 @@ asignacion : ID IGUAL expresion
 {
     $$ = new AsignacionArreglo.default($1,$3,$6,@1.first_line, @1.first_column);
 }
-        | ID CORIZ CORDE IGUAL expresion
-{
-    //$$ = new AsignacionArreglo.default($1,null,$6,@1.first_line, @1.first_column);
-    // ESTO ME FALTA
-}
 ;
 
 incremento : ID MAS_MAS 
