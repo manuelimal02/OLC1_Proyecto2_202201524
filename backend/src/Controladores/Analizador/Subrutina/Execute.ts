@@ -5,6 +5,7 @@ import TablaSimbolo from "../ArbolAst/TablaSimbolo";
 import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 import Declaracion from "../Instrucciones/Declaracion";
 import Metodo from "./Metodo";
+import Singleton from "../ArbolAst/Singleton";
 
 export default class Execute extends Instruccion {
 
@@ -52,6 +53,39 @@ export default class Execute extends Instruccion {
         }
     }
     obtener_ast(anterior: string): string {
-        return ""
+        let contador = Singleton.getInstancia()
+        let dot = ""
+        let execute = `n${contador.getContador()}`
+        let identificador = `n${contador.getContador()}`
+        let parentesis_izquierdo = `n${contador.getContador()}`
+        let lista_parametros = `n${contador.getContador()}`
+        let contador_parametros = []
+        for (let i = 0; i < this.parametros.length; i++) {
+            contador_parametros.push(`n${contador.getContador()}`)
+        }
+        let parentesis_derecho = `n${contador.getContador()}`
+        let punto_coma = `n${contador.getContador()}`
+        dot += `${execute}[label="EXECUTE"];\n`
+        dot += `${identificador}[label="${this.id}"];\n`
+        dot += `${parentesis_izquierdo}[label="("];\n`
+        dot += `${lista_parametros}[label="PARAMETROS"];\n`
+        dot += `${parentesis_derecho}[label=")"];\n`
+        dot += `${punto_coma}[label=";"];\n`
+        for(let i = 0; i < this.parametros.length; i++){
+            dot += `${contador_parametros[i]}[label="EXPRESION"];\n`
+        }
+        dot += `${anterior} -> ${execute};\n`
+        dot += `${anterior} -> ${identificador};\n`;
+        dot += `${anterior} -> ${parentesis_izquierdo};\n`
+        dot += `${anterior} -> ${lista_parametros};\n`
+        for(let i = 0; i < this.parametros.length; i++){
+            dot += `${lista_parametros} -> ${contador_parametros[i]};\n`
+        }
+        dot += `${anterior} -> ${parentesis_derecho};\n`
+        dot += `${anterior} -> ${punto_coma};\n`
+        for (let i = 0; i < this.parametros.length; i++) {
+            dot += this.parametros[i].obtener_ast(contador_parametros[i])
+        }
+        return dot
     }
 }

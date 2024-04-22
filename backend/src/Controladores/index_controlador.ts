@@ -6,9 +6,9 @@ import Declaracion from './Analizador/Instrucciones/Declaracion';
 import DeclaracionArreglo from './Analizador/Arreglo/DeclaracionArreglo';
 import DeclaracionMatriz from './Analizador/Matriz/DeclaracionMatriz';
 import Execute from './Analizador/Subrutina/Execute';
-import * as path from 'path';
-import * as fs from 'fs';
 import { exec } from 'child_process';
+import * as fs from 'fs';
+import * as path from 'path';
 import Errores from './Analizador/Errores/Errores';
 import Singleton from './Analizador/ArbolAst/Singleton';
 
@@ -58,7 +58,6 @@ class Controller {
     
     public generar_reporte_tablas(req: Request, res: Response) {
         try {
-            ast_dot=""
             let parser = require('./Analizador/LexicoSintactico')
             let Arbol_Ast = new Arbol(parser.parse(req.body.entrada))
             let Nueva_Tabla = new TablaSimbolo()
@@ -145,57 +144,47 @@ class Controller {
 
     public generar_reporte_arbol(req: Request, res: Response) {
         try {
+            ast_dot=""
             let parser = require('./Analizador/LexicoSintactico')
             let Arbol_Ast = new Arbol(parser.parse(req.body.entrada))
             let Nueva_Tabla = new TablaSimbolo()
             Nueva_Tabla.setNombre("Tabla Global")
             Arbol_Ast.setTablaGlobal(Nueva_Tabla)
             Arbol_Ast.agregarTabla(Nueva_Tabla)
-            let execute = null;
-            for (let i of Arbol_Ast.getInstrucciones()) {
-                if (i instanceof Metodo) {
-                    i.id = i.id.toLocaleLowerCase()
-                    Arbol_Ast.addFunciones(i)
-                }
-                if(i instanceof Declaracion){
-                    i.interpretar(Arbol_Ast, Nueva_Tabla)
-                }
-                if (i instanceof DeclaracionArreglo){
-                    i.interpretar(Arbol_Ast, Nueva_Tabla)
-                }
-                if (i instanceof DeclaracionMatriz){
-                    i.interpretar(Arbol_Ast, Nueva_Tabla)
-                }
-                if (i instanceof Execute){
-                    execute = i
-                }
-                if (i instanceof Errores){
-                    Arbol_Ast.agregarError(i)
-                }
-            }
+            
             let contador = Singleton.getInstancia()
-            let cadena = "digraph ast{\n"
-            cadena += "nINICIO[label=\"INICIO\"];\n"
-            cadena += "nINSTRUCCIONES[label=\"INSTRUCCIONES\"];\n"
-            cadena += "nINICIO->nINSTRUCCIONES;\n"
+            let dot = "digraph ast{\n"
+            dot += "label=\"Carlos Manuel Lima Y Lima\""
+            dot += "fontname=\"Courier New\""
+            dot += "node [\n"
+            dot += "shape = doublecircle\n"
+            dot += "width = 1.0\n"
+            dot += "color = \"#A93226\"\n"
+            dot += "]\n"
+            dot += "nINICIO[label=\"INICIO\"];\n"
+            dot += "nINSTRUCCIONES[label=\"INSTRUCCIONES\"];\n"
+            dot += "nINICIO->nINSTRUCCIONES;\n"
 
             for (let i of Arbol_Ast.getInstrucciones()) {
                 if (i instanceof Errores) continue
-                let nodo = `n${contador.get()}`
-                cadena += `${nodo}[label=\"INSTRUCCION\"];\n`
-                cadena += `nINSTRUCCIONES->${nodo};\n`
-                cadena += i.obtener_ast(nodo)
+                let nodo = `n${contador.getContador()}`
+                dot += `${nodo}[label=\"INSTRUCCION\"];\n`
+                dot += `nINSTRUCCIONES->${nodo};\n`
+                dot += i.obtener_ast(nodo)
             }
-            cadena += "\n}"
-            ast_dot = cadena
-            fs.writeFileSync('ReporteArbol.dot', cadena);
-            exec('dot -Tpdf ReporteArbol.dot -o ReporteArbol.pdf', (error, stdout, stderr) => {
-                if (error) {
-                    console.error(`exec error: ${error}`);
-                    return;
-                }
-            });
+            dot += "\n}"
+        ast_dot = dot
+        fs.writeFileSync('ReporteArbol.dot', dot);
+
+        // Ejecuta el comando de Graphviz para generar el PDF
+        exec('dot -Tpdf ReporteArbol.dot -o ReporteArbol.pdf', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                return;
+            }
+            // Una vez que el PDF se ha creado, envíalo
             res.sendFile(path.resolve('ReporteArbol.pdf'));
+        });
         } catch (err: any) {
             res.send({ "Error": "Error Al Generar Reporte." })
         }

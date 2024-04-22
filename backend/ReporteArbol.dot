@@ -1,22 +1,65 @@
 digraph ast{
+label="Carlos Manuel Lima Y Lima"fontname="Courier New"node [
+shape = doublecircle
+width = 1.0
+color = "#A93226"
+]
 nINICIO[label="INICIO"];
 nINSTRUCCIONES[label="INSTRUCCIONES"];
 nINICIO->nINSTRUCCIONES;
-n17[label="INSTRUCCION"];
-nINSTRUCCIONES->n17;
-n18[label="INSTRUCCION"];
-nINSTRUCCIONES->n18;
-n19[label="INSTRUCCION"];
-nINSTRUCCIONES->n19;
-n20[label="INSTRUCCION"];
-nINSTRUCCIONES->n20;
+n1[label="INSTRUCCION"];
+nINSTRUCCIONES->n1;
+n2[label="METODOS"];
+n3[label="VOID"];
+n4[label="ID"];
+n5[label="main"];
+n6[label="("];
+n7[label="PARAMETROS"];
+n8[label=")"];
+n9[label="{"];
+n10[label="INSTRUCCIONES"];
+n11[label="INSTRUCCION"];
+n12[label="}"];
+n2 -> n3;
+n2 -> n4;
+n4 -> n5;
+n2 -> n6;
+n2 -> n7;
+n2 -> n8;
+n2 -> n9;
+n2 -> n10;
+n10 -> n11;
+n2 -> n12;
+n1 -> n2;
+n13[label="cout"];
+n14[label="<<"];
+n15[label="EXPRESION"];
+n16[label="<<"];
+n17[label="endl"];
+n18[label=";"];
+n11 -> n13;
+n11 -> n14;
+n11 -> n15;
+n11 -> n16;
+n11 -> n17;
+n11 -> n18;
+n19[label="NATIVO"];
+n20[label="Hola"];
+n19->n20;
+n15->n19;
 n21[label="INSTRUCCION"];
 nINSTRUCCIONES->n21;
-n22[label="INSTRUCCION"];
-nINSTRUCCIONES->n22;
-n23[label="INSTRUCCION"];
-nINSTRUCCIONES->n23;
-n24[label="INSTRUCCION"];
-nINSTRUCCIONES->n24;
+n22[label="EXECUTE"];
+n23[label="main"];
+n24[label="("];
+n25[label="PARAMETROS"];
+n26[label=")"];
+n27[label=";"];
+n21 -> n22;
+n21 -> n23;
+n21 -> n24;
+n21 -> n25;
+n21 -> n26;
+n21 -> n27;
 
 }

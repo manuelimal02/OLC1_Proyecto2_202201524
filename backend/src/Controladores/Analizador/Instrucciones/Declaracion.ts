@@ -4,6 +4,7 @@ import Arbol from "../ArbolAst/Arbol";
 import Simbolo from "../ArbolAst/Simbolo";
 import TablaSimbolo from "../ArbolAst/TablaSimbolo";
 import Tipo, { tipo_dato } from '../ArbolAst/Tipo'
+import Singleton from "../ArbolAst/Singleton";
 
 export default class Declaracion extends Instruccion {
     private identificador: string[]
@@ -66,7 +67,62 @@ export default class Declaracion extends Instruccion {
         }
     }
     obtener_ast(anterior: string): string {
-        return ""
+        let result = "";
+        let contador = Singleton.getInstancia();
+
+        let declar = `n${contador}`;
+
+        let tipoD = `n${contador.getContador()}`;
+        let ids = `n${contador.getContador()}`;
+
+        let conjuntoID = [];
+        for(let i= 0; i < this.identificador.length; i++){
+            conjuntoID.push(`n${contador.getContador()}`);
+
+        }
+        let igual = `n${contador.getContador()}`;
+        let valor = `n${contador.getContador()}`;
+        let puntocoma = `n${contador.getContador()}`;
+
+        result += `${declar}[label="Declaracion"];\n`
+        if(this.tipo_dato.getTipo() == tipo_dato.ENTERO){
+            result += `${tipoD}[label="int"];\n`
+        }else if(this.tipo_dato.getTipo() == tipo_dato.DECIMAL){
+            result += `${tipoD}[label="double"];\n`
+        }else if(this.tipo_dato.getTipo() == tipo_dato.BOOLEANO){
+            result += `${tipoD}[label="bool"];\n`
+        }else if(this.tipo_dato.getTipo() == tipo_dato.CADENA){
+            result += `${tipoD}[label="std::string"];\n`
+        }else if(this.tipo_dato.getTipo() == tipo_dato.CARACTER){
+            result += `${tipoD}[label="char"];\n`
+        }
+
+        result += `${ids}[label="IDS"];\n`
+
+        for(let i= 0; i < this.identificador.length; i++){
+            result += `${conjuntoID[i]} [label = "${this.identificador[i]}"];\n`
+        }
+
+        result += `${igual}[label="="];\n`
+        result += `${valor}[label="Expresion"];\n`
+        result += `${puntocoma}[label=";"];\n`
+
+        result += `${anterior} -> ${declar};\n`
+        result += `${declar} -> ${ids};\n`
+        result += `${declar} -> ${tipoD};\n`
+        
+        for(let i= 0; i < this.identificador.length; i++){
+            result += `${ids} -> ${conjuntoID[i]};\n`
+        }
+
+        result += `${declar} -> ${igual};\n`
+        result += `${declar} -> ${valor};\n`
+        result += `${declar} -> ${puntocoma};\n`
+
+        this.valor.obtener_ast(valor);
+
+        return result;
+    
     }
 
 }

@@ -10,7 +10,7 @@ class Singleton {
         }
         return Singleton.instancia;
     }
-    get() {
+    getContador() {
         this.contador++;
         return this.contador;
     }

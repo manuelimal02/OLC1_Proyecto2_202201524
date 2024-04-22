@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 class CoutEndl extends Instruccion_1.Instruccion {
@@ -41,7 +42,28 @@ class CoutEndl extends Instruccion_1.Instruccion {
         arbol.CoutEndl(valor);
     }
     obtener_ast(anterior) {
-        return "";
+        let dot = "";
+        let contador = Singleton_1.default.getInstancia();
+        let cout = `n${contador.getContador()}`;
+        let menor_menor1 = `n${contador.getContador()}`;
+        let expresion_node = `n${contador.getContador()}`;
+        let menor_menor2 = `n${contador.getContador()}`;
+        let endl = `n${contador.getContador()}`;
+        let punto_coma = `n${contador.getContador()}`;
+        dot += `${cout}[label="cout"];\n`;
+        dot += `${menor_menor1}[label="<<"];\n`;
+        dot += `${expresion_node}[label="EXPRESION"];\n`;
+        dot += `${menor_menor2}[label="<<"];\n`;
+        dot += `${endl}[label="endl"];\n`;
+        dot += `${punto_coma}[label=";"];\n`;
+        dot += `${anterior} -> ${cout};\n`;
+        dot += `${anterior} -> ${menor_menor1};\n`;
+        dot += `${anterior} -> ${expresion_node};\n`;
+        dot += `${anterior} -> ${menor_menor2};\n`;
+        dot += `${anterior} -> ${endl};\n`;
+        dot += `${anterior} -> ${punto_coma};\n`;
+        dot += this.expresion.obtener_ast(expresion_node);
+        return dot;
     }
 }
 exports.default = CoutEndl;

@@ -7,6 +7,7 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Simbolo_1 = __importDefault(require("../ArbolAst/Simbolo"));
 const Tipo_1 = require("../ArbolAst/Tipo");
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Declaracion extends Instruccion_1.Instruccion {
     constructor(tipo, fila, columna, id, valor) {
         super(tipo, fila, columna);
@@ -66,7 +67,52 @@ class Declaracion extends Instruccion_1.Instruccion {
         }
     }
     obtener_ast(anterior) {
-        return "";
+        let result = "";
+        let contador = Singleton_1.default.getInstancia();
+        let declar = `n${contador}`;
+        let tipoD = `n${contador.getContador()}`;
+        let ids = `n${contador.getContador()}`;
+        let conjuntoID = [];
+        for (let i = 0; i < this.identificador.length; i++) {
+            conjuntoID.push(`n${contador.getContador()}`);
+        }
+        let igual = `n${contador.getContador()}`;
+        let valor = `n${contador.getContador()}`;
+        let puntocoma = `n${contador.getContador()}`;
+        result += `${declar}[label="Declaracion"];\n`;
+        if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.ENTERO) {
+            result += `${tipoD}[label="int"];\n`;
+        }
+        else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.DECIMAL) {
+            result += `${tipoD}[label="double"];\n`;
+        }
+        else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.BOOLEANO) {
+            result += `${tipoD}[label="bool"];\n`;
+        }
+        else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.CADENA) {
+            result += `${tipoD}[label="std::string"];\n`;
+        }
+        else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.CARACTER) {
+            result += `${tipoD}[label="char"];\n`;
+        }
+        result += `${ids}[label="IDS"];\n`;
+        for (let i = 0; i < this.identificador.length; i++) {
+            result += `${conjuntoID[i]} [label = "${this.identificador[i]}"];\n`;
+        }
+        result += `${igual}[label="="];\n`;
+        result += `${valor}[label="Expresion"];\n`;
+        result += `${puntocoma}[label=";"];\n`;
+        result += `${anterior} -> ${declar};\n`;
+        result += `${declar} -> ${ids};\n`;
+        result += `${declar} -> ${tipoD};\n`;
+        for (let i = 0; i < this.identificador.length; i++) {
+            result += `${ids} -> ${conjuntoID[i]};\n`;
+        }
+        result += `${declar} -> ${igual};\n`;
+        result += `${declar} -> ${valor};\n`;
+        result += `${declar} -> ${puntocoma};\n`;
+        this.valor.obtener_ast(valor);
+        return result;
     }
 }
 exports.default = Declaracion;

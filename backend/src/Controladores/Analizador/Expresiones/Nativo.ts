@@ -17,12 +17,14 @@ export default class Nativo extends Instruccion {
     }
     obtener_ast(anterior: string): string {
         let contador = Singleton.getInstancia()
-        let nodoNativo = `n${contador.get()}`
-        let nodoValor = `n${contador.get()}`
-        let resultado = `${nodoNativo}[label=\"NATIVO\"];\n`
-        resultado += `${nodoValor}[label=\"${this.valor}\"];\n`
-        resultado += `${nodoNativo}->${nodoValor};\n`
-        resultado += `${anterior}->${nodoNativo};\n`
-        return resultado
+        let nativo_node = `n${contador.getContador()}`
+        let valor_node = `n${contador.getContador()}`
+
+        let dot = `${nativo_node}[label=\"NATIVO\"];\n`
+        dot += `${valor_node}[label=\"${this.valor}\"];\n`
+        dot += `${nativo_node}->${valor_node};\n`
+        
+        dot += `${anterior}->${nativo_node};\n`
+        return dot
     }
 }

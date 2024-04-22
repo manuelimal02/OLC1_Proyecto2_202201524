@@ -5,6 +5,7 @@ import Arbol from "../ArbolAst/Arbol";
 import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 import Metodo from "./Metodo";
 import Declaracion from "../Instrucciones/Declaracion";
+import Singleton from "../ArbolAst/Singleton";
 
 export default class Llamada extends Instruccion {
 
@@ -98,6 +99,36 @@ export default class Llamada extends Instruccion {
         }
     }
     obtener_ast(anterior: string): string {
-        return ""
+        let contador = Singleton.getInstancia()
+        let dot = ""
+        let llamada = `n${contador.getContador()}`
+        let identificador = `n${contador.getContador()}`
+        let parentesis_izquierdo = `n${contador.getContador()}`
+        let puntocoma = `n${contador.getContador()}`
+        let lista_parametros = [];
+        for (let i = 0; i < this.parametros.length; i++) {
+            lista_parametros.push(`n${contador.getContador()}`)
+        }
+        let parentesis_derecho = `n${contador.getContador()}`
+        dot += `${llamada}[label="LLAMADA"];\n`
+        dot += `${identificador}[label="${this.id}"];\n`
+        dot += `${parentesis_izquierdo}[label="("];\n`
+        for(let i = 0; i < this.parametros.length; i++){
+            dot += `${lista_parametros[i]}[label="PARAMETRO"];\n`;
+        }
+        dot += `${parentesis_derecho}[label=")"];\n`
+        dot += `${puntocoma}[label=";"];\n`
+        dot += `${anterior} -> ${llamada};\n`
+        dot += `${llamada} -> ${identificador};\n`
+        dot += `${llamada} -> ${parentesis_izquierdo};\n`
+        for(let i = 0; i < this.parametros.length; i++){
+            dot += `${llamada} -> ${lista_parametros[i]};\n`
+        }
+        dot += `${llamada} -> ${parentesis_derecho};\n`
+        dot += `${llamada} -> ${puntocoma};\n`
+        for(let i = 0; i < this.parametros.length; i++){
+            dot += this.parametros[i].obtener_ast(lista_parametros[i])
+        }
+        return dot
     }
 }

@@ -3,6 +3,7 @@ import Errores from "../Errores/Errores";
 import Arbol from "../ArbolAst/Arbol";
 import TablaSimbolo from "../ArbolAst/TablaSimbolo";
 import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
+import Singleton from "../ArbolAst/Singleton";
 
 export default class Aritmeticas extends Instruccion {
     private operando_izquierda: Instruccion | undefined

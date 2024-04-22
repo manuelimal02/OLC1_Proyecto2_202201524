@@ -32,6 +32,7 @@ const TablaSimbolo_1 = __importDefault(require("../ArbolAst/TablaSimbolo"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Declaracion_1 = __importDefault(require("../Instrucciones/Declaracion"));
 const Metodo_1 = __importDefault(require("./Metodo"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Execute extends Instruccion_1.Instruccion {
     constructor(id, parametros, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -68,7 +69,40 @@ class Execute extends Instruccion_1.Instruccion {
         }
     }
     obtener_ast(anterior) {
-        return "";
+        let contador = Singleton_1.default.getInstancia();
+        let dot = "";
+        let execute = `n${contador.getContador()}`;
+        let identificador = `n${contador.getContador()}`;
+        let parentesis_izquierdo = `n${contador.getContador()}`;
+        let lista_parametros = `n${contador.getContador()}`;
+        let contador_parametros = [];
+        for (let i = 0; i < this.parametros.length; i++) {
+            contador_parametros.push(`n${contador.getContador()}`);
+        }
+        let parentesis_derecho = `n${contador.getContador()}`;
+        let punto_coma = `n${contador.getContador()}`;
+        dot += `${execute}[label="EXECUTE"];\n`;
+        dot += `${identificador}[label="${this.id}"];\n`;
+        dot += `${parentesis_izquierdo}[label="("];\n`;
+        dot += `${lista_parametros}[label="PARAMETROS"];\n`;
+        dot += `${parentesis_derecho}[label=")"];\n`;
+        dot += `${punto_coma}[label=";"];\n`;
+        for (let i = 0; i < this.parametros.length; i++) {
+            dot += `${contador_parametros[i]}[label="EXPRESION"];\n`;
+        }
+        dot += `${anterior} -> ${execute};\n`;
+        dot += `${anterior} -> ${identificador};\n`;
+        dot += `${anterior} -> ${parentesis_izquierdo};\n`;
+        dot += `${anterior} -> ${lista_parametros};\n`;
+        for (let i = 0; i < this.parametros.length; i++) {
+            dot += `${lista_parametros} -> ${contador_parametros[i]};\n`;
+        }
+        dot += `${anterior} -> ${parentesis_derecho};\n`;
+        dot += `${anterior} -> ${punto_coma};\n`;
+        for (let i = 0; i < this.parametros.length; i++) {
+            dot += this.parametros[i].obtener_ast(contador_parametros[i]);
+        }
+        return dot;
     }
 }
 exports.default = Execute;
