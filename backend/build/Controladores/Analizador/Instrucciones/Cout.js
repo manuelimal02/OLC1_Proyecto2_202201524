@@ -48,10 +48,10 @@ class Cout extends Instruccion_1.Instruccion {
         let menor_menor = `n${contador.getContador()}`;
         let expresion_node = `n${contador.getContador()}`;
         let punto_coma = `n${contador.getContador()}`;
-        dot += `${cout}[label="cout"];\n`;
-        dot += `${menor_menor}[label="<<"];\n`;
-        dot += `${expresion_node}[label="EXPRESION"];\n`;
-        dot += `${punto_coma}[label=";"];\n`;
+        dot += `${cout}[label="cout" color = \"#e7e7dd\"];\n`;
+        dot += `${menor_menor}[label="<<" color = \"#e7e7dd\"];\n`;
+        dot += `${expresion_node}[label="EXPRESION" color = \"#e7e7dd\"];\n`;
+        dot += `${punto_coma}[label=";" color = \"#e7e7dd\"];\n`;
         dot += `${anterior} -> ${cout};\n`;
         dot += `${anterior} -> ${menor_menor};\n`;
         dot += `${anterior} -> ${expresion_node};\n`;

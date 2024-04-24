@@ -32,6 +32,7 @@ const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
 const Continue_1 = __importDefault(require("../Transferencia/Continue"));
 const Return_1 = __importDefault(require("../Transferencia/Return"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Switch extends Instruccion_1.Instruccion {
     constructor(condicion_switch, fila, columna, opcion_case, opcion_default) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -78,7 +79,65 @@ class Switch extends Instruccion_1.Instruccion {
         }
     }
     obtener_ast(anterior) {
-        return "";
+        let dot = "";
+        let contador = Singleton_1.default.getInstancia();
+        let instruccion_default = undefined;
+        let instruccion_case = [];
+        let instruccion_switch = `n${contador.getContador()}`;
+        let parentesis_izquierdo = `n${contador.getContador()}`;
+        let expresion = `n${contador.getContador()}`;
+        let parentesis_derecho = `n${contador.getContador()}`;
+        let llave_izquierda = `n${contador.getContador()}`;
+        let raiz = `n${contador.getContador()}`;
+        let llave_derecha = `n${contador.getContador()}`;
+        if (this.opcion_case != undefined) {
+            for (let i = 0; i < this.opcion_case.length; i++) {
+                instruccion_case.push(`n${contador.getContador()}`);
+            }
+        }
+        if (this.opcion_default != undefined) {
+            instruccion_default = `n${contador.getContador()}`;
+        }
+        dot += `${instruccion_switch}[label="SWITCH"];\n`;
+        dot += `${parentesis_izquierdo}[label="("];\n`;
+        dot += `${expresion}[label="EXPRESION"];\n`;
+        dot += `${parentesis_derecho}[label=")"];\n`;
+        dot += `${llave_izquierda}[label="{"];\n`;
+        dot += `${raiz}[label="CASE/DEFAULT"];\n`;
+        dot += `${llave_derecha}[label="}"];\n`;
+        if (this.opcion_case != undefined) {
+            for (let i = 0; i < this.opcion_case.length; i++) {
+                dot += `${instruccion_case[i]}[label="CASE"];\n`;
+            }
+        }
+        if (this.opcion_default != undefined) {
+            dot += `${instruccion_default}[label="DEFAULT"];\n`;
+        }
+        dot += `${anterior} -> ${instruccion_switch};\n`;
+        dot += `${anterior} -> ${parentesis_izquierdo};\n`;
+        dot += `${anterior} -> ${expresion};\n`;
+        dot += `${anterior} -> ${parentesis_derecho};\n`;
+        dot += `${anterior} -> ${llave_izquierda};\n`;
+        dot += `${anterior} -> ${raiz};\n`;
+        dot += `${anterior} -> ${llave_derecha};\n`;
+        if (this.opcion_case != undefined) {
+            for (let i = 0; i < this.opcion_case.length; i++) {
+                dot += `${raiz} -> ${instruccion_case[i]};\n`;
+            }
+        }
+        if (this.opcion_default != undefined) {
+            dot += `${raiz} -> ${instruccion_default};\n`;
+        }
+        dot += this.condicion_switch.obtener_ast(expresion);
+        if (this.opcion_case != undefined) {
+            for (let i = 0; i < this.opcion_case.length; i++) {
+                dot += this.opcion_case[i].obtener_ast(instruccion_case[i]);
+            }
+        }
+        if (this.opcion_default != undefined) {
+            dot += this.opcion_default.obtener_ast(instruccion_default);
+        }
+        return dot;
     }
 }
 exports.default = Switch;

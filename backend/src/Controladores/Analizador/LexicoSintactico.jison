@@ -39,6 +39,8 @@
     const Metodo                 = require('./Subrutina/Metodo')
     const Execute                = require('./Subrutina/Execute')
     const Llamada                = require('./Subrutina/Llamada')
+    const Errores                = require('./Errores/Errores')
+    const index_controlador      = require('../index_controlador')
 %}
 
 
@@ -129,8 +131,8 @@
 <<EOF>>                     return 'EOF'
 
 . { 
-    var mensajeError = "Error léxico: carácter inesperado: " + yytext;
-    console.log(mensajeError);
+    let error = new Errores.default("Léxico",("Token Inesperado: "+ yytext), yylloc.first_line, yylloc.first_column);
+    index_controlador.lista_errores.push(error);
 }
 
 
@@ -225,10 +227,11 @@ instruccion : declaracion PUNTOYCOMA
 { 
     $$=$1; 
 }
-/*           | error
+            | error
 {
-    console.log("ERROR")
-}*/
+    let error = new Errores.default("Sintáctico", ("Error Sintáctico: "+$1), @1.first_line, @1.first_column);
+    index_controlador.lista_errores.push(error);
+}
 ;
 
 declaracion : tipo_dato identificador IGUAL expresion 

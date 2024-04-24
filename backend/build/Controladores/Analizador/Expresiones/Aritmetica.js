@@ -30,6 +30,7 @@ exports.Operadores = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Aritmeticas extends Instruccion_1.Instruccion {
     constructor(operador, fila, columna, op_izquierda, op_derecha) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.ENTERO), fila, columna);
@@ -561,7 +562,106 @@ class Aritmeticas extends Instruccion_1.Instruccion {
         }
     }
     obtener_ast(anterior) {
-        return "";
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+        let contador = Singleton_1.default.getInstancia();
+        let dot = "";
+        if (this.operacion == Operadores.NEGACION) {
+            let nodo_negacion = `n${contador.getContador()}`;
+            let nodo_expresion = `n${contador.getContador()}`;
+            dot += `${nodo_negacion}[label=\"NEGACION\"];\n`;
+            dot += `${nodo_expresion}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior}->${nodo_negacion};\n`;
+            dot += `${anterior}-> ${nodo_expresion};\n`;
+            dot += (_a = this.operando_unico) === null || _a === void 0 ? void 0 : _a.obtener_ast(nodo_expresion);
+        }
+        else if (this.operacion == Operadores.SUMA) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_operacion = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label= \"EXPRESION\"];\n`;
+            dot += `${nodo_operacion}[label=\"+\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operacion};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += (_b = this.operando_izquierda) === null || _b === void 0 ? void 0 : _b.obtener_ast(nodo_expresion1);
+            dot += (_c = this.operando_derecha) === null || _c === void 0 ? void 0 : _c.obtener_ast(nodo_expresion2);
+        }
+        else if (this.operacion == Operadores.RESTA) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_operacion = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label= \"EXPRESION\"];\n`;
+            dot += `${nodo_operacion}[label=\"-\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operacion};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += (_d = this.operando_izquierda) === null || _d === void 0 ? void 0 : _d.obtener_ast(nodo_expresion1);
+            dot += (_e = this.operando_derecha) === null || _e === void 0 ? void 0 : _e.obtener_ast(nodo_expresion2);
+        }
+        else if (this.operacion == Operadores.MULTICACION) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_operacion = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label= \"EXPRESION\"];\n`;
+            dot += `${nodo_operacion}[label=\"*\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operacion};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += (_f = this.operando_izquierda) === null || _f === void 0 ? void 0 : _f.obtener_ast(nodo_expresion1);
+            dot += (_g = this.operando_derecha) === null || _g === void 0 ? void 0 : _g.obtener_ast(nodo_expresion2);
+        }
+        else if (this.operacion == Operadores.DIVISION) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_operacion = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label= \"EXPRESION\"];\n`;
+            dot += `${nodo_operacion}[label=\"/\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operacion};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += (_h = this.operando_izquierda) === null || _h === void 0 ? void 0 : _h.obtener_ast(nodo_expresion1);
+            dot += (_j = this.operando_derecha) === null || _j === void 0 ? void 0 : _j.obtener_ast(nodo_expresion2);
+        }
+        else if (this.operacion == Operadores.MODULO) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_operacion = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label= \"EXPRESION\"];\n`;
+            dot += `${nodo_operacion}[label=\"%\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operacion};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += (_k = this.operando_izquierda) === null || _k === void 0 ? void 0 : _k.obtener_ast(nodo_expresion1);
+            dot += (_l = this.operando_derecha) === null || _l === void 0 ? void 0 : _l.obtener_ast(nodo_expresion2);
+        }
+        else if (this.operacion == Operadores.POTENCIA) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            let par1 = `n${contador.getContador()}`;
+            let par2 = `n${contador.getContador()}`;
+            let nodoPow = `n${contador.getContador()}`;
+            let nodoComa = `n${contador.getContador()}`;
+            dot += `${nodoPow}[label="POTENCIA"];\n`;
+            dot += `${par1}[label="("];\n`;
+            dot += `${nodo_expresion1}[label="EXPRESION"];\n`;
+            dot += `${nodoComa}[label=","];\n`;
+            dot += `${nodo_expresion2}[label="EXPRESION"];\n`;
+            dot += `${par2}[label=")"];\n`;
+            dot += `${anterior} -> ${nodoPow};\n`;
+            dot += `${anterior} -> ${par1};\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodoComa};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += `${anterior} -> ${par2};\n`;
+            dot += (_m = this.operando_izquierda) === null || _m === void 0 ? void 0 : _m.obtener_ast(nodo_expresion1);
+            dot += (_o = this.operando_derecha) === null || _o === void 0 ? void 0 : _o.obtener_ast(nodo_expresion2);
+        }
+        return dot;
     }
 }
 exports.default = Aritmeticas;

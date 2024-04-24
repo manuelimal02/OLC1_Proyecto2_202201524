@@ -96,54 +96,54 @@ class Metodo extends Instruccion_1.Instruccion {
             lista_instrucciones.push(`n${contador.getContador()}`);
         }
         let llave_derecha = `n${contador.getContador()}`;
-        dot += `${raiz}[label="METODOS"];\n`;
+        dot += `${raiz}[label="METODOS" color = \"#9ac1bc\" \n];\n`;
         if (this.tipo.getTipo() == Tipo_1.tipo_dato.VOID) {
-            dot += `${tipo_funcion}[label="VOID"];\n`;
+            dot += `${tipo_funcion}[label="VOID" color = \"#9ac1bc\"];\n`;
         }
         else if (this.tipo.getTipo() == Tipo_1.tipo_dato.ENTERO) {
-            dot += `${tipo_funcion}[label="INT"];\n`;
+            dot += `${tipo_funcion}[label="INT" color = \"#9ac1bc\"];\n`;
         }
         else if (this.tipo.getTipo() == Tipo_1.tipo_dato.DECIMAL) {
-            dot += `${tipo_funcion}[label="DOUBLE"];\n`;
+            dot += `${tipo_funcion}[label="DOUBLE" color = \"#9ac1bc\"];\n`;
         }
         else if (this.tipo.getTipo() == Tipo_1.tipo_dato.CADENA) {
-            dot += `${tipo_funcion}[label="STRING"];\n`;
+            dot += `${tipo_funcion}[label="STRING" color = \"#9ac1bc\"];\n`;
         }
         else if (this.tipo.getTipo() == Tipo_1.tipo_dato.BOOLEANO) {
-            dot += `${tipo_funcion}[label="BOOLE"];\n`;
+            dot += `${tipo_funcion}[label="BOOLE" color = \"#9ac1bc\"];\n`;
         }
-        dot += `${raiz_identificador}[label="ID"];\n`;
+        dot += `${raiz_identificador}[label="ID" color = \"#9ac1bc\"];\n`;
         dot += `${identificador}[label="${this.id}"];\n`;
-        dot += `${parentesis_izquierdo}[label="("];\n`;
-        dot += `${parametros}[label="PARAMETROS"];\n`;
+        dot += `${parentesis_izquierdo}[label="(" color = \"#9ac1bc\"];\n`;
+        dot += `${parametros}[label="PARAMETROS" color = \"#9ac1bc\"];\n`;
         for (let i = 0; i < this.parametros.length; i++) {
             if (this.parametros[i].tipo.getTipo() == Tipo_1.tipo_dato.ENTERO) {
-                dot += `${lista_tipo_parametro[i]}[label="INT"];\n`;
+                dot += `${lista_tipo_parametro[i]}[label="INT" color = \"#9ac1bc\"];\n`;
             }
             else if (this.parametros[i].tipo.getTipo() == Tipo_1.tipo_dato.DECIMAL) {
-                dot += `${lista_tipo_parametro[i]}[label="DOUBLE"];\n`;
+                dot += `${lista_tipo_parametro[i]}[label="DOUBLE" color = \"#9ac1bc\"];\n`;
             }
             else if (this.parametros[i].tipo.getTipo() == Tipo_1.tipo_dato.CADENA) {
-                dot += `${lista_tipo_parametro[i]}[label="STRING"];\n`;
+                dot += `${lista_tipo_parametro[i]}[label="STRING" color = \"#9ac1bc\"];\n`;
             }
             else if (this.parametros[i].tipo.getTipo() == Tipo_1.tipo_dato.BOOLEANO) {
-                dot += `${lista_tipo_parametro[i]}[label="BOOLE"];\n`;
+                dot += `${lista_tipo_parametro[i]}[label="BOOLE" color = \"#9ac1bc\"];\n`;
             }
             else if (this.parametros[i].tipo.getTipo() == Tipo_1.tipo_dato.VOID) {
-                dot += `${lista_tipo_parametro[i]}[label="VOID"];\n`;
+                dot += `${lista_tipo_parametro[i]}[label="VOID" color = \"#9ac1bc\"];\n`;
             }
             else if (this.parametros[i].tipo.getTipo() == Tipo_1.tipo_dato.CARACTER) {
-                dot += `${lista_tipo_parametro[i]}[label="CHAR"];\n`;
+                dot += `${lista_tipo_parametro[i]}[label="CHAR" color = \"#9ac1bc\"];\n`;
             }
-            dot += `${lista_parametros[i]}[label="${this.parametros[i].id}"];\n`;
+            dot += `${lista_parametros[i]}[label="${this.parametros[i].id}" color = \"#9ac1bc\"];\n`;
         }
-        dot += `${parentesis_derecho}[label=")"];\n`;
-        dot += `${llave_izquierda}[label="{"];\n`;
-        dot += `${raiz_instrucciones}[label="INSTRUCCIONES"];\n`;
+        dot += `${parentesis_derecho}[label=")" color = \"#9ac1bc\"];\n`;
+        dot += `${llave_izquierda}[label="{" color = \"#9ac1bc\"];\n`;
+        dot += `${raiz_instrucciones}[label="INSTRUCCIONES" color = \"#9ac1bc\"];\n`;
         for (let i = 0; i < this.instrucciones.length; i++) {
-            dot += `${lista_instrucciones[i]}[label="INSTRUCCION"];\n`;
+            dot += `${lista_instrucciones[i]}[label="INSTRUCCION" color = \"#9ac1bc\"];\n`;
         }
-        dot += `${llave_derecha}[label="}"];\n`;
+        dot += `${llave_derecha}[label="}" color = \"#9ac1bc\"];\n`;
         dot += `${raiz} -> ${tipo_funcion};\n`;
         dot += `${raiz} -> ${raiz_identificador};\n`;
         dot += `${raiz_identificador} -> ${identificador};\n`;

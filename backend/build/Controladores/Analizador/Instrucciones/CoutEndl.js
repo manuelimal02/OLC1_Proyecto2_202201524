@@ -50,12 +50,12 @@ class CoutEndl extends Instruccion_1.Instruccion {
         let menor_menor2 = `n${contador.getContador()}`;
         let endl = `n${contador.getContador()}`;
         let punto_coma = `n${contador.getContador()}`;
-        dot += `${cout}[label="cout"];\n`;
-        dot += `${menor_menor1}[label="<<"];\n`;
-        dot += `${expresion_node}[label="EXPRESION"];\n`;
-        dot += `${menor_menor2}[label="<<"];\n`;
-        dot += `${endl}[label="endl"];\n`;
-        dot += `${punto_coma}[label=";"];\n`;
+        dot += `${cout}[label="cout" color = \"#026994\"];\n`;
+        dot += `${menor_menor1}[label="<<" color = \"#026994\"];\n`;
+        dot += `${expresion_node}[label="EXPRESION" color = \"#026994\"];\n`;
+        dot += `${menor_menor2}[label="<<" color = \"#026994\"];\n`;
+        dot += `${endl}[label="endl" color = \"#026994\"];\n`;
+        dot += `${punto_coma}[label=";" color = \"#026994\"];\n`;
         dot += `${anterior} -> ${cout};\n`;
         dot += `${anterior} -> ${menor_menor1};\n`;
         dot += `${anterior} -> ${expresion_node};\n`;

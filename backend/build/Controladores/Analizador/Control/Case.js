@@ -33,6 +33,7 @@ const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
 const Continue_1 = __importDefault(require("../Transferencia/Continue"));
 const Return_1 = __importDefault(require("../Transferencia/Return"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Case extends Instruccion_1.Instruccion {
     constructor(condicion, instrucciones, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -86,7 +87,35 @@ class Case extends Instruccion_1.Instruccion {
         return this.condicion;
     }
     obtener_ast(anterior) {
-        return "";
+        let contador = Singleton_1.default.getInstancia();
+        let dot = "";
+        let instruccion_case = `n${contador.getContador()}`;
+        let expresion = `n${contador.getContador()}`;
+        let dos_puntos = `n${contador.getContador()}`;
+        let raiz = `n${contador.getContador()}`;
+        let lista_instrucciones = [];
+        for (let i = 0; i < this.instrucciones.length; i++) {
+            lista_instrucciones.push(`n${contador.getContador()}`);
+        }
+        dot += `${instruccion_case}[label="CASE"];\n`;
+        dot += `${expresion}[label="EXPRESION"];\n`;
+        dot += `${dos_puntos}[label=":"];\n`;
+        dot += `${raiz}[label="INSTRUCCIONES"];\n`;
+        for (let i = 0; i < this.instrucciones.length; i++) {
+            dot += `${lista_instrucciones[i]}[label="INSTRUCCION"];\n`;
+        }
+        dot += `${anterior} -> ${instruccion_case};\n`;
+        dot += `${anterior} -> ${expresion};\n`;
+        dot += `${anterior} -> ${dos_puntos};\n`;
+        dot += `${anterior} -> ${raiz};\n`;
+        for (let i = 0; i < this.instrucciones.length; i++) {
+            dot += `${raiz} -> ${lista_instrucciones[i]};\n`;
+        }
+        dot += this.condicion.obtener_ast(expresion);
+        for (let i = 0; i < this.instrucciones.length; i++) {
+            dot += this.instrucciones[i].obtener_ast(lista_instrucciones[i]);
+        }
+        return dot;
     }
 }
 exports.default = Case;

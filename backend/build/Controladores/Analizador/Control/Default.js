@@ -33,6 +33,7 @@ const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
 const Break_1 = __importDefault(require("../Transferencia/Break"));
 const Continue_1 = __importDefault(require("../Transferencia/Continue"));
 const Return_1 = __importDefault(require("../Transferencia/Return"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Default extends Instruccion_1.Instruccion {
     constructor(instrucciones, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -65,7 +66,31 @@ class Default extends Instruccion_1.Instruccion {
         }
     }
     obtener_ast(anterior) {
-        return "";
+        let contador = Singleton_1.default.getInstancia();
+        let dot = "";
+        let instruccion_default = `n${contador.getContador()}`;
+        let dos_puntos = `n${contador.getContador()}`;
+        let raiz_instrucciones = `n${contador.getContador()}`;
+        let lista_instrucciones = [];
+        for (let i = 0; i < this.instrucciones.length; i++) {
+            lista_instrucciones.push(`n${contador.getContador()}`);
+        }
+        dot += `${instruccion_default}[label="DEFAULT"];\n`;
+        dot += `${dos_puntos}[label=":"];\n`;
+        dot += `${raiz_instrucciones}[label="INSTRUCCIONES"];\n`;
+        for (let i = 0; i < this.instrucciones.length; i++) {
+            dot += `${lista_instrucciones[i]}[label="INSTRUCCION"];\n`;
+        }
+        dot += `${anterior} -> ${instruccion_default};\n`;
+        dot += `${anterior} -> ${dos_puntos};\n`;
+        dot += `${anterior} -> ${raiz_instrucciones};\n`;
+        for (let i = 0; i < this.instrucciones.length; i++) {
+            dot += `${raiz_instrucciones} -> ${lista_instrucciones[i]};\n`;
+        }
+        for (let i = 0; i < this.instrucciones.length; i++) {
+            dot += this.instrucciones[i].obtener_ast(lista_instrucciones[i]);
+        }
+        return dot;
     }
 }
 exports.default = Default;

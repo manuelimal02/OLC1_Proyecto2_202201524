@@ -30,6 +30,7 @@ exports.Operador = void 0;
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class OperadorLogico extends Instruccion_1.Instruccion {
     constructor(operacion, fila, columna, operando_izquierda, operando_derecha) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.BOOLEANO), fila, columna);
@@ -132,7 +133,45 @@ class OperadorLogico extends Instruccion_1.Instruccion {
         }
     }
     obtener_ast(anterior) {
-        return "";
+        var _a, _b, _c, _d, _e;
+        let dot = "";
+        let contador = Singleton_1.default.getInstancia();
+        if (this.operacion == Operador.AND) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            let nodo_operador = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label=\"EXPRESION\"];\n`;
+            dot += `${nodo_operador}[label=\"&&\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operador};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += (_a = this.operando_izquierda) === null || _a === void 0 ? void 0 : _a.obtener_ast(nodo_expresion1);
+            dot += (_b = this.operando_derecha) === null || _b === void 0 ? void 0 : _b.obtener_ast(nodo_expresion2);
+        }
+        else if (this.operacion == Operador.OR) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            let nodo_operador = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label=\"EXPRESION\"];\n`;
+            dot += `${nodo_operador}[label=\"||\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operador};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += (_c = this.operando_izquierda) === null || _c === void 0 ? void 0 : _c.obtener_ast(nodo_expresion1);
+            dot += (_d = this.operando_derecha) === null || _d === void 0 ? void 0 : _d.obtener_ast(nodo_expresion2);
+        }
+        else if (this.operacion == Operador.NOT) {
+            let nodo_unico = `n${contador.getContador()}`;
+            let nodo_expresion3 = `n${contador.getContador()}`;
+            dot += `${nodo_unico}[label="!"];\n`;
+            dot += `${nodo_expresion3}[label="EXPRESION"];\n`;
+            dot += `${anterior} -> ${nodo_unico};\n`;
+            dot += `${anterior} -> ${nodo_expresion3};\n`;
+            dot += (_e = this.operando_unico) === null || _e === void 0 ? void 0 : _e.obtener_ast(nodo_expresion3);
+        }
+        return dot;
     }
 }
 exports.default = OperadorLogico;

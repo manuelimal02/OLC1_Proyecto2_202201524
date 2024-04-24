@@ -67,52 +67,54 @@ class Declaracion extends Instruccion_1.Instruccion {
         }
     }
     obtener_ast(anterior) {
-        let dot = "";
         let contador = Singleton_1.default.getInstancia();
-        let declaracion = `n${contador}`;
-        let tipo_var = `n${contador.getContador()}`;
-        let identificador = `n${contador.getContador()}`;
-        //let lista_id = [];
-        //for(let i= 0; i < this.identificador.length; i++){
-        //    lista_id.push(`n${contador.getContador()}`);
-        //}
+        let dot = "";
+        let declaracion = `n${contador.getContador()}`;
+        let tipo_id = `n${contador.getContador()}`;
+        let id = `n${contador.getContador()}`;
+        let lista_id = [];
+        for (let i = 0; i < this.identificador.length; i++) {
+            lista_id.push(`n${contador.getContador()}`);
+        }
         let igual = `n${contador.getContador()}`;
         let valor = `n${contador.getContador()}`;
         let punto_coma = `n${contador.getContador()}`;
-        dot += `${declaracion}[label="DECLARACION"];\n`;
+        dot += `${declaracion}[label="DECLARACION" color = \"#00cb95\"];\n`;
         if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.ENTERO) {
-            dot += `${tipo_var}[label="ENTERO"];\n`;
+            dot += `${tipo_id}[label="ENTERO" color = \"#00cb95\"];\n`;
         }
         else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.DECIMAL) {
-            dot += `${tipo_var}[label="DOUBLE"];\n`;
+            dot += `${tipo_id}[label="DOBLE" color = \"#00cb95\"];\n`;
         }
         else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.BOOLEANO) {
-            dot += `${tipo_var}[label="BOOLEANO"];\n`;
+            dot += `${tipo_id}[label="BOOLEANO" color = \"#00cb95\"];\n`;
         }
         else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.CADENA) {
-            dot += `${tipo_var}[label="STRING"];\n`;
+            dot += `${tipo_id}[label="CADENA" color = \"#00cb95\"];\n`;
         }
         else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.CARACTER) {
-            dot += `${tipo_var}[label="CARACTER"];\n`;
+            dot += `${tipo_id}[label="CARACTER" color = \"#00cb95\"];\n`;
         }
-        //dot += `${identificador}[label="IDS"];\n`
-        //for(let i= 0; i < this.identificador.length; i++){
-        //    dot += `${lista_id[i]} [label = "${this.identificador[i]}"];\n`
-        //}
-        dot += `${igual}[label="="];\n`;
-        dot += `${valor}[label="EXPRESION"];\n`;
-        dot += `${punto_coma}[label=";"];\n`;
+        dot += `${id}[label="ID" color = \"#00cb95\"];\n`;
+        for (let i = 0; i < this.identificador.length; i++) {
+            dot += `${lista_id[i]} [label = "${this.identificador[i]}" color = \"#00cb95\"];\n`;
+        }
         dot += `${anterior} -> ${declaracion};\n`;
-        dot += `${declaracion} -> ${identificador};\n`;
-        dot += `${declaracion} -> ${tipo_var};\n`;
-        //for(let i= 0; i < this.identificador.length; i++){
-        //    dot += `${identificador} -> ${lista_id[i]};\n`
-        //}
-        dot += `${declaracion} -> ${igual};\n`;
-        dot += `${declaracion} -> ${valor};\n`;
+        dot += `${declaracion} -> ${id};\n`;
+        dot += `${declaracion} -> ${tipo_id};\n`;
+        for (let i = 0; i < this.identificador.length; i++) {
+            dot += `${id} -> ${lista_id[i]};\n`;
+        }
+        if (this.valor != null) {
+            dot += `${igual}[label="=" color = \"#00cb95\"];\n`;
+            dot += `${valor}[label="EXPRESION" color = \"#00cb95\"];\n`;
+            dot += `${declaracion} -> ${igual};\n`;
+            dot += `${declaracion} -> ${valor};\n`;
+            dot += this.valor.obtener_ast(valor);
+        }
+        dot += `${punto_coma}[label=";" color = \"#00cb95\"];\n`;
         dot += `${declaracion} -> ${punto_coma};\n`;
-        this.valor.obtener_ast(valor);
-        return "";
+        return dot;
     }
 }
 exports.default = Declaracion;

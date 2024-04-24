@@ -1,3 +1,4 @@
+export let lista_errores: Array<Errores>
 import { Request, Response } from 'express';
 import Arbol from './Analizador/ArbolAst/Arbol';
 import TablaSimbolo from './Analizador/ArbolAst/TablaSimbolo';
@@ -18,6 +19,7 @@ class Controller {
 
     public interpretar_entrada(req: Request, res: Response) {
         try {
+            lista_errores = new Array<Errores>
             let parser = require('./Analizador/LexicoSintactico')
             let Arbol_Ast = new Arbol(parser.parse(req.body.entrada))
             let Nueva_Tabla = new TablaSimbolo()
@@ -44,6 +46,9 @@ class Controller {
                 }
                 if (i instanceof Errores){
                     Arbol_Ast.agregarError(i)
+                }
+                for (let i of lista_errores){
+                    Arbol_Ast.setConsola(i.getTipoError()+": "+ i.getDescripcion()+ "\n")
                 }
             }
             if(execute != null){
@@ -101,6 +106,7 @@ class Controller {
 
     public generar_reporte_errores(req: Request, res: Response) {
         try {
+            lista_errores = new Array<Errores>
             let parser = require('./Analizador/LexicoSintactico')
             let Arbol_Ast = new Arbol(parser.parse(req.body.entrada))
             let Nueva_Tabla = new TablaSimbolo()
@@ -127,6 +133,10 @@ class Controller {
                 }
                 if (i instanceof Errores){
                     Arbol_Ast.agregarError(i)
+                }
+                for (let i of lista_errores){
+                    let error = new Errores(i.getTipoError().toString(),  i.getDescripcion().toString(), i.getFila(), i.getColumna())
+                    Arbol_Ast.agregarError(error);
                 }
             }
             if(execute != null){
@@ -158,13 +168,13 @@ class Controller {
             dot += "fontname=\"Courier New\""
             dot += "node [\n"
             dot += "shape = doublecircle\n"
+            dot += "style = filled\n"
             dot += "width = 1.0\n"
-            dot += "color = \"#A93226\"\n"
+            dot += "color = \"#ed695a\"\n"
             dot += "]\n"
             dot += "nINICIO[label=\"INICIO\"];\n"
             dot += "nINSTRUCCIONES[label=\"INSTRUCCIONES\"];\n"
             dot += "nINICIO->nINSTRUCCIONES;\n"
-
             for (let i of Arbol_Ast.getInstrucciones()) {
                 if (i instanceof Errores) continue
                 let nodo = `n${contador.getContador()}`
@@ -175,14 +185,11 @@ class Controller {
             dot += "\n}"
         ast_dot = dot
         fs.writeFileSync('ReporteArbol.dot', dot);
-
-        // Ejecuta el comando de Graphviz para generar el PDF
         exec('dot -Tpdf ReporteArbol.dot -o ReporteArbol.pdf', (error, stdout, stderr) => {
             if (error) {
                 console.error(`exec error: ${error}`);
                 return;
             }
-            // Una vez que el PDF se ha creado, envíalo
             res.sendFile(path.resolve('ReporteArbol.pdf'));
         });
         } catch (err: any) {

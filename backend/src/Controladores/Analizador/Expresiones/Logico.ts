@@ -3,6 +3,7 @@ import Errores from "../Errores/Errores";
 import Arbol from "../ArbolAst/Arbol";
 import TablaSimbolo from "../ArbolAst/TablaSimbolo";
 import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
+import Singleton from "../ArbolAst/Singleton";
 
 export default class OperadorLogico extends Instruccion {
     private operando_izquierda: Instruccion | undefined
@@ -107,7 +108,42 @@ export default class OperadorLogico extends Instruccion {
         }
     }
     obtener_ast(anterior: string): string {
-        return ""
+        let dot = "";
+        let contador = Singleton.getInstancia();
+        if (this.operacion == Operador.AND) {
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            let nodo_operador = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label=\"EXPRESION\"];\n`;
+            dot += `${nodo_operador}[label=\"&&\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operador};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += this.operando_izquierda?.obtener_ast(nodo_expresion1);
+            dot += this.operando_derecha?.obtener_ast(nodo_expresion2);
+        }else if(this.operacion == Operador.OR){
+            let nodo_expresion1 = `n${contador.getContador()}`;
+            let nodo_expresion2 = `n${contador.getContador()}`;
+            let nodo_operador = `n${contador.getContador()}`;
+            dot += `${nodo_expresion1}[label=\"EXPRESION\"];\n`;
+            dot += `${nodo_operador}[label=\"||\"];\n`;
+            dot += `${nodo_expresion2}[label=\"EXPRESION\"];\n`;
+            dot += `${anterior} -> ${nodo_expresion1};\n`;
+            dot += `${anterior} -> ${nodo_operador};\n`;
+            dot += `${anterior} -> ${nodo_expresion2};\n`;
+            dot += this.operando_izquierda?.obtener_ast(nodo_expresion1);
+            dot += this.operando_derecha?.obtener_ast(nodo_expresion2);
+        }else if(this.operacion == Operador.NOT){
+            let nodo_unico = `n${contador.getContador()}`;
+            let nodo_expresion3 = `n${contador.getContador()}`;
+            dot += `${nodo_unico}[label="!"];\n`;
+            dot += `${nodo_expresion3}[label="EXPRESION"];\n`;
+            dot += `${anterior} -> ${nodo_unico};\n`;
+            dot += `${anterior} -> ${nodo_expresion3};\n`;
+            dot += this.operando_unico?.obtener_ast(nodo_expresion3);
+        }
+        return dot;
     }
 }
 

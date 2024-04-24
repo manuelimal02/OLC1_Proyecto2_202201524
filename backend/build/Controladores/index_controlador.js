@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.indexController = void 0;
+exports.indexController = exports.lista_errores = void 0;
 const Arbol_1 = __importDefault(require("./Analizador/ArbolAst/Arbol"));
 const TablaSimbolo_1 = __importDefault(require("./Analizador/ArbolAst/TablaSimbolo"));
 const Metodo_1 = __importDefault(require("./Analizador/Subrutina/Metodo"));
@@ -43,6 +43,7 @@ var ast_dot;
 class Controller {
     interpretar_entrada(req, res) {
         try {
+            exports.lista_errores = new Array;
             let parser = require('./Analizador/LexicoSintactico');
             let Arbol_Ast = new Arbol_1.default(parser.parse(req.body.entrada));
             let Nueva_Tabla = new TablaSimbolo_1.default();
@@ -69,6 +70,9 @@ class Controller {
                 }
                 if (i instanceof Errores_1.default) {
                     Arbol_Ast.agregarError(i);
+                }
+                for (let i of exports.lista_errores) {
+                    Arbol_Ast.setConsola(i.getTipoError() + ": " + i.getDescripcion() + "\n");
                 }
             }
             if (execute != null) {
@@ -126,6 +130,7 @@ class Controller {
     }
     generar_reporte_errores(req, res) {
         try {
+            exports.lista_errores = new Array;
             let parser = require('./Analizador/LexicoSintactico');
             let Arbol_Ast = new Arbol_1.default(parser.parse(req.body.entrada));
             let Nueva_Tabla = new TablaSimbolo_1.default();
@@ -152,6 +157,10 @@ class Controller {
                 }
                 if (i instanceof Errores_1.default) {
                     Arbol_Ast.agregarError(i);
+                }
+                for (let i of exports.lista_errores) {
+                    let error = new Errores_1.default(i.getTipoError().toString(), i.getDescripcion().toString(), i.getFila(), i.getColumna());
+                    Arbol_Ast.agregarError(error);
                 }
             }
             if (execute != null) {
@@ -182,8 +191,9 @@ class Controller {
             dot += "fontname=\"Courier New\"";
             dot += "node [\n";
             dot += "shape = doublecircle\n";
+            dot += "style = filled\n";
             dot += "width = 1.0\n";
-            dot += "color = \"#A93226\"\n";
+            dot += "color = \"#ed695a\"\n";
             dot += "]\n";
             dot += "nINICIO[label=\"INICIO\"];\n";
             dot += "nINSTRUCCIONES[label=\"INSTRUCCIONES\"];\n";
@@ -199,13 +209,11 @@ class Controller {
             dot += "\n}";
             ast_dot = dot;
             fs.writeFileSync('ReporteArbol.dot', dot);
-            // Ejecuta el comando de Graphviz para generar el PDF
             (0, child_process_1.exec)('dot -Tpdf ReporteArbol.dot -o ReporteArbol.pdf', (error, stdout, stderr) => {
                 if (error) {
                     console.error(`exec error: ${error}`);
                     return;
                 }
-                // Una vez que el PDF se ha creado, envíalo
                 res.sendFile(path.resolve('ReporteArbol.pdf'));
             });
         }

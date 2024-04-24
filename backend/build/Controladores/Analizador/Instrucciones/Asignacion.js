@@ -29,6 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Asignacion extends Instruccion_1.Instruccion {
     constructor(Identificador, expresion, fila, columna) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), fila, columna);
@@ -56,7 +57,25 @@ class Asignacion extends Instruccion_1.Instruccion {
         valor.setValor(nuevo_valor);
     }
     obtener_ast(anterior) {
-        return "";
+        let contador = Singleton_1.default.getInstancia();
+        let dot = "";
+        let raiz = `n${contador.getContador()}`;
+        let id = `n${contador.getContador()}`;
+        let valor_id = `n${contador.getContador()}`;
+        let igual = `n${contador.getContador()}`;
+        let asignacion = `n${contador.getContador()}`;
+        dot += ` ${raiz}[label="ASIGNACION"];\n`;
+        dot += `${id}[label="ID"];\n`;
+        dot += `${valor_id}[label="${this.Identificador}"];\n`;
+        dot += `${igual}[label="="];\n`;
+        dot += `${asignacion}[label="EXPRESION"];\n`;
+        dot += ` ${anterior} -> ${raiz};\n`;
+        dot += `${raiz} -> ${id};\n`;
+        dot += `${id} -> ${valor_id};\n`;
+        dot += `${raiz} -> ${igual};\n`;
+        dot += `${raiz} -> ${asignacion};\n`;
+        dot += this.expresion.obtener_ast(asignacion);
+        return dot;
     }
 }
 exports.default = Asignacion;

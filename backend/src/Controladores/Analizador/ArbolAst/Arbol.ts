@@ -20,6 +20,17 @@ export default class Arbol {
         this.funciones = new Array<Instruccion>
         this.lista_tablas = []
     }
+    public imprimirErrores(): void {
+        this.errores.forEach((error, index) => {
+            console.log(`Error ${index + 1}:`);
+            console.log(`Tipo de Error: ${error.getTipoError()}`);
+            console.log(`Descripción: ${error.getDescripcion()}`);
+            console.log(`Fila: ${error.getFila()}`);
+            console.log(`Columna: ${error.getColumna()}`);
+            console.log('-------------------------');
+        });
+    }
+    
 
     public agregarTabla(tabla: TablaSimbolo) {
         this.lista_tablas.push(tabla)

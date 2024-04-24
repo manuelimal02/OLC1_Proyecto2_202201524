@@ -3,6 +3,7 @@ import Errores from "../Errores/Errores";
 import Arbol from "../ArbolAst/Arbol";
 import TablaSimbolo from "../ArbolAst/TablaSimbolo";
 import Tipo, { tipo_dato } from '../ArbolAst/Tipo'
+import Singleton from "../ArbolAst/Singleton";
 
 export default class Asignacion extends Instruccion {
     private Identificador: string
@@ -34,6 +35,24 @@ export default class Asignacion extends Instruccion {
         valor.setValor(nuevo_valor)
     }
     obtener_ast(anterior: string): string {
-        return ""
+        let contador = Singleton.getInstancia();
+        let dot = "";
+        let raiz = `n${contador.getContador()}`;
+        let id = `n${contador.getContador()}`;
+        let valor_id = `n${contador.getContador()}`;
+        let igual = `n${contador.getContador()}`;
+        let asignacion = `n${contador.getContador()}`;
+        dot += ` ${raiz}[label="ASIGNACION"];\n`;
+        dot += `${id}[label="ID"];\n`;
+        dot += `${valor_id}[label="${this.Identificador}"];\n`;
+        dot += `${igual}[label="="];\n`;
+        dot += `${asignacion}[label="EXPRESION"];\n`;
+        dot += ` ${anterior} -> ${raiz};\n`;
+        dot += `${raiz} -> ${id};\n`;
+        dot += `${id} -> ${valor_id};\n`;
+        dot += `${raiz} -> ${igual};\n`;
+        dot += `${raiz} -> ${asignacion};\n`;
+        dot += this.expresion.obtener_ast(asignacion);
+        return dot;
     }
 }

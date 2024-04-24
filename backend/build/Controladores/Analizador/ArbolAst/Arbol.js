@@ -38,6 +38,16 @@ class Arbol {
         this.funciones = new Array;
         this.lista_tablas = [];
     }
+    imprimirErrores() {
+        this.errores.forEach((error, index) => {
+            console.log(`Error ${index + 1}:`);
+            console.log(`Tipo de Error: ${error.getTipoError()}`);
+            console.log(`Descripción: ${error.getDescripcion()}`);
+            console.log(`Fila: ${error.getFila()}`);
+            console.log(`Columna: ${error.getColumna()}`);
+            console.log('-------------------------');
+        });
+    }
     agregarTabla(tabla) {
         this.lista_tablas.push(tabla);
     }

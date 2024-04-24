@@ -110,14 +110,14 @@ export default class Llamada extends Instruccion {
             lista_parametros.push(`n${contador.getContador()}`)
         }
         let parentesis_derecho = `n${contador.getContador()}`
-        dot += `${llamada}[label="LLAMADA"];\n`
-        dot += `${identificador}[label="${this.id}"];\n`
-        dot += `${parentesis_izquierdo}[label="("];\n`
+        dot += `${llamada}[label="LLAMADA" color = \"#f4f1ba\"];\n`
+        dot += `${identificador}[label="${this.id}" color = \"#f4f1ba\"];\n`
+        dot += `${parentesis_izquierdo}[label="(" color = \"#f4f1ba\"];\n`
         for(let i = 0; i < this.parametros.length; i++){
-            dot += `${lista_parametros[i]}[label="PARAMETRO"];\n`;
+            dot += `${lista_parametros[i]}[label="PARAMETRO" color = \"#f4f1ba\"];\n`;
         }
-        dot += `${parentesis_derecho}[label=")"];\n`
-        dot += `${puntocoma}[label=";"];\n`
+        dot += `${parentesis_derecho}[label=")" color = \"#f4f1ba\"];\n`
+        dot += `${puntocoma}[label=";" color = \"#f4f1ba\"];\n`
         dot += `${anterior} -> ${llamada};\n`
         dot += `${llamada} -> ${identificador};\n`
         dot += `${llamada} -> ${parentesis_izquierdo};\n`
