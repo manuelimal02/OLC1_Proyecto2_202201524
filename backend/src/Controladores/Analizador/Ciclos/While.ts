@@ -6,6 +6,7 @@ import Tipo, { tipo_dato } from "../ArbolAst/Tipo";
 import Break from "../Transferencia/Break";
 import Continue from "../Transferencia/Continue";
 import Return from "../Transferencia/Return";
+import Singleton from "../ArbolAst/Singleton";
 
 export default class While extends Instruccion {
     private condicion: Instruccion
@@ -48,6 +49,46 @@ export default class While extends Instruccion {
         }
     }
     obtener_ast(anterior: string): string {
-        return ""
+        let dot = "";
+        let contador = Singleton.getInstancia();
+        let lista_instrucciones = [];
+        let raiz = `n${contador.getContador()}`;
+        let instruccion_while = `n${contador.getContador()}`;
+        let parentesis_izquierdo = `n${contador.getContador()}`;
+        let condicion = `n${contador.getContador()}`;
+        let parentesis_derecho = `n${contador.getContador()}`;
+        let llave_derecho = `n${contador.getContador()}`;
+        let instrucciones_raiz = `n${contador.getContador()}`;
+        for(let i = 0; i < this.bloque.length; i++){
+            lista_instrucciones.push(`n${contador.getContador()}`);
+        }
+        let llave_izquierda = `n${contador.getContador()}`;
+        dot += ` ${raiz}[label="CICLO WHILE"];\n`;
+        dot += ` ${instruccion_while}[label="WHILE"];\n`;
+        dot += ` ${parentesis_izquierdo}[label="("];\n`;
+        dot += ` ${condicion}[label="EXPRESION"];\n`;
+        dot += ` ${parentesis_derecho}[label=")"];\n`;
+        dot += ` ${llave_derecho}[label="{"];\n`;
+        dot += ` ${instrucciones_raiz}[label="INSTRUCCIONES"];\n`;
+        for(let i = 0; i < this.bloque.length; i++){
+            dot += ` ${lista_instrucciones[i]}[label="INSTRUCCION"];\n`;
+        }
+        dot += ` ${llave_izquierda}[label="}"];\n`;
+        dot += ` ${anterior} -> ${raiz};\n`;
+        dot += ` ${raiz} -> ${instruccion_while};\n`;
+        dot += ` ${raiz} -> ${parentesis_izquierdo};\n`;
+        dot += ` ${raiz} -> ${condicion};\n`;
+        dot += ` ${raiz} -> ${parentesis_derecho};\n`;
+        dot += ` ${raiz} -> ${llave_derecho};\n`;
+        dot += ` ${raiz} -> ${instrucciones_raiz};\n`;
+        for(let i = 0; i < this.bloque.length; i++){
+            dot += ` ${instrucciones_raiz} -> ${lista_instrucciones[i]};\n`;
+        }
+        dot += ` ${raiz} -> ${llave_izquierda};\n`;
+        for(let i = 0; i < this.bloque.length; i++){
+            dot += this.bloque[i].obtener_ast(lista_instrucciones[i]);
+        }
+        dot += this.condicion.obtener_ast(condicion);
+        return dot;
     }
 }

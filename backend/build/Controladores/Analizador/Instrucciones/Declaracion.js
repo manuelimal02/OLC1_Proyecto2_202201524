@@ -67,52 +67,52 @@ class Declaracion extends Instruccion_1.Instruccion {
         }
     }
     obtener_ast(anterior) {
-        let result = "";
+        let dot = "";
         let contador = Singleton_1.default.getInstancia();
-        let declar = `n${contador}`;
-        let tipoD = `n${contador.getContador()}`;
-        let ids = `n${contador.getContador()}`;
-        let conjuntoID = [];
-        for (let i = 0; i < this.identificador.length; i++) {
-            conjuntoID.push(`n${contador.getContador()}`);
-        }
+        let declaracion = `n${contador}`;
+        let tipo_var = `n${contador.getContador()}`;
+        let identificador = `n${contador.getContador()}`;
+        //let lista_id = [];
+        //for(let i= 0; i < this.identificador.length; i++){
+        //    lista_id.push(`n${contador.getContador()}`);
+        //}
         let igual = `n${contador.getContador()}`;
         let valor = `n${contador.getContador()}`;
-        let puntocoma = `n${contador.getContador()}`;
-        result += `${declar}[label="Declaracion"];\n`;
+        let punto_coma = `n${contador.getContador()}`;
+        dot += `${declaracion}[label="DECLARACION"];\n`;
         if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.ENTERO) {
-            result += `${tipoD}[label="int"];\n`;
+            dot += `${tipo_var}[label="ENTERO"];\n`;
         }
         else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.DECIMAL) {
-            result += `${tipoD}[label="double"];\n`;
+            dot += `${tipo_var}[label="DOUBLE"];\n`;
         }
         else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.BOOLEANO) {
-            result += `${tipoD}[label="bool"];\n`;
+            dot += `${tipo_var}[label="BOOLEANO"];\n`;
         }
         else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.CADENA) {
-            result += `${tipoD}[label="std::string"];\n`;
+            dot += `${tipo_var}[label="STRING"];\n`;
         }
         else if (this.tipo_dato.getTipo() == Tipo_1.tipo_dato.CARACTER) {
-            result += `${tipoD}[label="char"];\n`;
+            dot += `${tipo_var}[label="CARACTER"];\n`;
         }
-        result += `${ids}[label="IDS"];\n`;
-        for (let i = 0; i < this.identificador.length; i++) {
-            result += `${conjuntoID[i]} [label = "${this.identificador[i]}"];\n`;
-        }
-        result += `${igual}[label="="];\n`;
-        result += `${valor}[label="Expresion"];\n`;
-        result += `${puntocoma}[label=";"];\n`;
-        result += `${anterior} -> ${declar};\n`;
-        result += `${declar} -> ${ids};\n`;
-        result += `${declar} -> ${tipoD};\n`;
-        for (let i = 0; i < this.identificador.length; i++) {
-            result += `${ids} -> ${conjuntoID[i]};\n`;
-        }
-        result += `${declar} -> ${igual};\n`;
-        result += `${declar} -> ${valor};\n`;
-        result += `${declar} -> ${puntocoma};\n`;
+        //dot += `${identificador}[label="IDS"];\n`
+        //for(let i= 0; i < this.identificador.length; i++){
+        //    dot += `${lista_id[i]} [label = "${this.identificador[i]}"];\n`
+        //}
+        dot += `${igual}[label="="];\n`;
+        dot += `${valor}[label="EXPRESION"];\n`;
+        dot += `${punto_coma}[label=";"];\n`;
+        dot += `${anterior} -> ${declaracion};\n`;
+        dot += `${declaracion} -> ${identificador};\n`;
+        dot += `${declaracion} -> ${tipo_var};\n`;
+        //for(let i= 0; i < this.identificador.length; i++){
+        //    dot += `${identificador} -> ${lista_id[i]};\n`
+        //}
+        dot += `${declaracion} -> ${igual};\n`;
+        dot += `${declaracion} -> ${valor};\n`;
+        dot += `${declaracion} -> ${punto_coma};\n`;
         this.valor.obtener_ast(valor);
-        return result;
+        return "";
     }
 }
 exports.default = Declaracion;

@@ -29,6 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Errores_1 = __importDefault(require("../Errores/Errores"));
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Return extends Instruccion_1.Instruccion {
     constructor(linea, columna, expresion) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), linea, columna);
@@ -43,7 +44,25 @@ class Return extends Instruccion_1.Instruccion {
         return this;
     }
     obtener_ast(anterior) {
-        return "";
+        let contador = Singleton_1.default.getInstancia();
+        let dot = "";
+        let retorno = `n${contador.getContador()}`;
+        let expresion = `n${contador.getContador()}`;
+        let punto_coma = `n${contador.getContador()}`;
+        dot += `${retorno}[label="RETURN"];\n`;
+        if (this.expresion != undefined) {
+            dot += `${expresion}[label="EXPRESION"];\n`;
+        }
+        dot += `${punto_coma}[label=";"];\n`;
+        dot += `${anterior} -> ${retorno};\n`;
+        if (this.expresion != undefined) {
+            dot += `${anterior} -> ${expresion};\n`;
+        }
+        dot += `${anterior} -> ${punto_coma};\n`;
+        if (this.expresion != undefined) {
+            dot += this.expresion.obtener_ast(expresion);
+        }
+        return dot;
     }
 }
 exports.default = Return;

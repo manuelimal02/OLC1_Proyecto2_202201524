@@ -22,9 +22,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const Tipo_1 = __importStar(require("../ArbolAst/Tipo"));
+const Singleton_1 = __importDefault(require("../ArbolAst/Singleton"));
 class Continue extends Instruccion_1.Instruccion {
     constructor(linea, col) {
         super(new Tipo_1.default(Tipo_1.tipo_dato.VOID), linea, col);
@@ -33,7 +37,15 @@ class Continue extends Instruccion_1.Instruccion {
         return;
     }
     obtener_ast(anterior) {
-        return "";
+        let contador = Singleton_1.default.getInstancia();
+        let dot = "";
+        let instruccion_continue = `n${contador.getContador()}`;
+        let punto_coma = `n${contador.getContador()}`;
+        dot += `${instruccion_continue}[label="CONTINUE"];\n`;
+        dot += `${punto_coma}[label=";"];\n`;
+        dot += `${anterior} -> ${instruccion_continue};\n`;
+        dot += `${anterior} -> ${punto_coma};\n`;
+        return dot;
     }
 }
 exports.default = Continue;
